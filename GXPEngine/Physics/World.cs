@@ -1,0 +1,175 @@
+﻿using GXPEngine;
+using GXPEngine.Core;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+
+class World
+{
+    public static readonly float MinBodySize = 0.01f * 0.01f;
+    public static readonly float MaxBodySize = float.MaxValue;
+
+    public static readonly float minBodyDensity = 0.001f;
+    public static readonly float maxBodyDensity = 21.4f;
+
+    private static List<RigidBody> bodyList = new List<RigidBody> ();
+    private Vector2 gravity;
+
+    public static readonly int minIterations = 1;
+    public static readonly int maxIterations = 64;
+
+    private List<CollisionManifold> pointsOfContactList = new List<CollisionManifold> ();
+    public World ()
+    {
+        this.gravity = new Vector2(0f, 98.07f);
+    }
+
+    // Add a body to the world
+    public static void AddBody (RigidBody body)
+    {
+        bodyList.Add(body);
+    }
+
+    // Remove a body from the world
+    public bool RemoveBody (RigidBody body) 
+    {
+        body.parent.LateDestroy ();
+        return bodyList.Remove(body);
+    }
+
+    public void Step (float time, int iterations)
+    {
+        iterations = Mathf.Clamp (iterations, World.minIterations, World.maxIterations);
+
+        for (int it = 0; it < iterations; it++)
+        {
+            // movement step
+            for (int i = 0; i < bodyList.Count; i++)
+            {
+                bodyList[i].Step(time, gravity, iterations);
+            }
+
+            this.pointsOfContactList.Clear ();
+
+            // collision step
+            for (int i = 0; i < bodyList.Count - 1; i++)
+            {
+                RigidBody bodyA = bodyList[i];
+
+                for (int j = i + 1; j < bodyList.Count; j++)
+                {
+                    RigidBody bodyB = bodyList[j];
+
+                    // If both objects are static
+                    if (bodyA.isStatic && bodyB.isStatic)
+                    {
+                        continue;
+                    }
+
+                    if (Collide(bodyA, bodyB, out Vector2 normal, out float depth))
+                    {
+                        HandelCollision (bodyA, bodyB, normal, depth);
+
+                        CollisionManifold contact = new CollisionManifold (bodyA, bodyB, normal, depth, new Vector2 (), new Vector2 (), 0);
+                        this.pointsOfContactList.Add(contact);
+                    }
+                }
+            }
+
+            // Deviding the resolve from the collision step will allow for effitient structure. This way the world can be devided into grids and instead of
+            // testing for collision trough all objects in the world I can test for collsion in only one node of the grid.
+            for (int i = 0; i < this.pointsOfContactList.Count; i++)
+            {
+                CollisionManifold contact = this.pointsOfContactList[i];
+                this.ResolveCollision(contact);
+            }
+        }
+    }
+
+    public void HandelCollision (RigidBody bodyA, RigidBody bodyB, Vector2 normal, float depth)
+    {
+        // Move the objects out of each other
+        if (bodyA.isStatic)
+        {
+            bodyB.Move(normal * depth);
+        }
+        else if (bodyB.isStatic)
+        {
+            bodyA.Move(-normal * depth);
+        }
+        else
+        {
+            bodyA.Move(-normal * depth / 2f);
+            bodyB.Move(normal * depth / 2f);
+        }
+    }
+
+    public void ResolveCollision (in CollisionManifold contact)
+    {
+        RigidBody bodyA = contact.bodyA;
+        RigidBody bodyB = contact.bodyB;
+        Vector2 normal = contact.normal;
+        float depth = contact.depth;
+
+        // Get the relative velocity of the bodies
+        Vector2 relativeVelocity = bodyB.LinearVelocity - bodyA.LinearVelocity;
+
+        if (Mathf.Dot (relativeVelocity, normal) > 0)
+        {
+            return;
+        }
+
+        // Get the lower restitution of the bodies
+        float e = Mathf.Min (bodyA.restitution, bodyB.restitution);
+
+        // Formula for calculating impulse
+        float j = -(1f + e) * Mathf.Dot (relativeVelocity, normal);
+        j /= bodyA.invMass + bodyB.invMass;
+        Vector2 impulse = j * normal;   
+
+        // Add an impuse to the bodies 
+        bodyA.LinearVelocity -= impulse * bodyA.invMass;
+        bodyB.LinearVelocity += impulse * bodyB.invMass;
+    }
+
+    public bool Collide (RigidBody bodyA, RigidBody bodyB, out Vector2 normal, out float depth)
+    {
+        normal = new Vector2();
+        depth = 0f;
+
+        ShapeType shapeTypeA = bodyA.shapeType;
+        ShapeType shapeTypeB = bodyB.shapeType;
+
+        if (shapeTypeA is ShapeType.Box)
+        {
+            if (shapeTypeB is ShapeType.Box)
+            {
+                return Collisions.IntersectPolygons(bodyA.position, 
+                        bodyA.GetTransformedVertices(), 
+                        bodyB.position,bodyB.GetTransformedVertices(),
+                        out normal, out depth);
+            } else if (shapeTypeB is ShapeType.Circle)
+            {
+                bool result = Collisions.IntersectCirlcePolygon(bodyB.position,
+                                bodyB.radius, bodyA.position, 
+                                bodyA.GetTransformedVertices(), out normal, out depth);
+
+                // reverse the normal since i want to pull bodyA out of bodyB
+                normal = -normal;
+
+                return result;
+            }
+        } else if (shapeTypeA is ShapeType.Circle)
+        {
+            if (shapeTypeB is ShapeType.Box)
+            {
+                return Collisions.IntersectCirlcePolygon(bodyA.position, bodyA.radius, bodyB.position, bodyB.GetTransformedVertices(), out normal, out depth);
+            } else if (shapeTypeB is ShapeType.Circle)
+            {
+                return Collisions.IntersectCircles(bodyA.position, bodyA.radius, bodyB.position, bodyB.radius, out normal, out depth);
+            }
+        }
+
+        return false;
+    }
+}

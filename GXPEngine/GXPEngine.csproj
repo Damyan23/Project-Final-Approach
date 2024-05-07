@@ -43,6 +43,8 @@
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="Physics\CollisionManifold.cs" />
+    <Compile Include="Shapes\Ball.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Core\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />
@@ -81,6 +83,11 @@
     <Compile Include="GXPEngine\FMOD\FMODSoundSystem.cs" />
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
+    <Compile Include="Physics\Collisions.cs" />
+    <Compile Include="Physics\RigidBody.cs" />
+    <Compile Include="Physics\FlatTransform.cs" />
+    <Compile Include="Physics\World.cs" />
+    <Compile Include="Shapes\Box.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

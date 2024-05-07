@@ -5,3 +5,10 @@ C:\Users\dpeyc\OneDrive\Desktop\HelloGXP\GXPEngine\obj\x86\Debug\GXPEngine.cspro
 C:\Users\dpeyc\OneDrive\Desktop\HelloGXP\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
 C:\Users\dpeyc\OneDrive\Desktop\HelloGXP\GXPEngine\obj\x86\Debug\GXPEngine.exe
 C:\Users\dpeyc\OneDrive\Desktop\HelloGXP\GXPEngine\obj\x86\Debug\GXPEngine.pdb
+C:\Users\dpeyc\OneDrive\Desktop\Physics Engine\GXPEngine\bin\Debug\GXPEngine.exe.config
+C:\Users\dpeyc\OneDrive\Desktop\Physics Engine\GXPEngine\bin\Debug\GXPEngine.exe
+C:\Users\dpeyc\OneDrive\Desktop\Physics Engine\GXPEngine\bin\Debug\GXPEngine.pdb
+C:\Users\dpeyc\OneDrive\Desktop\Physics Engine\GXPEngine\obj\x86\Debug\GXPEngine.csproj.AssemblyReference.cache
+C:\Users\dpeyc\OneDrive\Desktop\Physics Engine\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
+C:\Users\dpeyc\OneDrive\Desktop\Physics Engine\GXPEngine\obj\x86\Debug\GXPEngine.exe
+C:\Users\dpeyc\OneDrive\Desktop\Physics Engine\GXPEngine\obj\x86\Debug\GXPEngine.pdb

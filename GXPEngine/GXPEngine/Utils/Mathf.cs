@@ -1,3 +1,4 @@
+using GXPEngine.Core;
 using System;
 
 namespace GXPEngine
@@ -204,6 +205,21 @@ namespace GXPEngine
 		/// </summary>
 		public static float Clamp(float f, float min, float max) {
 			return f < min ? min : (f > max ? max : f);
+		}
+
+        public static int Clamp(int f, int min, int max)
+        {
+            return f < min ? min : (f > max ? max : f);
+        }
+
+        public static float Distance (Vector2 pointA,  Vector2 pointB) 
+		{
+			return Mathf.Sqrt ((pointA.x - pointB.x) * (pointA.x - pointB.x) + (pointA.y - pointB.y) * (pointA.y - pointB.y));
+		}
+
+		public static float Dot (Vector2 pointA, Vector2 pointB)
+		{
+			return pointA.x * pointB.x + pointA.y * pointB.y;
 		}
 
 	}
