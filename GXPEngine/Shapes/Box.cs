@@ -17,13 +17,13 @@ public class Box : EasyDraw
         return _rigidBody.mass;
     }
 
-    public Box(float boxWidth, float boxHeight, Vector2 pPosition, float density, float restitution, bool isStatic = false) : base((int)boxWidth + 1, (int)boxHeight + 1)
+    public Box(float boxWidth, float boxHeight, Vector2 pPosition, float density, float restitution, int mode, bool isStatic = false) : base((int)boxWidth + 1, (int)boxHeight + 1)
     {
         this.boxWidth = boxWidth;
         this.boxHeight = boxHeight;
 
         string errorMessage;
-        bool success = RigidBody.CreateBoxBody(boxWidth, boxHeight, pPosition, density, isStatic, restitution, out _rigidBody, out errorMessage);
+        bool success = RigidBody.CreateBoxBody(boxWidth, boxHeight, pPosition, density, isStatic, restitution, mode, out _rigidBody, out errorMessage);
         if (!success)
         {
             Console.WriteLine("Error creating rigid body: " + errorMessage);

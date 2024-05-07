@@ -35,6 +35,8 @@ class RigidBody : GameObject
     public readonly float width;
     public readonly float height;
 
+    public readonly int mode;
+
     private readonly Vector2[] vertices;
     // A array to store the transformed vertices since if we transfrom the already transformed ones, the transformation wont be correct
     private Vector2[] transformedVertices;
@@ -50,7 +52,7 @@ class RigidBody : GameObject
     }
 
     private RigidBody (Vector2 position, float density, float mass, float restitution, float area,
-                        bool isStatic, float radius, float width, float height, ShapeType shapeType) : base ()
+                        bool isStatic, float radius, float width, float height, ShapeType shapeType, int mode) : base ()
     {
         this.position = position;
         this.linearVelocity = new Vector2 ();
@@ -71,6 +73,8 @@ class RigidBody : GameObject
         this.height = height;
 
         this.shapeType = shapeType;
+
+        this.mode = mode;
 
         this.rotationalInertia = this.CalculateRotationalInertial();
 
@@ -135,7 +139,7 @@ class RigidBody : GameObject
         return this.transformedVertices;
     }
 
-    public static bool CreateBoxBody(float width, float height, Vector2 position, float density, bool isStatic, float restitution, out RigidBody body, out string erroMassage)
+    public static bool CreateBoxBody(float width, float height, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string erroMassage)
     {
         body = null;
         erroMassage = string.Empty;
@@ -168,12 +172,12 @@ class RigidBody : GameObject
 
         float mass = area * density;
 
-        body = new RigidBody(position, density, mass, restitution, area, isStatic, 0f, width, height, ShapeType.Box);
+        body = new RigidBody(position, density, mass, restitution, area, isStatic, 0f, width, height, ShapeType.Box, mode);
         World.AddBody(body);
         return true;
     }
 
-    public static bool CreateCircleBody (float radius, Vector2 position, float density, bool isStatic, float restitution, out RigidBody body, out string erroMassage)
+    public static bool CreateCircleBody (float radius, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string erroMassage)
     {
         body = null;
         erroMassage = string.Empty;
@@ -204,7 +208,7 @@ class RigidBody : GameObject
 
         float mass = area * density;
 
-        body = new RigidBody(position, density, mass, restitution, area, isStatic, radius, 0f, 0f, ShapeType.Circle);
+        body = new RigidBody(position, density, mass, restitution, area, isStatic, radius, 0f, 0f, ShapeType.Circle, mode);
         World.AddBody(body);
         return true;
     }

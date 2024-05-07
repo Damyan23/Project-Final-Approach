@@ -18,13 +18,13 @@ public class Ball : EasyDraw
 
     Vector2 _position;
 
-    public Ball(int pRadius, Vector2 pPosition, float density, float restitution, bool isStatic = false) : base(pRadius * 2 + 1, pRadius * 2 + 1)
+    public Ball(int pRadius, Vector2 pPosition, float density, float restitution, int mode, bool isStatic = false) : base(pRadius * 2 + 1, pRadius * 2 + 1)
     {
         _radius = pRadius;
         this._position = pPosition;
 
         string errorMessage;
-        bool success = RigidBody.CreateCircleBody(pRadius, pPosition, density, isStatic, restitution, out _rigidBody, out errorMessage);
+        bool success = RigidBody.CreateCircleBody(pRadius, pPosition, density, isStatic, restitution, mode, out _rigidBody, out errorMessage);
         if (!success)
         {
             Console.WriteLine("Error creating rigid body: " + errorMessage);

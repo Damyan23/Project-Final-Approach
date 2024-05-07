@@ -137,6 +137,19 @@ class World
         normal = new Vector2();
         depth = 0f;
 
+        //Return no collision if at least one of the rigidbodies is in mode 0, or if they are not in the same mode
+
+        if(bodyA.mode != 0 && bodyB.mode != 0)
+        {
+            if (bodyA.mode != bodyB.mode)
+            {
+                return false;
+            }
+
+        }
+
+
+
         ShapeType shapeTypeA = bodyA.shapeType;
         ShapeType shapeTypeB = bodyB.shapeType;
 

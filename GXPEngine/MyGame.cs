@@ -1,4 +1,4 @@
-using System;
+    using System;
 using GXPEngine;
 using System.Drawing;
 using GXPEngine.Core;
@@ -10,6 +10,7 @@ public class MyGame : Game
     {
         new MyGame().Start();
     }
+
     Ball _ball1;
 
     Box ground ;
@@ -21,6 +22,10 @@ public class MyGame : Game
     World world;
 
     Random rand;
+
+    Player player;
+
+    int phase = 1;
 
     public MyGame() : base(800, 600, false, false)
     {
@@ -35,12 +40,15 @@ public class MyGame : Game
         //_ball1 = new Ball(15, new Vector2(width / 2, height / 2), 0.1f, 0.2f);
         //AddChild(_ball1);
 
-        ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 0.5f, true);
+        ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 0.5f, 0, true);
         AddChild(ground);
 
-        slope1 = new Box(400, 30, new Vector2(width / 2, height / 4), 1f, 0.5f, true);
+        slope1 = new Box(400, 30, new Vector2(width / 2, height / 4), 1f, 0.5f, 0, true);
         slope1.Rotate(45);
         AddChild (slope1);
+
+        player = new Player();
+        AddChild(player);
 
         //int numberOfBalls = 10;
 
@@ -81,34 +89,20 @@ public class MyGame : Game
 
         world.Step(Time.deltaTimeInSeconds, 20);
 
-        //float dx = 0f;
-        //float dy = 0f;
-        //float forceMagnitude = 500;
 
-        //if (Input.GetKey(Key.A)) { dx--; }
-        //else if (Input.GetKey(Key.D)) { dx++; }
-
-        //if (Input.GetKey(Key.W)) { dy--; }
-        //else if (Input.GetKey(Key.S)) { dy++; }
-
-        //if (dx != 0f || dy != 0f)
-        //{
-        //    Vector2 forceDirection = new Vector2(dx, dy).Normalized();
-
-        //    Vector2 force = forceDirection * forceMagnitude;
-
-        //    box1.ApplyForce(force);
-        //}
 
         if (Input.GetMouseButtonDown (0))
         {
-            Ball ball = new Ball (rand.Next(15,40), new Vector2 (Input.mouseX, Input.mouseY), 0.005f, 0.5f);
+            Ball ball = new Ball (rand.Next(15,40), new Vector2 (Input.mouseX, Input.mouseY), 0.005f, 0.5f, 1);
             AddChild(ball);
         }
         else if (Input.GetMouseButtonDown(1)) 
         {
-            Box box = new Box(rand.Next(15, 40), rand.Next (15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f);
-            AddChild(box);
+            //Box box = new Box(rand.Next(15, 40), rand.Next (15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f, 1);
+            //AddChild(box);
+
+            Ball ball = new Ball(rand.Next(15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f, 2);
+            AddChild(ball);
         }
 
         if (Input.GetKey(Key.R)) 
