@@ -37,7 +37,7 @@ public class RigidBody : GameObject
     public readonly float width;
     public readonly float height;
 
-    public readonly int mode;
+    public int mode;
 
     private readonly Vector2[] vertices;
     // A array to store the transformed vertices since if we transfrom the already transformed ones, the transformation wont be correct
@@ -170,7 +170,7 @@ public class RigidBody : GameObject
             return false;
         }
 
-        restitution = Mathf.Clamp(restitution, 0.0f, 1.0f);
+        //restitution = Mathf.Clamp(restitution, 0.0f, 1.0f);
 
         float mass = area * density;
 

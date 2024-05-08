@@ -120,7 +120,7 @@ class World
         }
 
         // Get the lower restitution of the bodies
-        float e = Mathf.Min (bodyA.restitution, bodyB.restitution);
+        float e = (bodyA.restitution + bodyB.restitution) / 2;
 
         // Formula for calculating impulse
         float j = -(1f + e) * Mathf.Dot (relativeVelocity, normal);
