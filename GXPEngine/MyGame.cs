@@ -59,8 +59,9 @@ public class MyGame : Game
         //_ball1 = new Ball(15, new Vector2(width / 2, height / 2), 0.1f, 0.2f);
         //AddChild(_ball1);
 
-        ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 1f, 0, true);
-        
+        ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
+        AddChild(ground);
+
 
         slope1 = new Box(400, 20, new Vector2(width / 2 - 200, height / 4 + 50), 1f, 0f, 0, true);
         slope1.Rotate(45);
@@ -170,13 +171,13 @@ public class MyGame : Game
             {
                 if (currentlyHoldingSprite == square)
                 {
-                    Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1, 1, true);
+                    Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 0.8f, 1, true);
                     AddChild(box);
                 }
 
                 else if (currentlyHoldingSprite == rect)
                 {
-                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1, 1, true);
+                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 0.8f, 2, true);
                     AddChild(rect);
                 }
 
@@ -203,7 +204,7 @@ public class MyGame : Game
 
         if (Input.GetMouseButtonDown(1))
         {
-            Ball ball = new Ball(25, new Vector2(Input.mouseX, Input.mouseY), 1, 0.95f, 1);
+            Ball ball = new Ball(25, new Vector2(Input.mouseX, Input.mouseY), 1, 0.8f, 1);
             AddChild(ball);
 
             placedObjects.Add(ball);

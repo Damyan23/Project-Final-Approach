@@ -62,6 +62,18 @@ public class Ball : EasyDraw
     void Update ()
     {
         Step();
+
+        if(Input.GetKeyDown(Key.SPACE))
+        {
+            if(_rigidBody.mode == 1)
+            {
+                _rigidBody.mode = 2;
+            }
+            else if(_rigidBody.mode == 2)
+            {
+                _rigidBody.mode = 1;
+            }
+        }
     }
 
     void UpdateScreenPosition()
