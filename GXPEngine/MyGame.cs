@@ -53,8 +53,8 @@ public class MyGame : Game
         ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 1f, 0, true);
         AddChild(ground);
 
-        slope1 = new Box(400, 80, new Vector2(width / 2, height / 4 + 50), 1f, 0f, 0, true);
-        slope1.Rotate(10);
+        slope1 = new Box(100, 100, new Vector2(width / 2, height / 4 + 50), 1f, 0f, 0, true);
+        slope1.Rotate(90);
         AddChild (slope1);
 
         //mode2Box = new Box(100, 100, new Vector2(width / 2, height - 160), 1, 1, 2, true);
@@ -62,7 +62,7 @@ public class MyGame : Game
 
         placedObjects = new List<Ball>();
 
-        fan1 = new Fan(width / 4, height - 150, 50, 50, FanDirection.Right);
+        fan1 = new Fan(width / 4, height - 175, 50, 50, FanDirection.Right);
         AddChild(fan1);
 
         DrawPlaceableObjects();

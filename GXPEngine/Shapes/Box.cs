@@ -87,7 +87,7 @@ public class Box : EasyDraw
 
         //this._rigidBody.rigidBodyRotation = this.rotation;
 
-        Console.WriteLine("rigidbody rotation:" + this._rigidBody.rotation);
+        //Console.WriteLine("rigidbody rotation:" + this._rigidBody.rotation);
         //Console.WriteLine()
     }
 

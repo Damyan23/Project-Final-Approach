@@ -1,4 +1,5 @@
 ﻿using GXPEngine.Core;
+using System;
 
 namespace GXPEngine
 {
@@ -19,7 +20,7 @@ namespace GXPEngine
 
         FanDirection fanDirection;
 
-        float force = 500f;
+        float force = 100000f;
 
         public Fan(int x, int y, int width, int height, FanDirection fanDirection)
         {
@@ -28,7 +29,7 @@ namespace GXPEngine
             this.width = width;
             this.height = height;
 
-            box = new Box(width, height, new Vector2(x, y), 1, 1, 0, true);
+            box = new Box(width, height, new Vector2(x, y), 1, 0.01f, 0, true);
             AddChild(box);
         }
 
@@ -38,12 +39,67 @@ namespace GXPEngine
             {
                 if (ball.y > this.position.y - this.height / 2 && ball.y < this.position.y + this.height / 2)
                 {
-                    Vector2 difference = new Vector2(ball.x, ball.y) - this.position;
-                    float distance = difference.Length();
+                    if (ball.x - ball._radius > position.x + width / 2)
+                    {
+                        Vector2 difference = new Vector2(ball.x, ball.y) - this.position;
+                        float distance = difference.Length();
 
-                    ball.ApplyForce(new Vector2(1, 0) * force / (distance * distance));
+                        float force = Mathf.Clamp(this.force / (distance * distance), 0, 1000f);
+
+                        ball.ApplyForce(new Vector2(force, 0));
+                    }
                 }
             }
+
+            if (fanDirection == FanDirection.Left)
+            {
+                if (ball.y > this.position.y - this.height / 2 && ball.y < this.position.y + this.height / 2)
+                {
+                    if (ball.x + ball._radius < position.x - width / 2)
+                    {
+                        Vector2 difference = new Vector2(ball.x, ball.y) - this.position;
+                        float distance = difference.Length();
+
+                        float force = Mathf.Clamp(this.force / (distance * distance), 0, 1000f);
+
+                        ball.ApplyForce(new Vector2(-force, 0));
+                    }
+                }
+            }
+
+            if (fanDirection == FanDirection.Up)
+            {
+                if (ball.x > this.position.x - this.width / 2 && ball.x < this.position.x + this.width / 2)
+                {
+                    if (ball.y + ball._radius < position.y - height / 2)
+                    {
+                        Vector2 difference = new Vector2(ball.x, ball.y) - this.position;
+                        float distance = difference.Length();
+
+                        float force = Mathf.Clamp(this.force / (distance * distance), 0, 1000f);
+
+                        ball.ApplyForce(new Vector2(0, -force));
+                        Console.WriteLine(force);
+                    }
+                }
+            }
+
+            if (fanDirection == FanDirection.Down)
+            {
+                if (ball.x > this.position.x - this.width / 2 && ball.x < this.position.x + this.width / 2)
+                {
+                    if (ball.y - ball._radius > position.y + height / 2)
+                    {
+                        Vector2 difference = new Vector2(ball.x, ball.y) - this.position;
+                        float distance = difference.Length();
+
+                        float force = Mathf.Clamp(this.force / (distance * distance), 0, 1000f);
+
+                        ball.ApplyForce(new Vector2(0, force));
+                    }
+                }
+            }
+
         }
     }
 }
