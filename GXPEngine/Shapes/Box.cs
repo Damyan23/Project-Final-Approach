@@ -12,6 +12,11 @@ public class Box : EasyDraw
 
     Random _random = new Random();
 
+    public RigidBody GetRigidBody()
+    {
+        return _rigidBody;
+    }
+
     public float Mass()
     {
         return _rigidBody.mass;

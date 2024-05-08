@@ -10,7 +10,7 @@ public enum ShapeType
     Box = 1
 }
 
-class RigidBody : GameObject
+public class RigidBody : GameObject
 {
     public Vector2 position;
     public Vector2 linearVelocity;
@@ -249,6 +249,8 @@ class RigidBody : GameObject
         //this.linearVelocity += acceleration * time;
 
         this.linearVelocity += gravity * time;
+
+        this.linearVelocity += force;
 
         this.position += this.linearVelocity * time;
 

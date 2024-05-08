@@ -1,6 +1,7 @@
 using GXPEngine;
 using GXPEngine.Core;
 using System;
+using System.Collections.Generic;
 
 public class MyGame : Game
 {
@@ -15,6 +16,8 @@ public class MyGame : Game
     Box ground;
     Box slope1;
     Box mode2Box;
+
+    List<Ball> placedObjects;
 
     EasyDraw _text;
 
@@ -32,6 +35,8 @@ public class MyGame : Game
     Sprite currentlyHoldingSprite;
 
     bool holdingBlock = false;
+
+    Fan fan1;
 
     public MyGame() : base(800, 600, false, false)
     {
@@ -53,11 +58,13 @@ public class MyGame : Game
         slope1.Rotate(45);
         AddChild(slope1);
 
-        mode2Box = new Box(100, 100, new Vector2(width / 2, height - 160), 1, 1, 2, true);
-        AddChild(mode2Box);
+        //mode2Box = new Box(100, 100, new Vector2(width / 2, height - 160), 1, 1, 2, true);
+        //AddChild(mode2Box);
 
-        //player = new Player();
-        //AddChild(player);
+        placedObjects = new List<Ball>();
+
+        fan1 = new Fan(width / 4, height - 150, 50, 50, FanDirection.Right);
+        AddChild(fan1);
 
         DrawPlaceableObjects();
 
@@ -138,13 +145,13 @@ public class MyGame : Game
             {
                 if (currentlyHoldingSprite == square)
                 {
-                    Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1);
+                    Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1, 1, true);
                     AddChild(box);
                 }
 
-                else if(currentlyHoldingSprite == rect)
+                else if (currentlyHoldingSprite == rect)
                 {
-                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1);
+                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1, 1, true);
                     AddChild(rect);
                 }
 
@@ -169,7 +176,20 @@ public class MyGame : Game
             }
         }
 
-        
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ball ball = new Ball(25, new Vector2(Input.mouseX, Input.mouseY), 1, 0.95f, 1);
+            AddChild(ball);
+
+            placedObjects.Add(ball);
+        }
+
+
+        foreach (Ball ball in placedObjects)
+        {
+            fan1.PushObject(ball);
+        }
+
     }
 
     bool PickupPlacableObject(out Sprite sprite)
@@ -179,7 +199,7 @@ public class MyGame : Game
         if (square != null && rect != null)
         {
             if (square.HitTestPoint(Input.mouseX, Input.mouseY) && phase == 1)
-            { 
+            {
                 sprite = square;
 
                 return true;
