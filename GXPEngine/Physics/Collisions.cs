@@ -102,7 +102,7 @@ public static class Collisions
     public static bool IntersectPolygons(Vector2[] verticesA, Vector2[] verticesB, out Vector2 normal, out float depth)
     {
         normal = new Vector2();
-        // Put max in since we wanna find the lowest value to resolve the collsion and so every value put in here will be always lower then the max one
+        // Put max in since we wanna find the lowest value to resolve the collision and so every value put in here will be always lower then the max one
         depth = float.MaxValue;
 
         for (int i = 0; i < verticesA.Length; i++)
@@ -212,11 +212,11 @@ public static class Collisions
             Vector2 v = vertices[i];
 
             // Project the vertex onto the separation axis
-            float proj = Mathf.Dot(v, axis);
+            float projection = Mathf.Dot(v, axis);
 
             // Update min and max projection values
-            if (proj < min) { min = proj; } // Update min if the projection is smaller
-            if (proj > max) { max = proj; } // Update max if the projection is larger
+            if (projection < min) { min = projection; } // Update min if the projection is smaller
+            if (projection > max) { max = projection; } // Update max if the projection is larger
         }
     }
 
@@ -253,7 +253,7 @@ public static class Collisions
 
 
     // Used if the center of the polygon is passed
-    public static bool IntersectCirlcePolygon(Vector2 circleCenter, float circleRadius, Vector2 polygonCenter, Vector2[] vertices, out Vector2 normal, out float depth)
+    public static bool IntersectCirclePolygon(Vector2 circleCenter, float circleRadius, Vector2 polygonCenter, Vector2[] vertices, out Vector2 normal, out float depth)
     {
         // Initialize the normal vector and depth value
         normal = new Vector2();
@@ -340,11 +340,11 @@ public static class Collisions
 
 
     // Used if the center of the polygon is not passed
-    public static bool IntersectCirlcePolygon (Vector2 circleCenter, float circleRadius, 
+    public static bool IntersectCirclePolygon (Vector2 circleCenter, float circleRadius, 
                                                 Vector2[] vertices, out Vector2 normal, out float depth)
     {
         normal = new Vector2();
-        // Put max in since we wanna find the lowest value to resolve the collsion and so every value put in here will be always lower then the max one
+        // Put max in since we wanna find the lowest value to resolve the collision and so every value put in here will be always lower then the max one
         depth = float.MaxValue;
 
         Vector2 axis = new Vector2();
