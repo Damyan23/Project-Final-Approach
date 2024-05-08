@@ -122,24 +122,78 @@ public class RigidBody : GameObject
         return vertices;
     }
 
-    // If has to be updated, loops trough all vertecies, and then transforms one and puts in ito the transformed vertices array
+    //If has to be updated, loops trough all vertecies, and then transforms one and puts in ito the transformed vertices array
+    //public Vector2[] GetTransformedVertices()
+    //{
+    //    if (this.transformUpdateRequire)
+    //    {
+    //        // Calculate the center of the object
+    //        Vector2 center = new Vector2(this.position.x + this.width / 2, this.position.y + this.height / 2);
+
+    //        // Create a FlatTransform instance with the center position and rigid body rotation
+    //        FlatTransform transform = new FlatTransform(center, this.rigidBodyRotation);
+
+    //        for (int i = 0; i < this.vertices.Length; i++)
+    //        {
+    //            // Calculate the vertex position relative to the object's center
+    //            Vector2 v = this.vertices[i] - center;
+
+    //            // Rotate the vertex around the object's center
+    //            this.transformedVertices[i] = Vector2.Transform(v, transform);
+
+    //            // Offset the vertex back to its absolute position
+    //            this.transformedVertices[i] += center;
+    //        }
+    //    }
+
+    //    this.transformUpdateRequire = false;
+
+    //    return this.transformedVertices;
+    //}
+
+
     public Vector2[] GetTransformedVertices()
     {
-        if (this.transformUpdateRequire)
+        // Ensure that the object has a parent
+        if (parent != null)
         {
-            FlatTransform transform = new FlatTransform(this.position, this.rigidBodyRotation);
+            // Get the parent's position, width, and height
+            float parentX = parent.x;
+            float parentY = parent.y;
+            float parentWidth = this.width;
+            float parentHeight = this.height;
 
-            for (int i = 0; i < this.vertices.Length; i++)
+            // Calculate the corners of the parent object relative to its center
+            Vector2[] parentCorners = new Vector2[4];
+            parentCorners[0] = new Vector2(-parentWidth / 2, -parentHeight / 2); // Top-left corner
+            parentCorners[1] = new Vector2(parentWidth / 2, -parentHeight / 2); // Top-right corner
+            parentCorners[2] = new Vector2(parentWidth / 2, parentHeight / 2); // Bottom-right corner
+            parentCorners[3] = new Vector2(-parentWidth / 2, parentHeight / 2); // Bottom-left corner
+
+            // Apply the parent's rotation to the corners
+            float parentRotation = parent.rotation * Mathf.PI / 180.0f;
+            for (int i = 0; i < parentCorners.Length; i++)
             {
-                Vector2 v = this.vertices[i];
-                this.transformedVertices[i] = Vector2.Transform(v, transform);
+                float rotatedX = parentCorners[i].x * Mathf.Cos(parentRotation) - parentCorners[i].y * Mathf.Sin(parentRotation);
+                float rotatedY = parentCorners[i].x * Mathf.Sin(parentRotation) + parentCorners[i].y * Mathf.Cos(parentRotation);
+                parentCorners[i] = new Vector2(rotatedX, rotatedY);
             }
+
+            // Calculate the transformed vertices by adding the parent's position
+            for (int i = 0; i < parentCorners.Length; i++)
+            {
+                vertices[i] = new Vector2(parentX + parentCorners[i].x, parentY + parentCorners[i].y);
+                this.transformedVertices[i] = vertices[i];
+            }
+
+            // Indicate that the vertices have been updated
+            this.transformUpdateRequire = true;
         }
-
-        this.transformUpdateRequire = false;
-
         return this.transformedVertices;
     }
+
+
+
 
     public static bool CreateBoxBody(float width, float height, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string erroMassage)
     { 

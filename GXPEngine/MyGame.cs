@@ -10,10 +10,15 @@ public class MyGame : Game
         new MyGame().Start();
     }
 
+    GameSettings settings;
+    MenuManager menuManager;
+
     Ball _ball1;
 
     Box ground;
     Box slope1;
+    Box slope2;
+    Box slope3;
     Box mode2Box;
 
     List<Ball> placedObjects;
@@ -44,6 +49,10 @@ public class MyGame : Game
 
     void SetUp()
     {
+        settings = new GameSettings();
+        menuManager = new MenuManager(settings);
+        menuManager.SetMainMenu();
+
         world = new World();
         rand = new Random();
 
@@ -51,21 +60,29 @@ public class MyGame : Game
         //AddChild(_ball1);
 
         ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 1f, 0, true);
-        AddChild(ground);
+        
 
-        slope1 = new Box(100, 100, new Vector2(width / 2, height / 4 + 50), 1f, 0f, 0, true);
-        slope1.Rotate(90);
-        AddChild (slope1);
+        slope1 = new Box(400, 20, new Vector2(width / 2 - 200, height / 4 + 50), 1f, 0f, 0, true);
+        slope1.Rotate(45);
+        
+
+        slope2 = new Box( 400, 20, new Vector2(width / 2 + 140, height / 4 + 190),1f, 0f, 0, true);
+        slope2.Rotate(0);
+        
+
+        slope3 = new Box(400, 20, new Vector2(width / 2 + 240, height / 4 + 190), 1f, 0f, 0, true);
+        slope3.Rotate(-20);
+        
 
         //mode2Box = new Box(100, 100, new Vector2(width / 2, height - 160), 1, 1, 2, true);
         //AddChild(mode2Box);
 
         placedObjects = new List<Ball>();
 
-        fan1 = new Fan(width / 4, height - 175, 50, 50, FanDirection.Right);
-        AddChild(fan1);
+        fan1 = new Fan(width / 4 + 40, height - 290, 50, height, FanDirection.Right);
 
         DrawPlaceableObjects();
+
 
         //int numberOfBalls = 10;
 
@@ -105,7 +122,17 @@ public class MyGame : Game
 
         world.Step(Time.deltaTimeInSeconds, 20);
 
+        if (!settings.isGameOver && settings.startGame)
+        {
+            menuManager.RemoveCurrentMenu ();
+            AddChild(ground);
+            AddChild(slope1);
+            AddChild(slope2);
+            AddChild(slope3);
+            AddChild(fan1);
 
+            
+        }
 
         if (Input.GetMouseButtonDown(0) && phase == 2)
         {
