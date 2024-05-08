@@ -1,7 +1,6 @@
-    using System;
 using GXPEngine;
-using System.Drawing;
 using GXPEngine.Core;
+using System;
 
 public class MyGame : Game
 {
@@ -13,9 +12,9 @@ public class MyGame : Game
 
     Ball _ball1;
 
-    Box ground ;
+    Box ground;
     Box slope1;
-    Box slope2;
+    Box mode2Box;
 
     EasyDraw _text;
 
@@ -27,9 +26,13 @@ public class MyGame : Game
 
     int phase = 1;
 
+    Sprite square;
+
+    bool holdingBlock = false;
+
     public MyGame() : base(800, 600, false, false)
     {
-        SetUp ();
+        SetUp();
     }
 
     void SetUp()
@@ -45,10 +48,15 @@ public class MyGame : Game
 
         slope1 = new Box(400, 30, new Vector2(width / 2, height / 4), 1f, 0.5f, 0, true);
         slope1.Rotate(45);
-        AddChild (slope1);
+        AddChild(slope1);
 
-        player = new Player();
-        AddChild(player);
+        mode2Box = new Box(100, 100, new Vector2(width / 2, height - 160), 1, 1, 2, true);
+        AddChild(mode2Box);
+
+        //player = new Player();
+        //AddChild(player);
+
+        DrawPlaceableObjects();
 
         //int numberOfBalls = 10;
 
@@ -85,18 +93,18 @@ public class MyGame : Game
     void Update()
     {
         this.targetFps = 60;
-        Console.WriteLine(targetFps);
+        //Console.WriteLine(targetFps);
 
         world.Step(Time.deltaTimeInSeconds, 20);
 
 
 
-        if (Input.GetMouseButtonDown (0))
+        if (Input.GetMouseButtonDown(0) && phase == 2)
         {
-            Ball ball = new Ball (rand.Next(15,40), new Vector2 (Input.mouseX, Input.mouseY), 0.005f, 0.5f, 1);
+            Ball ball = new Ball(rand.Next(15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f, 1);
             AddChild(ball);
         }
-        else if (Input.GetMouseButtonDown(1)) 
+        else if (Input.GetMouseButtonDown(1) && phase == 2)
         {
             //Box box = new Box(rand.Next(15, 40), rand.Next (15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f, 1);
             //AddChild(box);
@@ -105,13 +113,64 @@ public class MyGame : Game
             AddChild(ball);
         }
 
-        if (Input.GetKey(Key.R)) 
+        if (Input.GetKey(Key.R))
         {
-            Restart ();
+            Restart();
         }
+
+        if (Input.GetKey(Key.G))
+        {
+            phase = 2;
+
+            holdingBlock = false;
+            ShowMouse(true);
+        }
+
+        if (holdingBlock)
+        {
+            square.SetXY(Input.mouseX, Input.mouseY);
+
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1, 1);
+                AddChild(box);
+
+                holdingBlock = false;
+
+                ShowMouse(true);
+
+                RemoveChild(square);
+                DrawPlaceableObjects();
+
+            }
+        }
+
+        if (square != null)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (square.HitTestPoint(Input.mouseX, Input.mouseY) && phase == 1)
+                {
+                    ShowMouse(false);
+                    holdingBlock = true;
+                }
+            }
+        }
+
     }
 
-    void Restart ()
+    void DrawPlaceableObjects()
+    {
+        square = new Sprite("square.png");
+        square.collider.isTrigger = true;
+        square.SetOrigin(square.width / 2, square.height / 2);
+        square.SetScaleXY(0.05f, 0.05f);
+        square.SetXY(width / 2, height - 100);
+        AddChild(square);
+    }
+
+    void Restart()
     {
         //foreach (GameObject child in this.GetChildren()) 
         //{
@@ -126,7 +185,7 @@ public class MyGame : Game
         //    child.LateDestroy();
         //}
 
-        
+
 
         //SetUp();
     }
