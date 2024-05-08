@@ -1,10 +1,9 @@
 using System;
-using System.Runtime.Remoting.Messaging;
 
 namespace GXPEngine.Core
 {
-	public struct Vector2
-	{
+    public struct Vector2
+    {
         public float x;
         public float y;
 
@@ -64,7 +63,7 @@ namespace GXPEngine.Core
             return new Vector2(left.x * scaleFactor, left.y * scaleFactor);
         }
 
-        public static Vector2 operator / (Vector2 left, float scaleFactor)
+        public static Vector2 operator /(Vector2 left, float scaleFactor)
         {
             return new Vector2(left.x / scaleFactor, left.y / scaleFactor);
         }
@@ -74,13 +73,13 @@ namespace GXPEngine.Core
             return new Vector2(-vector.x, -vector.y);
         }
 
-        public static Vector2 Transform (Vector2 vector, FlatTransform transform)
+        public static Vector2 Transform(Vector2 vector, FlatTransform transform)
         {
             // Formulas for 2d rotation
             // x?=xcos(?)–ysin(?)
             // y?=xsin(?)+ycos(?)
 
-            return new Vector2 (
+            return new Vector2(
                 transform.Cos * vector.x - transform.Sin * vector.y + transform.PositionX,
                 transform.Sin * vector.x + transform.Cos * vector.y + transform.PositionY);
         }

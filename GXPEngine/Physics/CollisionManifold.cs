@@ -12,8 +12,8 @@ class CollisionManifold
     public readonly Vector2 PointOfContact2;
     public readonly int PointsOfContactCount;
 
-    public CollisionManifold (RigidBody bodyA, RigidBody bodyB, Vector2 normal, 
-                                float depth, Vector2 pointOfContact1, Vector2 pointOfContact2, 
+    public CollisionManifold(RigidBody bodyA, RigidBody bodyB, Vector2 normal,
+                                float depth, Vector2 pointOfContact1, Vector2 pointOfContact2,
                                 int pointsOfContactCount)
     {
         this.bodyA = bodyA;

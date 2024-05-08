@@ -4,14 +4,14 @@ public class OptionsMenu : GameObject
 {
     // Reference to the menu manager
     MenuManager menuManager;
-    public OptionsMenu(MenuManager menuManager) : base ()
+    public OptionsMenu(MenuManager menuManager) : base()
     {
         this.menuManager = menuManager;
 
         SetUp();
     }
 
-    void SetUp () 
+    void SetUp()
     {
         // creating a back button
         BackButton backButton = new BackButton(menuManager);

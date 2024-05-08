@@ -1,12 +1,8 @@
-﻿
-using GXPEngine;
-using System;
-
-// Start button
+﻿// Start button
 public class StartButton : Button
 {
     GameSettings settings;
-    public StartButton (GameSettings settings) : base ("PlayButton.png", 2, 1)
+    public StartButton(GameSettings settings) : base("PlayButton.png", 2, 1)
     {
         this.settings = settings;
     }
@@ -18,7 +14,8 @@ public class StartButton : Button
             settings.startGame = true;
             settings.isGameOver = false;
             hasBeenPressed = false;
-        } else if (hasBeenPressed && settings.startGame)
+        }
+        else if (hasBeenPressed && settings.startGame)
         {
             settings.levelSetup = true;
             settings.phase = 2;
@@ -32,7 +29,7 @@ public class StartButton : Button
 public class OptionsButton : Button
 {
     MenuManager menuManager;
-    public OptionsButton (MenuManager menuManager) : base ("OptionsButton.png", 2, 1)
+    public OptionsButton(MenuManager menuManager) : base("OptionsButton.png", 2, 1)
     {
         this.menuManager = menuManager;
     }
@@ -51,19 +48,19 @@ public class OptionsButton : Button
 // Exit button
 public class ExitButton : Button
 {
-    public ExitButton () : base ("ExitButton.png", 2, 1)
+    public ExitButton() : base("ExitButton.png", 2, 1)
     {
 
     }
 
-    protected override void Update ()
+    protected override void Update()
     {
         if (hasBeenPressed)
         {
             System.Environment.Exit(0);
         }
 
-        base.Update ();
+        base.Update();
     }
 }
 
@@ -72,16 +69,16 @@ public class BackButton : Button
 {
     MenuManager menuManager;
 
-    public BackButton (MenuManager menuManager) : base ("BackButton.png", 2, 1)
+    public BackButton(MenuManager menuManager) : base("BackButton.png", 2, 1)
     {
-        this.menuManager= menuManager;
+        this.menuManager = menuManager;
     }
 
     protected override void Update()
     {
         if (hasBeenPressed)
         {
-            menuManager.SetMainMenu ();
+            menuManager.SetMainMenu();
         }
 
         base.Update();

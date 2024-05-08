@@ -1,6 +1,4 @@
 ﻿using GXPEngine;
-using System;
-using System.Runtime;
 
 public class MenuManager : GameObject
 {
@@ -75,7 +73,7 @@ public class MenuManager : GameObject
         }
     }
 
-    public void RemoveCurrentMenu ()
+    public void RemoveCurrentMenu()
     {
         // Deletes the main menu
         foreach (GameObject child in game.GetChildren())

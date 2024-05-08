@@ -10,9 +10,9 @@ public readonly struct FlatTransform
 
     public readonly static FlatTransform Zero = new FlatTransform(0f, 0f, 0f);
 
-    public FlatTransform (Vector2 position, float angle)
+    public FlatTransform(Vector2 position, float angle)
     {
-        this.PositionX = position.x; 
+        this.PositionX = position.x;
         this.PositionY = position.y;
         this.Sin = Mathf.Sin(angle);
         this.Cos = Mathf.Cos(angle);

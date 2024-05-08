@@ -2,7 +2,6 @@ using GXPEngine;
 using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 public class MyGame : Game
 {
@@ -36,7 +35,7 @@ public class MyGame : Game
 
     Player player;
 
-    
+
 
     Sprite square;
     Sprite rect;
@@ -68,19 +67,19 @@ public class MyGame : Game
         slope1 = new Box(400, 20, new Vector2(width / 4, height / 4 + 50), 1f, -0.8f, 0, true);
         slope1.Rotate(45);
 
-        slope2 = new Box( 400, 20, new Vector2(width / 2, height / 4 + 190),1f, -0.8f, 0, true);
+        slope2 = new Box(400, 20, new Vector2(width / 2, height / 4 + 190), 1f, -0.8f, 0, true);
         slope2.Rotate(0);
 
         playButton = new StartButton(settings);
-        playButton.SetXY (width / 2, height / 2 - 250);
+        playButton.SetXY(width / 2, height / 2 - 250);
 
         slope3 = new Box(400, 20, new Vector2(width / 4 * 3, height / 4 + 190), 1f, -0.8f, 0, true);
         slope3.Rotate(-20);
 
         spawnPoint = new Sprite("spawnPoint.png");
         spawnPoint.scale = 0.1f;
-        spawnPoint.SetOrigin (spawnPoint.x + spawnPoint.width /2, spawnPoint.y + spawnPoint.height /2);
-        spawnPoint.SetXY (width /2, height / 2 - 200);
+        spawnPoint.SetOrigin(spawnPoint.x + spawnPoint.width / 2, spawnPoint.y + spawnPoint.height / 2);
+        spawnPoint.SetXY(width / 2, height / 2 - 200);
 
         placedObjects = new List<Ball>();
 
@@ -96,7 +95,7 @@ public class MyGame : Game
 
         if (!settings.isGameOver && settings.startGame && !settings.stuffDrawn)
         {
-            menuManager.RemoveCurrentMenu ();
+            menuManager.RemoveCurrentMenu();
             AddChild(ground);
             AddChild(slope1);
             AddChild(slope2);

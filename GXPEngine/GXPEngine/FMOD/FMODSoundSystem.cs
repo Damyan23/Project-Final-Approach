@@ -32,7 +32,7 @@ namespace GXPEngine.Core
             uint loop = FMOD.FMOD_LOOP_OFF; // no loop
             if (looping) loop = FMOD.FMOD_LOOP_NORMAL;
 
-			IntPtr id;
+            IntPtr id;
             FMOD.System_CreateStream(GetSystem(), filename, loop, 0, out id);
             if (id == IntPtr.Zero)
             {
@@ -46,7 +46,7 @@ namespace GXPEngine.Core
             uint loop = FMOD.FMOD_LOOP_OFF; // no loop
             if (looping) loop = FMOD.FMOD_LOOP_NORMAL;
 
-			IntPtr id;
+            IntPtr id;
             FMOD.System_CreateSound(GetSystem(), filename, loop, 0, out id);
             return id;
         }
@@ -61,24 +61,24 @@ namespace GXPEngine.Core
 
         public override uint PlaySound(IntPtr id, uint channelId, bool paused)
         {
-			uint outId;
+            uint outId;
             FMOD.System_PlaySound(GetSystem(), channelId, id, paused, out outId);
             return outId;
         }
 
-		public override uint PlaySound(IntPtr id, uint channelId, bool paused, float volume, float pan)
-		{
-			uint outId;
-			FMOD.System_PlaySound(GetSystem(), channelId, id, true, out outId);
-			SetChannelVolume (outId, volume);
-			SetChannelPan (outId, pan);
-			SetChannelPaused (outId, paused);
-			return outId;
-		}
+        public override uint PlaySound(IntPtr id, uint channelId, bool paused, float volume, float pan)
+        {
+            uint outId;
+            FMOD.System_PlaySound(GetSystem(), channelId, id, true, out outId);
+            SetChannelVolume(outId, volume);
+            SetChannelPan(outId, pan);
+            SetChannelPaused(outId, paused);
+            return outId;
+        }
 
         public override float GetChannelFrequency(uint channelId)
         {
-			float frequency;
+            float frequency;
             FMOD.Channel_GetFrequency(channelId, out frequency);
             return frequency;
         }
@@ -90,7 +90,7 @@ namespace GXPEngine.Core
 
         public override float GetChannelPan(uint channelId)
         {
-			float pan;
+            float pan;
             FMOD.Channel_GetPan(channelId, out pan);
             return pan;
         }
@@ -102,7 +102,7 @@ namespace GXPEngine.Core
 
         public override bool GetChannelPaused(uint channelId)
         {
-			bool pause;
+            bool pause;
             FMOD.Channel_GetPaused(channelId, out pause);
             return pause;
         }
@@ -114,7 +114,7 @@ namespace GXPEngine.Core
 
         public override bool ChannelIsPlaying(uint channelId)
         {
-			bool playing;
+            bool playing;
             FMOD.Channel_IsPlaying(channelId, out playing);
             return playing;
         }
@@ -126,7 +126,7 @@ namespace GXPEngine.Core
 
         public override float GetChannelVolume(uint channelId)
         {
-			float volume;
+            float volume;
             FMOD.Channel_GetVolume(channelId, out volume);
             return volume;
         }

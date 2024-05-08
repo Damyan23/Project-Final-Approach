@@ -1,7 +1,7 @@
-﻿using System;
-using System.Drawing;
-using GXPEngine;
+﻿using GXPEngine;
 using GXPEngine.Core;
+using System;
+using System.Drawing;
 
 public class Ball : EasyDraw
 {
@@ -38,9 +38,10 @@ public class Ball : EasyDraw
         if (!isStatic)
         {
             Draw(_random.Next(0, 255), _random.Next(0, 255), _random.Next(0, 255));
-        } else
+        }
+        else
         {
-            DrawStatic (40, 40, 40);
+            DrawStatic(40, 40, 40);
         }
     }
 
@@ -52,24 +53,24 @@ public class Ball : EasyDraw
         Ellipse(_radius, _radius, 2 * _radius, 2 * _radius);
     }
 
-    void DrawStatic (int red, int green, int blue)
+    void DrawStatic(int red, int green, int blue)
     {
-        Fill (red, green, blue);
+        Fill(red, green, blue);
         Stroke(Color.Red);
         Ellipse(_radius, _radius, 2 * _radius, 2 * _radius);
     }
 
-    void Update ()
+    void Update()
     {
         Step();
 
-        if(Input.GetKeyDown(Key.SPACE))
+        if (Input.GetKeyDown(Key.SPACE))
         {
-            if(_rigidBody.mode == 1)
+            if (_rigidBody.mode == 1)
             {
                 _rigidBody.mode = 2;
             }
-            else if(_rigidBody.mode == 2)
+            else if (_rigidBody.mode == 2)
             {
                 _rigidBody.mode = 1;
             }
@@ -82,7 +83,7 @@ public class Ball : EasyDraw
         y = _rigidBody.position.y;
     }
 
-    public void ApplyForce (Vector2 amount)
+    public void ApplyForce(Vector2 amount)
     {
         _rigidBody.ApplyForce(amount);
     }

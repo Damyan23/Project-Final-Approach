@@ -1,11 +1,4 @@
 ﻿using GXPEngine.Core;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TiledMapParser;
 
 namespace GXPEngine
 {
@@ -18,8 +11,8 @@ namespace GXPEngine
 
         public Player() : base("barry.png", 7, 1)
         {
-            SetOrigin(width/2, height/2);
-            SetXY(game.width/2, game.height/2);
+            SetOrigin(width / 2, height / 2);
+            SetXY(game.width / 2, game.height / 2);
 
             box = new Box(width, height, new Vector2(0, 0), 1, 1, 1);
             AddChild(box);

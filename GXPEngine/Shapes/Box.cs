@@ -1,8 +1,7 @@
-﻿using System;
-using System.Diagnostics.Contracts;
-using System.Drawing;
-using GXPEngine;
+﻿using GXPEngine;
 using GXPEngine.Core;
+using System;
+using System.Drawing;
 
 public class Box : EasyDraw
 {
@@ -39,7 +38,7 @@ public class Box : EasyDraw
 
         this.SetXY(pPosition.x, pPosition.y);
 
-        SetOrigin(width /2, height /2);
+        SetOrigin(width / 2, height / 2);
         if (!isStatic)
         {
             Draw(_random.Next(0, 255), _random.Next(0, 255), _random.Next(0, 255));
@@ -49,7 +48,7 @@ public class Box : EasyDraw
             DrawStatic(40, 40, 40);
         }
 
-        
+
     }
 
 
@@ -57,7 +56,7 @@ public class Box : EasyDraw
     {
         Fill(red, green, blue);
         Stroke(red, green, blue);
-        Rect(width /2, height /2, width, height);
+        Rect(width / 2, height / 2, width, height);
     }
 
     void DrawStatic(int red, int green, int blue)
@@ -67,7 +66,7 @@ public class Box : EasyDraw
         Rect(boxWidth / 2, boxHeight / 2, boxWidth, boxHeight);
     }
 
-    public void Rotate (float amount)
+    public void Rotate(float amount)
     {
         //this.rotation = amount;
         _rigidBody.Rotate(amount);

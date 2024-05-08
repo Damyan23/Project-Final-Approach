@@ -1,11 +1,10 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
-using System.Runtime.Remoting.Messaging;
 
 public static class Collisions
 {
     // Used if the center of the polygons are passed
-    public static bool IntersectPolygons(Vector2 centerA ,Vector2[] verticesA, Vector2 centerB, Vector2[] verticesB, out Vector2 normal, out float depth)
+    public static bool IntersectPolygons(Vector2 centerA, Vector2[] verticesA, Vector2 centerB, Vector2[] verticesB, out Vector2 normal, out float depth)
     {
         // Initialize the normal vector and depth to default values
         normal = new Vector2();
@@ -340,7 +339,7 @@ public static class Collisions
 
 
     // Used if the center of the polygon is not passed
-    public static bool IntersectCirclePolygon (Vector2 circleCenter, float circleRadius, 
+    public static bool IntersectCirclePolygon(Vector2 circleCenter, float circleRadius,
                                                 Vector2[] vertices, out Vector2 normal, out float depth)
     {
         normal = new Vector2();

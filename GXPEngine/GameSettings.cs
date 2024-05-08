@@ -7,8 +7,8 @@ public class GameSettings
     public bool levelSetup = false;
 
     public int phase = 1;
-    public GameSettings ()
+    public GameSettings()
     {
-        
+
     }
 }

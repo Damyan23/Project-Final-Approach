@@ -1,15 +1,13 @@
 ﻿using GXPEngine;
-using System;
-using System.IO;
 
 public class Button : AnimationSprite
 {
     public bool hasBeenPressed { get; protected set; }
 
-    public Button(string image, int cols, int rows) : base (image, cols, rows)
+    public Button(string image, int cols, int rows) : base(image, cols, rows)
     {
 
-        this.SetOrigin(width /2, height / 2);
+        this.SetOrigin(width / 2, height / 2);
         this.scale = 1.5f;
     }
 
@@ -18,7 +16,7 @@ public class Button : AnimationSprite
         ButtonUpdate();
     }
 
-    protected virtual void ButtonUpdate ()
+    protected virtual void ButtonUpdate()
     {
         // If the mouse is over the button
         if (HitTestPoint(Input.mouseX, Input.mouseY))

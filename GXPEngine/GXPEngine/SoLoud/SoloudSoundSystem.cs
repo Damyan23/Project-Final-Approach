@@ -1,5 +1,4 @@
 ﻿using System;
-using GXPEngine.Core;
 
 namespace GXPEngine.Core
 {
@@ -11,12 +10,14 @@ namespace GXPEngine.Core
         {
         }
 
-        public override void Init() {
+        public override void Init()
+        {
             _device = Soloud.Soloud_create();
             Soloud.Soloud_init(_device);
         }
 
-        public override void Deinit() {
+        public override void Deinit()
+        {
             if (_device != IntPtr.Zero)
             {
                 Soloud.Soloud_stopAll(_device);
@@ -60,11 +61,11 @@ namespace GXPEngine.Core
             return Soloud.Soloud_playEx(_device, id, 1.0f, 0.0f, paused, 0);
         }
 
-		public override uint PlaySound(IntPtr id, uint channelId, bool paused, float volume, float pan)
-		{
-			if (id == IntPtr.Zero) return 0;
-			return Soloud.Soloud_playEx(_device, id, volume, pan, paused, 0);
-		}
+        public override uint PlaySound(IntPtr id, uint channelId, bool paused, float volume, float pan)
+        {
+            if (id == IntPtr.Zero) return 0;
+            return Soloud.Soloud_playEx(_device, id, volume, pan, paused, 0);
+        }
 
 
         public override float GetChannelFrequency(uint channelId)

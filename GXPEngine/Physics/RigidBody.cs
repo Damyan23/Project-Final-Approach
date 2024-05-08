@@ -1,9 +1,6 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
 public enum ShapeType
 {
@@ -30,8 +27,8 @@ public class RigidBody : GameObject
     public readonly float invRotationalInertia;
 
     public readonly float gravity;
-    
-    public readonly  bool isStatic;
+
+    public readonly bool isStatic;
 
     public readonly float radius;
     public readonly float width;
@@ -53,15 +50,15 @@ public class RigidBody : GameObject
         internal set { this.linearVelocity = value; }
     }
 
-    private RigidBody (Vector2 position, float density, float mass, float restitution, float area,
-                        bool isStatic, float radius, float width, float height, ShapeType shapeType, int mode) : base ()
+    private RigidBody(Vector2 position, float density, float mass, float restitution, float area,
+                        bool isStatic, float radius, float width, float height, ShapeType shapeType, int mode) : base()
     {
         this.position = position;
-        this.linearVelocity = new Vector2 ();
+        this.linearVelocity = new Vector2();
         this.rigidBodyRotation = 0f;
         this.rotationalVelocity = 0f;
 
-        this.force = new Vector2 ();
+        this.force = new Vector2();
 
         this.density = density;
         this.mass = mass;
@@ -196,7 +193,7 @@ public class RigidBody : GameObject
 
 
     public static bool CreateBoxBody(float width, float height, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string errorMessage)
-    { 
+    {
         body = null;
         errorMessage = string.Empty;
 
@@ -233,18 +230,19 @@ public class RigidBody : GameObject
         return true;
     }
 
-    public static bool CreateCircleBody (float radius, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string errorMessage)
+    public static bool CreateCircleBody(float radius, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string errorMessage)
     {
         body = null;
         errorMessage = string.Empty;
 
         float area = radius / 10 * radius * Mathf.PI;
 
-        if (area < World.MinBodySize) 
+        if (area < World.MinBodySize)
         {
             errorMessage = "Circle radius is too small";
             return false;
-        } else if (area > World.MaxBodySize) 
+        }
+        else if (area > World.MaxBodySize)
         {
             errorMessage = "Circle radius is too big";
             return true;
@@ -254,13 +252,14 @@ public class RigidBody : GameObject
         {
             errorMessage = "The density is too small";
             return false;
-        } else if (density > World.maxBodyDensity) 
+        }
+        else if (density > World.maxBodyDensity)
         {
             errorMessage = "The density is too big";
             return false;
         }
 
-        restitution = Mathf.Clamp (restitution, 0.0f, 1.0f);
+        restitution = Mathf.Clamp(restitution, 0.0f, 1.0f);
 
         float mass = area * density;
 
@@ -269,29 +268,31 @@ public class RigidBody : GameObject
         return true;
     }
 
-    private float CalculateRotationalInertial ()
+    private float CalculateRotationalInertial()
     {
         if (this.shapeType is ShapeType.Circle)
         {
             return (1f / 2) * mass * radius * radius;
-        } else if (this.shapeType is ShapeType.Box)
+        }
+        else if (this.shapeType is ShapeType.Box)
         {
             return (1f / 12) * mass * (height * height + width * width);
-        } else
+        }
+        else
         {
             throw new Exception("Shape type is not supported");
         }
     }
 
-    public void Move (Vector2 moveBy)
+    public void Move(Vector2 moveBy)
     {
         this.position += moveBy;
         //this.transformUpdateRequire = true;
     }
 
-    public void Step (float time, Vector2 gravity, int iterations)
+    public void Step(float time, Vector2 gravity, int iterations)
     {
-        if (this.isStatic) 
+        if (this.isStatic)
         {
             return;
         }
@@ -317,13 +318,13 @@ public class RigidBody : GameObject
         this.transformUpdateRequire = true;
     }
 
-    public void ApplyForce (Vector2 amount) 
+    public void ApplyForce(Vector2 amount)
     {
         this.force = amount;
         this.transformUpdateRequire = true;
     }
 
-    public void Rotate (float amount)
+    public void Rotate(float amount)
     {
         this.rigidBodyRotation += amount;
         this.transformUpdateRequire = true;
