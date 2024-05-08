@@ -15,7 +15,7 @@ public class RigidBody : GameObject
 {
     public Vector2 position;
     public Vector2 linearVelocity;
-    public float rotationAmmount;
+    public float rotationAmount;
     public float rotationalVelocity;
     public float rigidBodyRotation;
 
@@ -40,7 +40,7 @@ public class RigidBody : GameObject
     public int mode;
 
     private readonly Vector2[] vertices;
-    // A array to store the transformed vertices since if we transfrom the already transformed ones, the transformation wont be correct
+    // A array to store the transformed vertices since if we transform the already transformed ones, the transformation wont be correct
     private Vector2[] transformedVertices;
 
     private bool transformUpdateRequire;
@@ -122,7 +122,7 @@ public class RigidBody : GameObject
         return vertices;
     }
 
-    //If has to be updated, loops trough all vertecies, and then transforms one and puts in ito the transformed vertices array
+    //If has to be updated, loops trough all vertices, and then transforms one and puts in ito the transformed vertices array
     //public Vector2[] GetTransformedVertices()
     //{
     //    if (this.transformUpdateRequire)
@@ -195,32 +195,32 @@ public class RigidBody : GameObject
 
 
 
-    public static bool CreateBoxBody(float width, float height, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string erroMassage)
+    public static bool CreateBoxBody(float width, float height, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string errorMessage)
     { 
         body = null;
-        erroMassage = string.Empty;
+        errorMessage = string.Empty;
 
         float area = width * height;
 
         if (area < World.MinBodySize)
         {
-            erroMassage = "Area is too small";
+            errorMessage = "Area is too small";
             return false;
         }
         else if (area > World.MaxBodySize)
         {
-            erroMassage = "Area radius is too big";
+            errorMessage = "Area radius is too big";
             return true;
         }
 
         if (density < World.minBodyDensity)
         {
-            erroMassage = "The density is too small";
+            errorMessage = "The density is too small";
             return false;
         }
         else if (density > World.maxBodyDensity)
         {
-            erroMassage = "The density is too big";
+            errorMessage = "The density is too big";
             return false;
         }
 
@@ -233,30 +233,30 @@ public class RigidBody : GameObject
         return true;
     }
 
-    public static bool CreateCircleBody (float radius, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string erroMassage)
+    public static bool CreateCircleBody (float radius, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string errorMessage)
     {
         body = null;
-        erroMassage = string.Empty;
+        errorMessage = string.Empty;
 
         float area = radius / 10 * radius * Mathf.PI;
 
         if (area < World.MinBodySize) 
         {
-            erroMassage = "Curcle radius is too small";
+            errorMessage = "Circle radius is too small";
             return false;
         } else if (area > World.MaxBodySize) 
         {
-            erroMassage = "Circle radius is too big";
+            errorMessage = "Circle radius is too big";
             return true;
         }
 
         if (density < World.minBodyDensity)
         {
-            erroMassage = "The density is too small";
+            errorMessage = "The density is too small";
             return false;
         } else if (density > World.maxBodyDensity) 
         {
-            erroMassage = "The density is too big";
+            errorMessage = "The density is too big";
             return false;
         }
 

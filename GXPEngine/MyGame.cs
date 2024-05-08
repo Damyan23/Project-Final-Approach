@@ -201,7 +201,7 @@ public class MyGame : Game
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (PickupPlacableObject(out currentlyHoldingSprite))
+            if (PickupPlaceableObject(out currentlyHoldingSprite))
             {
                 ShowMouse(false);
                 holdingBlock = true;
@@ -224,7 +224,7 @@ public class MyGame : Game
 
     }
 
-    bool PickupPlacableObject(out Sprite sprite)
+    bool PickupPlaceableObject(out Sprite sprite)
     {
         sprite = null;
 
