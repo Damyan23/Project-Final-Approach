@@ -140,7 +140,7 @@ class RigidBody : GameObject
     }
 
     public static bool CreateBoxBody(float width, float height, Vector2 position, float density, bool isStatic, float restitution, int mode, out RigidBody body, out string erroMassage)
-    {
+    { 
         body = null;
         erroMassage = string.Empty;
 

@@ -27,6 +27,9 @@ public class MyGame : Game
     int phase = 1;
 
     Sprite square;
+    Sprite rect;
+
+    Sprite currentlyHoldingSprite;
 
     bool holdingBlock = false;
 
@@ -128,36 +131,68 @@ public class MyGame : Game
 
         if (holdingBlock)
         {
-            square.SetXY(Input.mouseX, Input.mouseY);
+            currentlyHoldingSprite.SetXY(Input.mouseX, Input.mouseY);
 
 
             if (Input.GetMouseButtonDown(0))
             {
-                Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1, 1);
-                AddChild(box);
+                if (currentlyHoldingSprite == square)
+                {
+                    Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1);
+                    AddChild(box);
+                }
+
+                else if(currentlyHoldingSprite == rect)
+                {
+                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 1);
+                    AddChild(rect);
+                }
 
                 holdingBlock = false;
 
                 ShowMouse(true);
 
-                RemoveChild(square);
+                RemoveChild(currentlyHoldingSprite);
                 DrawPlaceableObjects();
 
+                currentlyHoldingSprite = null;
+
             }
         }
 
-        if (square != null)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
+            if (PickupPlacableObject(out currentlyHoldingSprite))
             {
-                if (square.HitTestPoint(Input.mouseX, Input.mouseY) && phase == 1)
-                {
-                    ShowMouse(false);
-                    holdingBlock = true;
-                }
+                ShowMouse(false);
+                holdingBlock = true;
             }
         }
 
+        
+    }
+
+    bool PickupPlacableObject(out Sprite sprite)
+    {
+        sprite = null;
+
+        if (square != null && rect != null)
+        {
+            if (square.HitTestPoint(Input.mouseX, Input.mouseY) && phase == 1)
+            { 
+                sprite = square;
+
+                return true;
+            }
+            else if (rect.HitTestPoint(Input.mouseX, Input.mouseY) && phase == 1)
+            {
+                sprite = rect;
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void DrawPlaceableObjects()
@@ -166,8 +201,15 @@ public class MyGame : Game
         square.collider.isTrigger = true;
         square.SetOrigin(square.width / 2, square.height / 2);
         square.SetScaleXY(0.05f, 0.05f);
-        square.SetXY(width / 2, height - 100);
+        square.SetXY(width / 3, height - 100);
         AddChild(square);
+
+        rect = new Sprite("rect.png");
+        rect.collider.isTrigger = true;
+        rect.SetOrigin(rect.width / 2, rect.height / 2);
+        rect.SetScaleXY(0.02f, 0.02f);
+        rect.SetXY(width / 3 * 2, height - 100);
+        AddChild(rect);
     }
 
     void Restart()

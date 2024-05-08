@@ -17,7 +17,7 @@ public class Box : EasyDraw
         return _rigidBody.mass;
     }
 
-    public Box(float boxWidth, float boxHeight, Vector2 pPosition, float density, float restitution, int mode, bool isStatic = false) : base((int)boxWidth + 1, (int)boxHeight + 1)
+    public Box(float boxWidth, float boxHeight, Vector2 pPosition, float density, float restitution, int mode = 1, bool isStatic = false) : base((int)boxWidth + 1, (int)boxHeight + 1)
     {
         this.boxWidth = boxWidth;
         this.boxHeight = boxHeight;
