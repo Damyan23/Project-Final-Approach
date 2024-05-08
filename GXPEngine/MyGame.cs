@@ -22,6 +22,10 @@ public class MyGame : Game
     Box slope3;
     Box mode2Box;
 
+    StartButton playButton;
+
+    Sprite spawnPoint;
+
     List<Ball> placedObjects;
 
     EasyDraw _text;
@@ -32,7 +36,7 @@ public class MyGame : Game
 
     Player player;
 
-    int phase = 1;
+    
 
     Sprite square;
     Sprite rect;
@@ -42,6 +46,8 @@ public class MyGame : Game
     bool holdingBlock = false;
 
     Fan fan1;
+
+    private bool ghostSpawned = false;
 
     public MyGame() : base(800, 600, false, false)
     {
@@ -57,63 +63,28 @@ public class MyGame : Game
         world = new World();
         rand = new Random();
 
-        //_ball1 = new Ball(15, new Vector2(width / 2, height / 2), 0.1f, 0.2f);
-        //AddChild(_ball1);
-
         ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
-        AddChild(ground);
 
-
-        slope1 = new Box(400, 20, new Vector2(width / 4, height / 4 + 50), 1f, 0f, 0, true);
+        slope1 = new Box(400, 20, new Vector2(width / 4, height / 4 + 50), 1f, -0.8f, 0, true);
         slope1.Rotate(45);
-        
 
-        slope2 = new Box( 400, 20, new Vector2(width / 2, height / 4 + 190),1f, 0f, 0, true);
+        slope2 = new Box( 400, 20, new Vector2(width / 2, height / 4 + 190),1f, -0.8f, 0, true);
         slope2.Rotate(0);
-        
 
-        slope3 = new Box(400, 20, new Vector2(width / 4 * 3, height / 4 + 190), 1f, 0f, 0, true);
+        playButton = new StartButton(settings);
+        playButton.SetXY (width / 2, height / 2 - 250);
+
+        slope3 = new Box(400, 20, new Vector2(width / 4 * 3, height / 4 + 190), 1f, -0.8f, 0, true);
         slope3.Rotate(-20);
-        
 
-        //mode2Box = new Box(100, 100, new Vector2(width / 2, height - 160), 1, 1, 2, true);
-        //AddChild(mode2Box);
+        spawnPoint = new Sprite("spawnPoint.png");
+        spawnPoint.scale = 0.1f;
+        spawnPoint.SetOrigin (spawnPoint.x + spawnPoint.width /2, spawnPoint.y + spawnPoint.height /2);
+        spawnPoint.SetXY (width /2, height / 2 - 200);
 
         placedObjects = new List<Ball>();
 
         fan1 = new Fan(width / 4 + 40, height - 290, 50, height, FanDirection.Right, 100000f);
-
-
-
-        //int numberOfBalls = 10;
-
-        //for (int i = 0; i < numberOfBalls; i++)
-        //{
-        //    int randomRadius = random.Next(10, 30);
-        //    int isStatic = random.Next(0, 2);
-        //    Console.WriteLine(isStatic);
-        //    bool isStaticBool;
-
-        //    if (isStatic == 0)
-        //    {
-        //        isStaticBool = false;
-        //    }
-        //    else
-        //    {
-        //        isStaticBool = true;
-        //    }
-
-        //    Vector2 randomPosition = new Vector2(random.Next(0, width - randomRadius), random.Next(0, height - randomRadius));
-        //    Box box = new Box(randomRadius, randomRadius, randomPosition, 0.5f, 0.2f, isStaticBool);
-        //    AddChild(box);
-
-        //    randomRadius = random.Next(10, 30);
-        //    randomPosition = new Vector2(random.Next(0, width - randomRadius), random.Next(0, height - randomRadius));
-
-
-        //    Ball ball = new Ball(randomRadius, randomPosition, 0.5f, 0.5f);
-        //    AddChild(ball);
-        //}   
     }
 
 
@@ -131,24 +102,24 @@ public class MyGame : Game
             AddChild(slope2);
             AddChild(slope3);
             AddChild(fan1);
+            AddChild(spawnPoint);
+            AddChild(playButton);
 
             DrawPlaceableObjects();
 
             settings.stuffDrawn = true;
-
-            
         }
 
-        if (Input.GetMouseButtonDown(0) && phase == 2)
+
+        if (settings.phase == 2 && !ghostSpawned && settings.levelSetup)
         {
-            Ball ball = new Ball (rand.Next(15,40), new Vector2 (Input.mouseX, Input.mouseY), 0.001f, 0.8f, 1);
+            Ball ball = new Ball(rand.Next(15, 40), new Vector2(width / 2, height / 2 - 200), 0.001f, 0.8f, 1);
             AddChild(ball);
+            ghostSpawned = true;
         }
-        else if (Input.GetMouseButtonDown(1) && phase == 2)
-        {
-            //Box box = new Box(rand.Next(15, 40), rand.Next (15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f, 1);
-            //AddChild(box);
 
+        if (Input.GetMouseButtonDown(2))
+        {
             Ball ball = new Ball(rand.Next(15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.001f, 0.8f, 2);
             AddChild(ball);
         }
@@ -160,7 +131,7 @@ public class MyGame : Game
 
         if (Input.GetKey(Key.G))
         {
-            phase = 2;
+            settings.phase = 2;
 
             holdingBlock = false;
             ShowMouse(true);
@@ -230,13 +201,13 @@ public class MyGame : Game
 
         if (square != null && rect != null)
         {
-            if (square.HitTestPoint(Input.mouseX, Input.mouseY) && phase == 1)
+            if (square.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
             {
                 sprite = square;
 
                 return true;
             }
-            else if (rect.HitTestPoint(Input.mouseX, Input.mouseY) && phase == 1)
+            else if (rect.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
             {
                 sprite = rect;
 
