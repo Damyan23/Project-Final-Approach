@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
@@ -16,6 +17,7 @@ public class RigidBody : GameObject
     public Vector2 linearVelocity;
     public float rotationAmmount;
     public float rotationalVelocity;
+    public float rigidBodyRotation;
 
     private Vector2 force;
 
@@ -56,7 +58,7 @@ public class RigidBody : GameObject
     {
         this.position = position;
         this.linearVelocity = new Vector2 ();
-        this.rotation = 0f;
+        this.rigidBodyRotation = 0f;
         this.rotationalVelocity = 0f;
 
         this.force = new Vector2 ();
@@ -125,7 +127,7 @@ public class RigidBody : GameObject
     {
         if (this.transformUpdateRequire)
         {
-            FlatTransform transform = new FlatTransform(this.position, this.rotation);
+            FlatTransform transform = new FlatTransform(this.position, this.rigidBodyRotation);
 
             for (int i = 0; i < this.vertices.Length; i++)
             {
@@ -254,7 +256,7 @@ public class RigidBody : GameObject
 
         this.position += this.linearVelocity * time;
 
-        this.rotation += this.rotationalVelocity * time;
+        this.rigidBodyRotation += this.rotationalVelocity * time;
 
         this.force = new Vector2(0, 0);
 
@@ -269,7 +271,7 @@ public class RigidBody : GameObject
 
     public void Rotate (float amount)
     {
-        this.rotation += amount;
+        this.rigidBodyRotation += amount;
         this.transformUpdateRequire = true;
     }
 }

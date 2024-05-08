@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using GXPEngine;
 using GXPEngine.Core;
@@ -35,7 +36,6 @@ public class Box : EasyDraw
         }
 
         this.AddChild(_rigidBody);
-        
 
         this.SetXY(pPosition.x, pPosition.y);
 
@@ -49,7 +49,7 @@ public class Box : EasyDraw
             DrawStatic(40, 40, 40);
         }
 
-        Console.WriteLine(_rigidBody.rotation); 
+        
     }
 
 
@@ -69,6 +69,7 @@ public class Box : EasyDraw
 
     public void Rotate (float amount)
     {
+        //this.rotation = amount;
         _rigidBody.Rotate(amount);
     }
 
@@ -82,7 +83,12 @@ public class Box : EasyDraw
         x = _rigidBody.position.x;
         y = _rigidBody.position.y;
 
-        this.rotation = _rigidBody.rotation;
+        this.rotation = _rigidBody.rigidBodyRotation;
+
+        //this._rigidBody.rigidBodyRotation = this.rotation;
+
+        Console.WriteLine("rigidbody rotation:" + this._rigidBody.rotation);
+        //Console.WriteLine()
     }
 
     public void ApplyForce(Vector2 amount)

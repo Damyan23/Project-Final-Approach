@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class MyGame : Game
 {
-
     static void Main()
     {
         new MyGame().Start();
@@ -51,12 +50,12 @@ public class MyGame : Game
         //_ball1 = new Ball(15, new Vector2(width / 2, height / 2), 0.1f, 0.2f);
         //AddChild(_ball1);
 
-        ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 0.5f, 0, true);
+        ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 1f, 0, true);
         AddChild(ground);
 
-        slope1 = new Box(400, 30, new Vector2(width / 2, height / 4), 1f, 0.5f, 0, true);
-        slope1.Rotate(45);
-        AddChild(slope1);
+        slope1 = new Box(400, 80, new Vector2(width / 2, height / 4 + 50), 1f, 0f, 0, true);
+        slope1.Rotate(10);
+        AddChild (slope1);
 
         //mode2Box = new Box(100, 100, new Vector2(width / 2, height - 160), 1, 1, 2, true);
         //AddChild(mode2Box);
@@ -103,7 +102,6 @@ public class MyGame : Game
     void Update()
     {
         this.targetFps = 60;
-        //Console.WriteLine(targetFps);
 
         world.Step(Time.deltaTimeInSeconds, 20);
 
@@ -111,7 +109,7 @@ public class MyGame : Game
 
         if (Input.GetMouseButtonDown(0) && phase == 2)
         {
-            Ball ball = new Ball(rand.Next(15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f, 1);
+            Ball ball = new Ball (rand.Next(15,40), new Vector2 (Input.mouseX, Input.mouseY), 0.001f, 0.8f, 1);
             AddChild(ball);
         }
         else if (Input.GetMouseButtonDown(1) && phase == 2)
@@ -119,7 +117,7 @@ public class MyGame : Game
             //Box box = new Box(rand.Next(15, 40), rand.Next (15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f, 1);
             //AddChild(box);
 
-            Ball ball = new Ball(rand.Next(15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.005f, 0.5f, 2);
+            Ball ball = new Ball(rand.Next(15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.001f, 0.8f, 2);
             AddChild(ball);
         }
 

@@ -9,7 +9,7 @@ class World
     public static readonly float MinBodySize = 0.01f * 0.01f;
     public static readonly float MaxBodySize = float.MaxValue;
 
-    public static readonly float minBodyDensity = 0.001f;
+    public static readonly float minBodyDensity = 0.0001f;
     public static readonly float maxBodyDensity = 21.4f;
 
     private static List<RigidBody> bodyList = new List<RigidBody> ();
@@ -21,7 +21,7 @@ class World
     private List<CollisionManifold> pointsOfContactList = new List<CollisionManifold> ();
     public World ()
     {
-        this.gravity = new Vector2(0f, 98.07f);
+        this.gravity = new Vector2(0f, 500f);
     }
 
     // Add a body to the world
@@ -148,8 +148,6 @@ class World
             }
 
         }
-
-
 
         ShapeType shapeTypeA = bodyA.shapeType;
         ShapeType shapeTypeB = bodyB.shapeType;
