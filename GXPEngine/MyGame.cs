@@ -2,6 +2,7 @@ using GXPEngine;
 using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 public class MyGame : Game
 {
@@ -63,15 +64,15 @@ public class MyGame : Game
         AddChild(ground);
 
 
-        slope1 = new Box(400, 20, new Vector2(width / 2 - 200, height / 4 + 50), 1f, 0f, 0, true);
+        slope1 = new Box(400, 20, new Vector2(width / 4, height / 4 + 50), 1f, 0f, 0, true);
         slope1.Rotate(45);
         
 
-        slope2 = new Box( 400, 20, new Vector2(width / 2 + 140, height / 4 + 190),1f, 0f, 0, true);
+        slope2 = new Box( 400, 20, new Vector2(width / 2, height / 4 + 190),1f, 0f, 0, true);
         slope2.Rotate(0);
         
 
-        slope3 = new Box(400, 20, new Vector2(width / 2 + 240, height / 4 + 190), 1f, 0f, 0, true);
+        slope3 = new Box(400, 20, new Vector2(width / 4 * 3, height / 4 + 190), 1f, 0f, 0, true);
         slope3.Rotate(-20);
         
 
@@ -80,9 +81,8 @@ public class MyGame : Game
 
         placedObjects = new List<Ball>();
 
-        fan1 = new Fan(width / 4 + 40, height - 290, 50, height, FanDirection.Right);
+        fan1 = new Fan(width / 4 + 40, height - 290, 50, height, FanDirection.Right, 100000f);
 
-        DrawPlaceableObjects();
 
 
         //int numberOfBalls = 10;
@@ -123,7 +123,7 @@ public class MyGame : Game
 
         world.Step(Time.deltaTimeInSeconds, 20);
 
-        if (!settings.isGameOver && settings.startGame)
+        if (!settings.isGameOver && settings.startGame && !settings.stuffDrawn)
         {
             menuManager.RemoveCurrentMenu ();
             AddChild(ground);
@@ -131,6 +131,10 @@ public class MyGame : Game
             AddChild(slope2);
             AddChild(slope3);
             AddChild(fan1);
+
+            DrawPlaceableObjects();
+
+            settings.stuffDrawn = true;
 
             
         }
@@ -185,7 +189,9 @@ public class MyGame : Game
 
                 ShowMouse(true);
 
-                RemoveChild(currentlyHoldingSprite);
+                RemoveChild(square);
+                RemoveChild(rect);
+
                 DrawPlaceableObjects();
 
                 currentlyHoldingSprite = null;

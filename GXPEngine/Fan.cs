@@ -20,14 +20,15 @@ namespace GXPEngine
 
         FanDirection fanDirection;
 
-        float force = 100000f;
+        float force;
 
-        public Fan(int x, int y, int width, int height, FanDirection fanDirection)
+        public Fan(int x, int y, int width, int height, FanDirection fanDirection, float force)
         {
             this.fanDirection = fanDirection;
             this.position = new Vector2(x, y);
             this.width = width;
             this.height = height;
+            this.force = force;
 
             box = new Box(width, height, new Vector2(x, y), 1, 0.01f, 0, true);
             AddChild(box);
