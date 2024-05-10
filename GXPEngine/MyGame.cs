@@ -35,8 +35,6 @@ public class MyGame : Game
 
     Player player;
 
-
-
     Sprite square;
     Sprite rect;
 
@@ -48,7 +46,7 @@ public class MyGame : Game
 
     private bool ghostSpawned = false;
 
-    public MyGame() : base(800, 600, false, false)
+    public MyGame() : base(1280, 720, false, false)
     {
         SetUp();
     }
@@ -64,17 +62,17 @@ public class MyGame : Game
 
         ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
 
-        slope1 = new Box(400, 20, new Vector2(width / 4, height / 4 + 50), 1f, -0.8f, 0, true);
-        slope1.Rotate(45);
+        slope1 = new Box(400, 20, new Vector2(width / 4, height / 4 + 170), 1f, -0.8f, 0, true);
+        slope1.Rotate(20);
 
-        slope2 = new Box(400, 20, new Vector2(width / 2, height / 4 + 190), 1f, -0.8f, 0, true);
+        slope2 = new Box(400, 20, new Vector2(width / 2, height / 4 + 240), 1f, -0.8f, 0, true);
         slope2.Rotate(0);
 
         playButton = new StartButton(settings);
         playButton.SetXY(width / 2, height / 2 - 250);
 
-        slope3 = new Box(400, 20, new Vector2(width / 4 * 3, height / 4 + 190), 1f, -0.8f, 0, true);
-        slope3.Rotate(-20);
+        slope3 = new Box(400, 20, new Vector2(width / 4 * 3, height / 4 + 205), 1f, -0.8f, 0, true);
+        slope3.Rotate(-10);
 
         spawnPoint = new Sprite("spawnPoint.png");
         spawnPoint.scale = 0.1f;
@@ -83,7 +81,7 @@ public class MyGame : Game
 
         placedObjects = new List<Ball>();
 
-        fan1 = new Fan(width / 4 + 40, height - 290, 50, height, FanDirection.Right, 100000f);
+        fan1 = new Fan(width / 4 - 80, height - 290, 50, height, FanDirection.Right, 100000f);
     }
 
 
@@ -114,6 +112,7 @@ public class MyGame : Game
         {
             Ball ball = new Ball(rand.Next(15, 40), new Vector2(width / 2, height / 2 - 200), 0.001f, 0.8f, 1);
             AddChild(ball);
+            placedObjects.Add (ball);
             ghostSpawned = true;
         }
 
@@ -121,11 +120,6 @@ public class MyGame : Game
         {
             Ball ball = new Ball(rand.Next(15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.001f, 0.8f, 2);
             AddChild(ball);
-        }
-
-        if (Input.GetKey(Key.R))
-        {
-            Restart();
         }
 
         if (Input.GetKey(Key.G))
@@ -145,13 +139,13 @@ public class MyGame : Game
             {
                 if (currentlyHoldingSprite == square)
                 {
-                    Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 0.8f, 1, true);
+                    Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
                     AddChild(box);
                 }
 
                 else if (currentlyHoldingSprite == rect)
                 {
-                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1, 0.8f, 2, true);
+                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 2, true);
                     AddChild(rect);
                 }
 
@@ -232,26 +226,6 @@ public class MyGame : Game
         rect.SetScaleXY(0.02f, 0.02f);
         rect.SetXY(width / 3 * 2, height - 100);
         AddChild(rect);
-    }
-
-    void Restart()
-    {
-        //foreach (GameObject child in this.GetChildren()) 
-        //{
-        //    if (child is Ball)
-        //    {
-        //        foreach (RigidBody rigidBody in child.GetChildren()) 
-        //        {
-        //            rigidBody.LateDestroy();
-        //        }
-        //    }
-
-        //    child.LateDestroy();
-        //}
-
-
-
-        //SetUp();
     }
 }
 

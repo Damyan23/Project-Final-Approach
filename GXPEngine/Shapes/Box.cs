@@ -47,10 +47,7 @@ public class Box : EasyDraw
         {
             DrawStatic(40, 40, 40);
         }
-
-
     }
-
 
     void Draw(int red, int green, int blue)
     {

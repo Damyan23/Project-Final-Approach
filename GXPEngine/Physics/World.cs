@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 using System.Collections.Generic;
+using System.Linq;
 
 class World
 {
@@ -58,7 +59,7 @@ class World
                 {
                     RigidBody bodyB = bodyList[j];
 
-                    // If both objects are static
+                    //If both objects are static
                     if (bodyA.isStatic && bodyB.isStatic)
                     {
                         continue;
@@ -106,6 +107,7 @@ class World
     {
         RigidBody bodyA = contact.bodyA;
         RigidBody bodyB = contact.bodyB;
+
         Vector2 normal = contact.normal;
         float depth = contact.depth;
 
@@ -127,6 +129,7 @@ class World
         // Add an impulse to the bodies 
         bodyA.LinearVelocity -= impulse * bodyA.invMass;
         bodyB.LinearVelocity += impulse * bodyB.invMass;
+        
     }
 
     public bool Collide(RigidBody bodyA, RigidBody bodyB, out Vector2 normal, out float depth)
