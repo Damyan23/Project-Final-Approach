@@ -43,10 +43,14 @@
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\Buttons.cs" />
     <Compile Include="Fan.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\LevelObjectParams.cs" />
+    <Compile Include="SpawnPoint.cs" />
     <Compile Include="GameSettings.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Menus\MainMenu.cs" />
     <Compile Include="Menus\MenuManager.cs" />
     <Compile Include="Menus\OptionsMenu.cs" />

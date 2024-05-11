@@ -7,6 +7,7 @@ public class Box : EasyDraw
 {
     public float boxWidth;
     public float boxHeight;
+    public float rotation;
 
     RigidBody _rigidBody;
 
@@ -22,10 +23,11 @@ public class Box : EasyDraw
         return _rigidBody.mass;
     }
 
-    public Box(float boxWidth, float boxHeight, Vector2 pPosition, float density, float restitution, int mode = 1, bool isStatic = false) : base((int)boxWidth + 1, (int)boxHeight + 1)
+    public Box(float boxWidth, float boxHeight,Vector2 pPosition, float density, float restitution, int mode = 1, bool isStatic = false, float boxRotation = 0f) : base((int)boxWidth + 1, (int)boxHeight + 1)
     {
         this.boxWidth = boxWidth;
         this.boxHeight = boxHeight;
+        this.rotation = boxRotation;
 
         string errorMessage;
         bool success = RigidBody.CreateBoxBody(boxWidth, boxHeight, pPosition, density, isStatic, restitution, mode, out _rigidBody, out errorMessage);

@@ -14,7 +14,7 @@ namespace GXPEngine
             SetOrigin(width / 2, height / 2);
             SetXY(game.width / 2, game.height / 2);
 
-            box = new Box(width, height, new Vector2(0, 0), 1, 1, 1);
+            box = new Box(width, height, new Vector2(0, 0),1, 1, 1);
             AddChild(box);
 
             mode = 1;

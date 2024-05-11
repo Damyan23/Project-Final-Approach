@@ -12,6 +12,7 @@ public class MyGame : Game
 
     GameSettings settings;
     MenuManager menuManager;
+    LevelManager levelManager;
 
     Ball _ball1;
 
@@ -57,31 +58,32 @@ public class MyGame : Game
         menuManager = new MenuManager(settings);
         menuManager.SetMainMenu();
 
+        levelManager = new LevelManager();
+
         world = new World();
         rand = new Random();
 
-        ground = new Box(width - 100, 60, new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
+        //ground = new Box(width - 100, 60, 0,new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
 
-        slope1 = new Box(400, 20, new Vector2(width / 4, height / 4 + 170), 1f, -0.8f, 0, true);
-        slope1.Rotate(20);
+        //slope1 = new Box(400, 20, 20,  new Vector2(width / 4, height / 4 + 170), 1f, -0.8f, 0, true);
+        //slope1.Rotate(20);
 
-        slope2 = new Box(400, 20, new Vector2(width / 2, height / 4 + 240), 1f, -0.8f, 0, true);
-        slope2.Rotate(0);
+        //slope2 = new Box(400, 20, 0 ,new Vector2(width / 2, height / 4 + 240), 1f, -0.8f, 0, true);
+        //slope2.Rotate(0);
 
-        playButton = new StartButton(settings);
-        playButton.SetXY(width / 2, height / 2 - 250);
+        //playButton = new StartButton(settings);
+        //playButton.SetXY(width / 2, height / 2 - 250);
 
-        slope3 = new Box(400, 20, new Vector2(width / 4 * 3, height / 4 + 205), 1f, -0.8f, 0, true);
-        slope3.Rotate(-10);
+        //slope3 = new Box(400, 20, 0, new Vector2(width / 4 * 3, height / 4 + 205), 1f, -0.8f, 0, true);
 
-        spawnPoint = new Sprite("spawnPoint.png");
-        spawnPoint.scale = 0.1f;
-        spawnPoint.SetOrigin(spawnPoint.x + spawnPoint.width / 2, spawnPoint.y + spawnPoint.height / 2);
-        spawnPoint.SetXY(width / 2, height / 2 - 200);
+        //spawnPoint = new Sprite("spawnPoint.png");
+        //spawnPoint.scale = 0.1f;
+        //spawnPoint.SetOrigin(spawnPoint.x + spawnPoint.width / 2, spawnPoint.y + spawnPoint.height / 2);
+        //spawnPoint.SetXY(width / 2, height / 2 - 200);
 
         placedObjects = new List<Ball>();
 
-        fan1 = new Fan(width / 4 - 80, height - 290, 50, height, FanDirection.Right, 100000f);
+        //fan1 = new Fan(width / 4 - 80, height - 290, 50, height, FanDirection.Right, 100000f);
     }
 
 
@@ -94,13 +96,16 @@ public class MyGame : Game
         if (!settings.isGameOver && settings.startGame && !settings.stuffDrawn)
         {
             menuManager.RemoveCurrentMenu();
-            AddChild(ground);
-            AddChild(slope1);
-            AddChild(slope2);
-            AddChild(slope3);
-            AddChild(fan1);
-            AddChild(spawnPoint);
-            AddChild(playButton);
+
+            //AddChild(ground);
+            //AddChild(slope1);
+            //AddChild(slope2);
+            //AddChild(slope3);
+            //AddChild(fan1);
+            //AddChild(spawnPoint);
+            //AddChild(playButton);
+
+            levelManager.Start();
 
             DrawPlaceableObjects();
 
@@ -114,12 +119,6 @@ public class MyGame : Game
             AddChild(ball);
             placedObjects.Add (ball);
             ghostSpawned = true;
-        }
-
-        if (Input.GetMouseButtonDown(2))
-        {
-            Ball ball = new Ball(rand.Next(15, 40), new Vector2(Input.mouseX, Input.mouseY), 0.001f, 0.8f, 2);
-            AddChild(ball);
         }
 
         if (Input.GetKey(Key.G))
@@ -140,13 +139,13 @@ public class MyGame : Game
                 if (currentlyHoldingSprite == square)
                 {
                     Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
-                    AddChild(box);
+                    levelManager.AddObject (box);
                 }
 
                 else if (currentlyHoldingSprite == rect)
                 {
-                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 2, true);
-                    AddChild(rect);
+                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
+                    levelManager.AddObject(rect);
                 }
 
                 holdingBlock = false;
@@ -177,7 +176,7 @@ public class MyGame : Game
             Ball ball = new Ball(25, new Vector2(Input.mouseX, Input.mouseY), 1, 0.8f, 1);
             AddChild(ball);
 
-            placedObjects.Add(ball);
+            //placedObjects.Add(ball);
         }
 
 

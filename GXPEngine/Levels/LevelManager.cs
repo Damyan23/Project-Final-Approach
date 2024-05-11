@@ -1,0 +1,95 @@
+﻿using GXPEngine;
+using GXPEngine.Core;
+using System.Collections.Generic;
+
+public class LevelManager : GameObject
+{
+    public List<Level> levels;
+    public int currentLevelIndex;
+    public List<GameObject> playerAddedObjects;
+
+    public LevelManager() : base()
+    {
+        // Initialize levels
+        levels = new List<Level>();
+        playerAddedObjects = new List<GameObject>();
+        InitializeLevels();
+
+        // Set initial current level
+        currentLevelIndex = 0;
+    }
+
+    public void Start()
+    {
+        // Load current level
+        LoadLevel(currentLevelIndex);
+    }
+
+    private void InitializeLevels()
+    {
+        // Create levels
+        Level level1 = new Level(this);
+
+        // Initialize objects for level 1
+        level1.InitializeObjects(new LevelObjectParams[] {
+            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, game.height / 2), 100, 60, 45, 1f, 0.8f, 0, true),
+            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(300, 400), 100, 60, 0, 1f, 0.8f, 0, false),
+            new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), 0, 0, 0, 0, 0, 0, false),
+        });
+
+        // Set object limits for level 1
+        level1.SetObjectLimits(new Dictionary<LevelObjectType, int> {
+            { LevelObjectType.Box, 1 },
+        });
+
+        levels.Add(level1);
+    }
+
+    private void LoadLevel(int levelIndex)
+    {
+        // Clear the screen
+        if (levelIndex != 0)
+        {
+            ClearLevel();
+        }
+
+        // Instantiate objects for the current level
+        Level currentLevel = levels[levelIndex];
+        foreach (GameObject obj in currentLevel.objects)
+        {
+            // Add obj to the game
+            game.AddChild(obj);
+        }
+
+        // Check and remove extra spawn points
+        currentLevel.RemoveExtraSpawnPoints();
+    }
+
+    public void AddObject (GameObject obj)
+    {
+        Level currentLevel = levels[currentLevelIndex];
+        if (obj != null && currentLevel.CanAddObject(obj))
+        {
+            currentLevel.objects.Add(obj);
+            game.AddChild(obj);
+
+            playerAddedObjects.Add (obj);
+        }
+    }
+
+    private void ClearLevel()
+    {
+        Level currentLevel = levels[currentLevelIndex];
+
+        foreach (GameObject obj in currentLevel.objects)
+        {
+            obj.LateDestroy();
+        }
+    }
+
+    public void SwitchToNextLevel()
+    {
+        currentLevelIndex ++;
+        LoadLevel(currentLevelIndex);
+    }
+}
