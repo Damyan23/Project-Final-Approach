@@ -19,6 +19,7 @@ public class StartButton : Button
         {
             settings.levelSetup = true;
             settings.phase = 2;
+            hasBeenPressed = false;
         }
 
         base.Update();

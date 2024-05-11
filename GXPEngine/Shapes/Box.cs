@@ -30,7 +30,9 @@ public class Box : EasyDraw
         this.rotation = boxRotation;
 
         string errorMessage;
+
         bool success = RigidBody.CreateBoxBody(boxWidth, boxHeight, pPosition, density, isStatic, restitution, mode, out _rigidBody, out errorMessage);
+
         if (!success)
         {
             Console.WriteLine("Error creating rigid body: " + errorMessage);

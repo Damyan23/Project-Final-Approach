@@ -1,5 +1,6 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
+using System;
 using System.Collections.Generic;
 
 public class LevelManager : GameObject
@@ -7,12 +8,15 @@ public class LevelManager : GameObject
     public List<Level> levels;
     public int currentLevelIndex;
     public List<GameObject> playerAddedObjects;
+    private GameSettings settings;
+    public SpawnPoint currentLevelSpawnPoint;
 
-    public LevelManager() : base()
+    public LevelManager(GameSettings settings) : base()
     {
         // Initialize levels
         levels = new List<Level>();
         playerAddedObjects = new List<GameObject>();
+        this.settings = settings;
         InitializeLevels();
 
         // Set initial current level
@@ -23,6 +27,18 @@ public class LevelManager : GameObject
     {
         // Load current level
         LoadLevel(currentLevelIndex);
+    }
+    
+    public void Update ()
+    {
+        //Get the spawn point in the currnet level
+        foreach (GameObject obj in levels[currentLevelIndex].objects) 
+        {
+            if (obj != null && obj is SpawnPoint && obj != currentLevelSpawnPoint)
+            {
+                currentLevelSpawnPoint = (SpawnPoint)obj;
+            }
+        }
     }
 
     private void InitializeLevels()
@@ -77,6 +93,25 @@ public class LevelManager : GameObject
         }
     }
 
+    public void RemoveObject (GameObject obj)
+    {
+        Level currentLevel = levels[currentLevelIndex];
+        if (obj != null)
+        {
+            playerAddedObjects.Remove (obj);
+            currentLevel.objects.Remove(obj);
+            game.RemoveChild(obj);
+            
+            foreach (GameObject obj2 in obj.GetChildren())
+            {
+                if (obj2 is RigidBody)
+                {
+                    World.RemoveBody((RigidBody)obj2);
+                }
+            }
+        }
+    }
+
     private void ClearLevel()
     {
         Level currentLevel = levels[currentLevelIndex];
@@ -89,7 +124,9 @@ public class LevelManager : GameObject
 
     public void SwitchToNextLevel()
     {
-        currentLevelIndex ++;
+        currentLevelIndex++;
+        this.settings.phase = 1;
+        this.settings.ghostSpawned = false;
         LoadLevel(currentLevelIndex);
     }
 }

@@ -292,6 +292,11 @@ public class RigidBody : GameObject
 
     public void Step(float time, Vector2 gravity, int iterations)
     {
+        if (parent == null)
+        {
+            this.LateDestroy();
+        }
+
         if (this.isStatic)
         {
             return;

@@ -14,7 +14,7 @@ public class MyGame : Game
     MenuManager menuManager;
     LevelManager levelManager;
 
-    Ball _ball1;
+    Ball ball;
 
     Box ground;
     Box slope1;
@@ -45,7 +45,7 @@ public class MyGame : Game
 
     Fan fan1;
 
-    private bool ghostSpawned = false;
+    private bool playButtonAdded;
 
     public MyGame() : base(1280, 720, false, false)
     {
@@ -58,7 +58,8 @@ public class MyGame : Game
         menuManager = new MenuManager(settings);
         menuManager.SetMainMenu();
 
-        levelManager = new LevelManager();
+        levelManager = new LevelManager(settings);
+        this.AddChild (levelManager);
 
         world = new World();
         rand = new Random();
@@ -71,8 +72,8 @@ public class MyGame : Game
         //slope2 = new Box(400, 20, 0 ,new Vector2(width / 2, height / 4 + 240), 1f, -0.8f, 0, true);
         //slope2.Rotate(0);
 
-        //playButton = new StartButton(settings);
-        //playButton.SetXY(width / 2, height / 2 - 250);
+        playButton = new StartButton(settings);
+        playButton.SetXY(width / 2, height / 2 - 250);
 
         //slope3 = new Box(400, 20, 0, new Vector2(width / 4 * 3, height / 4 + 205), 1f, -0.8f, 0, true);
 
@@ -113,13 +114,34 @@ public class MyGame : Game
         }
 
 
-        if (settings.phase == 2 && !ghostSpawned && settings.levelSetup)
+        if (settings.phase == 2 && !settings.ghostSpawned && settings.stuffDrawn)
         {
-            Ball ball = new Ball(rand.Next(15, 40), new Vector2(width / 2, height / 2 - 200), 0.001f, 0.8f, 1);
+            ball = new Ball(rand.Next(15, 40), new Vector2(levelManager.currentLevelSpawnPoint.x, levelManager.currentLevelSpawnPoint.y), 0.001f, 0.8f, 1);
             AddChild(ball);
             placedObjects.Add (ball);
-            ghostSpawned = true;
+            this.RemoveChild(playButton);
+
+            playButtonAdded = false;
+            settings.ghostSpawned = true;
         }
+
+        if (!playButtonAdded && settings.phase == 1 && settings.stuffDrawn)
+        {
+            this.AddChild (playButton);
+            playButtonAdded = true;
+        }
+
+        if (settings.ghostSpawned)
+        {
+            if (ball.y > this.height - ball.height / 2)
+            {
+                ball.LateDestroy();
+                settings.phase = 1;
+                settings.ghostSpawned = false;
+            }
+        }
+
+        RemoveAHoveredPlatforme();
 
         if (Input.GetKey(Key.G))
         {
@@ -180,34 +202,54 @@ public class MyGame : Game
         }
 
 
-        foreach (Ball ball in placedObjects)
-        {
-            fan1.PushObject(ball);
-        }
-
+        //foreach (Ball ball in placedObjects)
+        //{
+        //    fan1.PushObject(ball);
+        //}
     }
 
     bool PickupPlaceableObject(out Sprite sprite)
     {
         sprite = null;
 
-        if (square != null && rect != null)
+        // Create a temporary Box object to check if it can be added
+        Box tempBox = new Box(1, 1, new Vector2(), 1, 0, 0, true, 0);
+
+        if (levelManager.levels[levelManager.currentLevelIndex].CanAddObject (tempBox))
         {
-            if (square.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
+            if (square != null && rect != null)
             {
-                sprite = square;
+                if (square.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
+                {
+                    sprite = square;
 
-                return true;
-            }
-            else if (rect.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
-            {
-                sprite = rect;
+                    return true;
+                }
+                else if (rect.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
+                {
+                    sprite = rect;
 
-                return true;
+                    return true;
+                }
             }
         }
 
         return false;
+    }
+
+    void RemoveAHoveredPlatforme ()
+    {
+        if (Input.GetMouseButtonDown (1)) 
+        {
+            foreach (GameObject obj in levelManager.playerAddedObjects)
+            {
+                if (obj.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
+                {
+                    levelManager.RemoveObject (obj);
+                    break;
+                }
+            }
+        }
     }
 
     void DrawPlaceableObjects()

@@ -30,7 +30,7 @@ class World
     }
 
     // Remove a body from the world
-    public bool RemoveBody(RigidBody body)
+    public static bool RemoveBody(RigidBody body)
     {
         body.parent.LateDestroy();
         return bodyList.Remove(body);
