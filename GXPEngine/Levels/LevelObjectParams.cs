@@ -5,6 +5,7 @@ public class LevelObjectParams
 {
     public LevelObjectType type;
     public Vector2 position;
+    public Vector2 position2;
     public float width;
     public float height;
     public float rotation;
@@ -15,11 +16,12 @@ public class LevelObjectParams
 
     public string imageName;
 
-    public LevelObjectParams(LevelObjectType type, string imageName, Vector2 position, float width, float height, float rotation, float density, float bounciness, int mode, bool isStatic)
+    public LevelObjectParams(LevelObjectType type, string imageName, Vector2 position, Vector2 position2,float width, float height, float rotation, float density, float bounciness, int mode, bool isStatic)
     {
         this.type = type;
         this.imageName = imageName;
         this.position = position;
+        this.position2 = position2;
         this.width = width;
         this.height = height;
         this.rotation = rotation;
@@ -34,4 +36,5 @@ public enum LevelObjectType
 {
     Box,
     Spawnpoint,
+    Teleporter,
 }

@@ -1,6 +1,7 @@
 using GXPEngine;
 using GXPEngine.Core;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public class MyGame : Game
@@ -46,6 +47,11 @@ public class MyGame : Game
     Fan fan1;
 
     private bool playButtonAdded;
+
+    private float ballTeleportationTimerStart;
+    private float ballTeleportationDelay = 200;
+    private bool timerStarted;
+    private Vector2 ballVelocity;
 
     public MyGame() : base(1280, 720, false, false)
     {
@@ -138,6 +144,48 @@ public class MyGame : Game
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
+            } else if (ball.y < ball.height /2)
+            {
+                ball.LateDestroy();
+                settings.phase = 1;
+                settings.ghostSpawned = false;
+            }
+
+            if (ball.x > this.width - ball.width / 2)
+            {
+                ball.LateDestroy();
+                settings.phase = 1;
+                settings.ghostSpawned = false;
+            } else if (ball.x < ball.width /2)
+            {
+                ball.LateDestroy();
+                settings.phase = 1;
+                settings.ghostSpawned = false;
+            }
+
+            // Check if the ball overlaps with the teleporter entrence
+            if (ball.HitTest(levelManager.currentLevelTeleporter.Entrence))
+            {
+                //Store the balls velocity, make it zero and make the ball invisible
+                if (!timerStarted)
+                {
+                    ball.visible = false;
+                    ballTeleportationTimerStart = Time.time;
+                    ballVelocity = ball.GetVelocity ();
+                    ball.SetVelocity(new Vector2(0, 0));
+                    timerStarted = true;
+                }
+                
+                // After the delay move the ball to the exit, set its velocity to the sotred one and make it visible again
+                if (Time.time - ballTeleportationTimerStart > ballTeleportationDelay)
+                {
+                    
+                    Vector2 newPos = new Vector2(levelManager.currentLevelTeleporter.Exit.x, levelManager.currentLevelTeleporter.Exit.y);
+                    ball.MovePosition(newPos);
+                    ball.SetVelocity(ballVelocity);
+                    ball.visible = true;
+                    timerStarted = false;
+                }
             }
         }
 

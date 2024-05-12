@@ -10,6 +10,7 @@ public class LevelManager : GameObject
     public List<GameObject> playerAddedObjects;
     private GameSettings settings;
     public SpawnPoint currentLevelSpawnPoint;
+    public Teleporper currentLevelTeleporter;
 
     public LevelManager(GameSettings settings) : base()
     {
@@ -38,6 +39,11 @@ public class LevelManager : GameObject
             {
                 currentLevelSpawnPoint = (SpawnPoint)obj;
             }
+
+            if (obj != null && obj is Teleporper && obj != currentLevelTeleporter) 
+            {
+                currentLevelTeleporter = (Teleporper)obj;
+            }
         }
     }
 
@@ -48,9 +54,9 @@ public class LevelManager : GameObject
 
         // Initialize objects for level 1
         level1.InitializeObjects(new LevelObjectParams[] {
-            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, game.height / 2), 100, 60, 45, 1f, 0.8f, 0, true),
-            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(300, 400), 100, 60, 0, 1f, 0.8f, 0, false),
-            new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), 0, 0, 0, 0, 0, 0, false),
+            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true),
+            new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
+            new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false),
         });
 
         // Set object limits for level 1

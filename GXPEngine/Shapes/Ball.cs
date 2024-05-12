@@ -2,6 +2,7 @@
 using GXPEngine.Core;
 using System;
 using System.Drawing;
+using System.Linq.Expressions;
 
 public class Ball : EasyDraw
 {
@@ -83,9 +84,24 @@ public class Ball : EasyDraw
         y = _rigidBody.position.y;
     }
 
+    public Vector2 GetVelocity()
+    {
+        return this._rigidBody.linearVelocity;
+    }
+
     public void ApplyForce(Vector2 amount)
     {
         _rigidBody.ApplyForce(amount);
+    }
+
+    public void MovePosition (Vector2 newPos)
+    {
+        _rigidBody.position = newPos;
+    }
+
+    public void SetVelocity (Vector2 velocity)
+    {
+        _rigidBody.linearVelocity = velocity;
     }
 
     public void Step()

@@ -72,6 +72,8 @@ public class Level
                 return new SpawnPoint(param.imageName, param.position);
             case LevelObjectType.Box:
                 return new Box(param.width, param.height, param.position, param.density, param.bounciness, param.mode, param.isStatic, param.rotation);
+            case LevelObjectType.Teleporter:
+                return new Teleporper(param.position, param.position2);
             default:
                 return null;
         }
