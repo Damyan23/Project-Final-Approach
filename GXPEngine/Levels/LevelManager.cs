@@ -10,13 +10,14 @@ public class LevelManager : GameObject
     public List<GameObject> playerAddedObjects;
     private GameSettings settings;
     public SpawnPoint currentLevelSpawnPoint;
-    public Teleporper currentLevelTeleporter;
+    public List<Teleporper> teleporters;
 
     public LevelManager(GameSettings settings) : base()
     {
         // Initialize levels
         levels = new List<Level>();
         playerAddedObjects = new List<GameObject>();
+        teleporters = new List<Teleporper>();
         this.settings = settings;
         InitializeLevels();
 
@@ -40,9 +41,9 @@ public class LevelManager : GameObject
                 currentLevelSpawnPoint = (SpawnPoint)obj;
             }
 
-            if (obj != null && obj is Teleporper && obj != currentLevelTeleporter) 
+            if (obj != null && obj is Teleporper && !teleporters.Contains((Teleporper)obj))
             {
-                currentLevelTeleporter = (Teleporper)obj;
+                teleporters.Add((Teleporper)obj);
             }
         }
     }
@@ -125,7 +126,11 @@ public class LevelManager : GameObject
         foreach (GameObject obj in currentLevel.objects)
         {
             obj.LateDestroy();
+            currentLevel.objects.Remove (obj);
         }
+
+        playerAddedObjects.Clear();
+        teleporters.Clear();
     }
 
     public void SwitchToNextLevel()

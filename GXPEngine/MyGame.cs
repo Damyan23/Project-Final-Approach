@@ -52,6 +52,7 @@ public class MyGame : Game
     private float ballTeleportationDelay = 200;
     private bool timerStarted;
     private Vector2 ballVelocity;
+    private float minDistanceToTeleporter;
 
     public MyGame() : base(1280, 720, false, false)
     {
@@ -69,6 +70,8 @@ public class MyGame : Game
 
         world = new World();
         rand = new Random();
+
+        minDistanceToTeleporter = float.MaxValue;
 
         //ground = new Box(width - 100, 60, 0,new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
 
@@ -163,30 +166,44 @@ public class MyGame : Game
                 settings.ghostSpawned = false;
             }
 
-            // Check if the ball overlaps with the teleporter entrence
-            if (ball.HitTest(levelManager.currentLevelTeleporter.Entrence))
+            foreach (Teleporper teleporter in levelManager.teleporters) 
             {
-                //Store the balls velocity, make it zero and make the ball invisible
-                if (!timerStarted)
+                float distanceToTeleporter = (new Vector2 (ball.x, ball.y) - new Vector2 (teleporter.Entrence.x, teleporter.Entrence.y)).Length();
+
+                if (distanceToTeleporter <= minDistanceToTeleporter)
                 {
-                    ball.visible = false;
-                    ballTeleportationTimerStart = Time.time;
-                    ballVelocity = ball.GetVelocity ();
-                    ball.SetVelocity(new Vector2(0, 0));
-                    timerStarted = true;
-                }
-                
-                // After the delay move the ball to the exit, set its velocity to the sotred one and make it visible again
-                if (Time.time - ballTeleportationTimerStart > ballTeleportationDelay)
+                    minDistanceToTeleporter = distanceToTeleporter;
+                    // Check if the ball overlaps with the teleporter entrence
+                    if (ball.HitTest(teleporter.Entrence))
+                    {
+                        //Store the balls velocity, make it zero and make the ball invisible
+                        if (!timerStarted)
+                        {
+                            ball.visible = false;
+                            ballTeleportationTimerStart = Time.time;
+                            ballVelocity = ball.GetVelocity();
+                            ball.SetVelocity(new Vector2(0, 0));
+                            timerStarted = true;
+                        }
+
+                        // After the delay move the ball to the exit, set its velocity to the sotred one and make it visible again
+                        if (Time.time - ballTeleportationTimerStart > ballTeleportationDelay)
+                        {
+
+                            Vector2 newPos = new Vector2(teleporter.Exit.x, teleporter.Exit.y);
+                            ball.MovePosition(newPos);
+                            ball.SetVelocity(ballVelocity);
+                            ball.visible = true;
+                            timerStarted = false;
+                        }
+                    }
+                } else
                 {
-                    
-                    Vector2 newPos = new Vector2(levelManager.currentLevelTeleporter.Exit.x, levelManager.currentLevelTeleporter.Exit.y);
-                    ball.MovePosition(newPos);
-                    ball.SetVelocity(ballVelocity);
-                    ball.visible = true;
-                    timerStarted = false;
+                    continue;
                 }
             }
+
+            
         }
 
         RemoveAHoveredPlatforme();
