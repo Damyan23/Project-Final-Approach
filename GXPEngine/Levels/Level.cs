@@ -8,12 +8,14 @@ public class Level
     private Dictionary<LevelObjectType, int> objectLimits; // Dictionary to store object limits
     public int spawnPointCount; // Track the number of spawn points in the level
     private LevelManager levelManager; // Reference to the LevelManager instance
+    private GameSettings settings;
 
-    public Level(LevelManager levelManager)
+    public Level(LevelManager levelManager, GameSettings settings)
     {
         objects = new List<GameObject>();
         spawnPointCount = 0;
         this.levelManager = levelManager;
+        this.settings = settings;
     }
 
     public void InitializeObjects(LevelObjectParams[] objectParams)
@@ -73,13 +75,13 @@ public class Level
             case LevelObjectType.Box:
                 return new Box(param.width, param.height, param.position, param.density, param.bounciness, param.mode, param.isStatic, param.rotation);
             case LevelObjectType.Teleporter:
-                return new Teleporter(param.position, param.position2, param.gameSettings);
+                return new Teleporter(param.position, param.position2, settings);
             case LevelObjectType.Explosive:
                 return new Explosive(param.position);
             case LevelObjectType.Spikes:
-                return new Spikes(param.position, param.imageName, param.gameSettings);
+                return new Spikes(param.position, param.imageName, settings);
             case LevelObjectType.Exit:
-                return new Exit(param.position);
+                return new Exit(param.position, levelManager);
             default:
                 return null;
         }
