@@ -78,8 +78,6 @@ public class LevelManager : GameObject
         {
             //new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 500), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true, settings),
         });
-
-        levels.Add (level2);
     }
 
     private void LoadLevel(int levelIndex)
