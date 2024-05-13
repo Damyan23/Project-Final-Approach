@@ -78,8 +78,8 @@ public class Level
                 return new Explosive(param.position);
             case LevelObjectType.Spikes:
                 return new Spikes(param.position, param.imageName, param.gameSettings);
-            //case LevelObjectType.Exit:
-            //    return new Exit (param.position);
+            case LevelObjectType.Exit:
+                return new Exit(param.position);
             default:
                 return null;
         }

@@ -40,5 +40,6 @@ public enum LevelObjectType
     Spawnpoint,
     Teleporter,
     Explosive,
-    Spikes
+    Spikes,
+    Exit,
 }
