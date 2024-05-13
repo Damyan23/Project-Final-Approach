@@ -2,6 +2,7 @@
 using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
+using System.Security;
 
 public class LevelManager : GameObject
 {
@@ -45,6 +46,8 @@ public class LevelManager : GameObject
             {
                 teleporters.Add((Teleporper)obj);
             }
+
+
         }
     }
 
@@ -58,7 +61,8 @@ public class LevelManager : GameObject
             new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true),
             new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
             new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false),
-        });
+            new LevelObjectParams(LevelObjectType.Explosive, "", new Vector2(game.width/2, game.height/2), new Vector2 (), 0, 0, 0, 0, 0, 0, true)
+        }) ;
 
         // Set object limits for level 1
         level1.SetObjectLimits(new Dictionary<LevelObjectType, int> {

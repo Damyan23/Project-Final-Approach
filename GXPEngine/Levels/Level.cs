@@ -74,6 +74,8 @@ public class Level
                 return new Box(param.width, param.height, param.position, param.density, param.bounciness, param.mode, param.isStatic, param.rotation);
             case LevelObjectType.Teleporter:
                 return new Teleporper(param.position, param.position2);
+            case LevelObjectType.Explosive:
+                return new Explosive(param.position);
             default:
                 return null;
         }

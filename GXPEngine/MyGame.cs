@@ -11,6 +11,11 @@ public class MyGame : Game
         new MyGame().Start();
     }
 
+    public Ball GetPlayer()
+    {
+        return ball;
+    }
+
     GameSettings settings;
     MenuManager menuManager;
     LevelManager levelManager;
@@ -22,6 +27,8 @@ public class MyGame : Game
     Box slope2;
     Box slope3;
     Box mode2Box;
+
+    Explosive explosive;
 
     StartButton playButton;
 
@@ -72,6 +79,7 @@ public class MyGame : Game
         rand = new Random();
 
         minDistanceToTeleporter = float.MaxValue;
+
 
         //ground = new Box(width - 100, 60, 0,new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
 
@@ -173,7 +181,7 @@ public class MyGame : Game
                 if (distanceToTeleporter <= minDistanceToTeleporter)
                 {
                     minDistanceToTeleporter = distanceToTeleporter;
-                    // Check if the ball overlaps with the teleporter entrence
+                    // Check if the ball overlaps with the teleporter entrance
                     if (ball.HitTest(teleporter.Entrence))
                     {
                         //Store the balls velocity, make it zero and make the ball invisible
@@ -186,7 +194,7 @@ public class MyGame : Game
                             timerStarted = true;
                         }
 
-                        // After the delay move the ball to the exit, set its velocity to the sotred one and make it visible again
+                        // After the delay move the ball to the exit, set its velocity to the sorted one and make it visible again
                         if (Time.time - ballTeleportationTimerStart > ballTeleportationDelay)
                         {
 
@@ -206,7 +214,9 @@ public class MyGame : Game
             
         }
 
-        RemoveAHoveredPlatforme();
+
+
+        RemoveAHoveredPlatform();
 
         if (Input.GetKey(Key.G))
         {
@@ -302,7 +312,7 @@ public class MyGame : Game
         return false;
     }
 
-    void RemoveAHoveredPlatforme ()
+    void RemoveAHoveredPlatform ()
     {
         if (Input.GetMouseButtonDown (1)) 
         {

@@ -17,6 +17,11 @@ public class Ball : EasyDraw
         return _rigidBody.mass;
     }
 
+    public RigidBody GetRigidBody()
+    {
+        return _rigidBody;
+    }
+
     Vector2 _position;
 
     public Ball(int pRadius, Vector2 pPosition, float density, float restitution, int mode, bool isStatic = false) : base(pRadius * 2 + 1, pRadius * 2 + 1)
