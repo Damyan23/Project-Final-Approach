@@ -102,6 +102,7 @@
     <Compile Include="Physics\FlatTransform.cs" />
     <Compile Include="Physics\World.cs" />
     <Compile Include="Shapes\Box.cs" />
+    <Compile Include="Spikes.cs" />
     <Compile Include="Teleporter.cs" />
   </ItemGroup>
   <ItemGroup>
