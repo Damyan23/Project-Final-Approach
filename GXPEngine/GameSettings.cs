@@ -12,4 +12,12 @@ public class GameSettings
     {
 
     }
+
+    void Update()
+    {
+        if(phase == 1 && ghostSpawned)
+        {
+            ghostSpawned = false;
+        }
+    }
 }

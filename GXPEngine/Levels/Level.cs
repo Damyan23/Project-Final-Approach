@@ -76,6 +76,8 @@ public class Level
                 return new Teleporper(param.position, param.position2);
             case LevelObjectType.Explosive:
                 return new Explosive(param.position);
+            case LevelObjectType.Spikes:
+                return new Spikes(param.position, param.imageName, param.gameSettings);
             default:
                 return null;
         }

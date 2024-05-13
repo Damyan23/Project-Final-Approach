@@ -47,7 +47,7 @@ public class LevelManager : GameObject
                 teleporters.Add((Teleporper)obj);
             }
 
-
+            
         }
     }
 
@@ -58,10 +58,11 @@ public class LevelManager : GameObject
 
         // Initialize objects for level 1
         level1.InitializeObjects(new LevelObjectParams[] {
-            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true),
-            new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
-            new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false),
-            new LevelObjectParams(LevelObjectType.Explosive, "", new Vector2(game.width/2, game.height/2), new Vector2 (), 0, 0, 0, 0, 0, 0, true)
+            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 500, 60, 45, 1f, 0.8f, 0, true, settings),
+            new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false, settings),
+            new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false, settings),
+            new LevelObjectParams(LevelObjectType.Explosive, "", new Vector2(game.width/2, game.height/4), new Vector2 (), 0, 0, 0, 0, 0, 0, true, settings),
+            new LevelObjectParams(LevelObjectType.Spikes, "square.png", new Vector2(600, 350), new Vector2(), 0, 0, 0, 0, 0, 0, true, settings)
         }) ;
 
         // Set object limits for level 1
