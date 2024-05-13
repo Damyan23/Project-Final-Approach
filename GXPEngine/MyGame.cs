@@ -55,11 +55,7 @@ public class MyGame : Game
 
     private bool playButtonAdded;
 
-    private float ballTeleportationTimerStart;
-    private float ballTeleportationDelay = 200;
-    private bool timerStarted;
-    private Vector2 ballVelocity;
-    private float minDistanceToTeleporter;
+
 
     public MyGame() : base(1280, 720, false, false)
     {
@@ -78,7 +74,6 @@ public class MyGame : Game
         world = new World();
         rand = new Random();
 
-        minDistanceToTeleporter = float.MaxValue;
 
 
         //ground = new Box(width - 100, 60, 0,new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
@@ -172,46 +167,7 @@ public class MyGame : Game
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
-            }
-
-            foreach (Teleporper teleporter in levelManager.teleporters) 
-            {
-                float distanceToTeleporter = (new Vector2 (ball.x, ball.y) - new Vector2 (teleporter.Entrence.x, teleporter.Entrence.y)).Length();
-
-                if (distanceToTeleporter <= minDistanceToTeleporter)
-                {
-                    minDistanceToTeleporter = distanceToTeleporter;
-                    // Check if the ball overlaps with the teleporter entrance
-                    if (ball.HitTest(teleporter.Entrence))
-                    {
-                        //Store the balls velocity, make it zero and make the ball invisible
-                        if (!timerStarted)
-                        {
-                            ball.visible = false;
-                            ballTeleportationTimerStart = Time.time;
-                            ballVelocity = ball.GetVelocity();
-                            ball.SetVelocity(new Vector2(0, 0));
-                            timerStarted = true;
-                        }
-
-                        // After the delay move the ball to the exit, set its velocity to the sorted one and make it visible again
-                        if (Time.time - ballTeleportationTimerStart > ballTeleportationDelay)
-                        {
-
-                            Vector2 newPos = new Vector2(teleporter.Exit.x, teleporter.Exit.y);
-                            ball.MovePosition(newPos);
-                            ball.SetVelocity(ballVelocity);
-                            ball.visible = true;
-                            timerStarted = false;
-                        }
-                    }
-                } else
-                {
-                    continue;
-                }
-            }
-
-            
+            }            
         }
 
 
@@ -266,14 +222,6 @@ public class MyGame : Game
                 ShowMouse(false);
                 holdingBlock = true;
             }
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ball ball = new Ball(25, new Vector2(Input.mouseX, Input.mouseY), 1, 0.8f, 1);
-            AddChild(ball);
-
-            //placedObjects.Add(ball);
         }
 
 
