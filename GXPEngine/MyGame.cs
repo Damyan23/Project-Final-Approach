@@ -1,7 +1,6 @@
 using GXPEngine;
 using GXPEngine.Core;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 public class MyGame : Game
@@ -69,7 +68,7 @@ public class MyGame : Game
         menuManager.SetMainMenu();
 
         levelManager = new LevelManager(settings);
-        this.AddChild (levelManager);
+        this.AddChild(levelManager);
 
         world = new World();
         rand = new Random();
@@ -130,7 +129,7 @@ public class MyGame : Game
         {
             ball = new Ball(rand.Next(15, 40), new Vector2(levelManager.currentLevelSpawnPoint.x, levelManager.currentLevelSpawnPoint.y), 0.001f, 0.8f, 1);
             AddChild(ball);
-            placedObjects.Add (ball);
+            placedObjects.Add(ball);
             this.RemoveChild(playButton);
 
             playButtonAdded = false;
@@ -139,7 +138,7 @@ public class MyGame : Game
 
         if (!playButtonAdded && settings.phase == 1 && settings.stuffDrawn)
         {
-            this.AddChild (playButton);
+            this.AddChild(playButton);
             playButtonAdded = true;
         }
 
@@ -150,7 +149,8 @@ public class MyGame : Game
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
-            } else if (ball.y < ball.height /2)
+            }
+            else if (ball.y < ball.height / 2)
             {
                 ball.LateDestroy();
                 settings.phase = 1;
@@ -162,12 +162,13 @@ public class MyGame : Game
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
-            } else if (ball.x < ball.width /2)
+            }
+            else if (ball.x < ball.width / 2)
             {
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
-            }            
+            }
         }
 
 
@@ -184,35 +185,7 @@ public class MyGame : Game
 
         if (holdingBlock)
         {
-            currentlyHoldingSprite.SetXY(Input.mouseX, Input.mouseY);
-
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (currentlyHoldingSprite == square)
-                {
-                    Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
-                    levelManager.AddObject (box);
-                }
-
-                else if (currentlyHoldingSprite == rect)
-                {
-                    Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
-                    levelManager.AddObject(rect);
-                }
-
-                holdingBlock = false;
-
-                ShowMouse(true);
-
-                RemoveChild(square);
-                RemoveChild(rect);
-
-                DrawPlaceableObjects();
-
-                currentlyHoldingSprite = null;
-
-            }
+            PlaceBlock();
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -238,7 +211,7 @@ public class MyGame : Game
         // Create a temporary Box object to check if it can be added
         Box tempBox = new Box(1, 1, new Vector2(), 1, 0, 0, true, 0);
 
-        if (levelManager.levels[levelManager.currentLevelIndex].CanAddObject (tempBox))
+        if (levelManager.levels[levelManager.currentLevelIndex].CanAddObject(tempBox))
         {
             if (square != null && rect != null)
             {
@@ -260,15 +233,69 @@ public class MyGame : Game
         return false;
     }
 
-    void RemoveAHoveredPlatform ()
+    void PlaceBlock()
     {
-        if (Input.GetMouseButtonDown (1)) 
+        currentlyHoldingSprite.SetXY(Input.mouseX, Input.mouseY);
+
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            int levelIndex = levelManager.currentLevelIndex;
+
+            Level level = levelManager.levels[levelIndex];
+
+            if (currentlyHoldingSprite == square)
+            {
+                Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
+
+                foreach (GameObject obj in level.objects)
+                {
+                    if (obj.HitTest(box))
+                    {
+                        return;
+                    }
+                }
+
+                levelManager.AddObject(box);
+            }
+
+            else if (currentlyHoldingSprite == rect)
+            {
+                Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
+
+                foreach (GameObject obj in level.objects)
+                {
+                    if (obj.HitTest(rect))
+                    {
+                        return;
+                    }
+                }
+
+                levelManager.AddObject(rect);
+            }
+
+            holdingBlock = false;
+
+            ShowMouse(true);
+
+            RemoveChild(square);
+            RemoveChild(rect);
+
+            DrawPlaceableObjects();
+
+            currentlyHoldingSprite = null;
+        }
+    }
+
+    void RemoveAHoveredPlatform()
+    {
+        if (Input.GetMouseButtonDown(1))
         {
             foreach (GameObject obj in levelManager.playerAddedObjects)
             {
                 if (obj.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
                 {
-                    levelManager.RemoveObject (obj);
+                    levelManager.RemoveObject(obj);
                     break;
                 }
             }

@@ -68,7 +68,7 @@ public class LevelManager : GameObject
 
         // Set object limits for level 1
         level1.SetObjectLimits(new Dictionary<LevelObjectType, int> {
-            { LevelObjectType.Box, 1 },
+            { LevelObjectType.Box, 2 },
         });
 
         levels.Add(level1);
