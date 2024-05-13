@@ -37,5 +37,6 @@ public enum LevelObjectType
     Box,
     Spawnpoint,
     Teleporter,
-    Explosive
+    Explosive,
+    Exit,
 }

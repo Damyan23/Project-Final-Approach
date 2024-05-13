@@ -76,6 +76,8 @@ public class Level
                 return new Teleporper(param.position, param.position2);
             case LevelObjectType.Explosive:
                 return new Explosive(param.position);
+            case LevelObjectType.Exit:
+                return new Exit (param.position);
             default:
                 return null;
         }

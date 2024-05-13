@@ -43,6 +43,7 @@
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\Buttons.cs" />
     <Compile Include="Explosive.cs" />
+    <Compile Include="Exit.cs" />
     <Compile Include="Fan.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelObjectParams.cs" />

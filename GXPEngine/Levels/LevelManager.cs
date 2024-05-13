@@ -57,7 +57,8 @@ public class LevelManager : GameObject
         Level level1 = new Level(this);
 
         // Initialize objects for level 1
-        level1.InitializeObjects(new LevelObjectParams[] {
+        level1.InitializeObjects(new LevelObjectParams[] 
+        {
             new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true),
             new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
             new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false),
@@ -70,6 +71,14 @@ public class LevelManager : GameObject
         });
 
         levels.Add(level1);
+
+        Level level2 = new Level(this);
+        level2.InitializeObjects(new LevelObjectParams[]
+        {
+            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 500), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true),
+        });
+
+        levels.Add (level2);
     }
 
     private void LoadLevel(int levelIndex)
