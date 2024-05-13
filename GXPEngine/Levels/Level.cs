@@ -73,7 +73,7 @@ public class Level
             case LevelObjectType.Box:
                 return new Box(param.width, param.height, param.position, param.density, param.bounciness, param.mode, param.isStatic, param.rotation);
             case LevelObjectType.Teleporter:
-                return new Teleporper(param.position, param.position2);
+                return new Teleporter(param.position, param.position2, param.gameSettings);
             case LevelObjectType.Explosive:
                 return new Explosive(param.position);
             case LevelObjectType.Spikes:
