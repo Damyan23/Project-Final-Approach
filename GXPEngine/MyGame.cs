@@ -54,6 +54,11 @@ public class MyGame : Game
 
     private bool playButtonAdded;
 
+    string squareFile = "square.png";
+    string rectFile = "rect.png";
+
+    string fileOfHoldingSprite;
+
 
 
     public MyGame() : base(1280, 720, false, false)
@@ -188,9 +193,9 @@ public class MyGame : Game
             PlaceBlock();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !holdingBlock)
         {
-            if (PickupPlaceableObject(out currentlyHoldingSprite))
+            if (PickupPlaceableObject(out fileOfHoldingSprite))
             {
                 ShowMouse(false);
                 holdingBlock = true;
@@ -204,12 +209,15 @@ public class MyGame : Game
         //}
     }
 
-    bool PickupPlaceableObject(out Sprite sprite)
+    //Shit function, did not cook
+    bool PickupPlaceableObject(out string file)
     {
-        sprite = null;
+        file = null;
 
         // Create a temporary Box object to check if it can be added
         Box tempBox = new Box(1, 1, new Vector2(), 1, 0, 0, true, 0);
+
+        
 
         if (levelManager.levels[levelManager.currentLevelIndex].CanAddObject(tempBox))
         {
@@ -217,13 +225,23 @@ public class MyGame : Game
             {
                 if (square.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
                 {
-                    sprite = square;
+                    file = squareFile;
+
+                    currentlyHoldingSprite = new Sprite(file);
+                    currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
+                    currentlyHoldingSprite.SetScaleXY(0.05f);
+                    AddChild(currentlyHoldingSprite);
 
                     return true;
                 }
                 else if (rect.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
                 {
-                    sprite = rect;
+                    file = rectFile;
+
+                    currentlyHoldingSprite = new Sprite(file);
+                    currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
+                    currentlyHoldingSprite.SetScaleXY(0.02f);
+                    AddChild(currentlyHoldingSprite);
 
                     return true;
                 }
@@ -234,7 +252,7 @@ public class MyGame : Game
     }
 
     void PlaceBlock()
-    {
+    { 
         currentlyHoldingSprite.SetXY(Input.mouseX, Input.mouseY);
 
 
@@ -244,7 +262,7 @@ public class MyGame : Game
 
             Level level = levelManager.levels[levelIndex];
 
-            if (currentlyHoldingSprite == square)
+            if (fileOfHoldingSprite == squareFile)
             {
                 Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
 
@@ -259,7 +277,7 @@ public class MyGame : Game
                 levelManager.AddObject(box);
             }
 
-            else if (currentlyHoldingSprite == rect)
+            else if (fileOfHoldingSprite == rectFile)
             {
                 Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
 
@@ -283,7 +301,7 @@ public class MyGame : Game
 
             DrawPlaceableObjects();
 
-            currentlyHoldingSprite = null;
+            currentlyHoldingSprite.LateDestroy();
         }
     }
 
@@ -304,14 +322,14 @@ public class MyGame : Game
 
     void DrawPlaceableObjects()
     {
-        square = new Sprite("square.png");
+        square = new Sprite(squareFile);
         square.collider.isTrigger = true;
         square.SetOrigin(square.width / 2, square.height / 2);
         square.SetScaleXY(0.05f, 0.05f);
         square.SetXY(width / 3, height - 100);
         AddChild(square);
 
-        rect = new Sprite("rect.png");
+        rect = new Sprite(rectFile);
         rect.collider.isTrigger = true;
         rect.SetOrigin(rect.width / 2, rect.height / 2);
         rect.SetScaleXY(0.02f, 0.02f);
