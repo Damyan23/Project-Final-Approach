@@ -62,7 +62,7 @@ public class LevelManager : GameObject
             new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false, settings),
             new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false, settings),
             new LevelObjectParams(LevelObjectType.Explosive, "", new Vector2(game.width/2, game.height/4), new Vector2 (), 0, 0, 0, 0, 0, 0, true, settings),
-            new LevelObjectParams(LevelObjectType.Spikes, "square.png", new Vector2(600, 350), new Vector2(), 0, 0, 0, 0, 0, 0, true, settings)
+            //new LevelObjectParams(LevelObjectType.Spikes, "square.png", new Vector2(600, 350), new Vector2(), 0, 0, 0, 0, 0, 0, true, settings)
         }) ;
 
         // Set object limits for level 1
@@ -75,7 +75,7 @@ public class LevelManager : GameObject
         Level level2 = new Level(this);
         level2.InitializeObjects(new LevelObjectParams[]
         {
-            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 500), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true),
+            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 500), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true, settings),
         });
 
         levels.Add (level2);
