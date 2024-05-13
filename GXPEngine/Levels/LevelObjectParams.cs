@@ -13,11 +13,10 @@ public class LevelObjectParams
     public float bounciness;
     public int mode;
     public bool isStatic;
-    public GameSettings gameSettings;
 
     public string imageName;
 
-    public LevelObjectParams(LevelObjectType type, string imageName, Vector2 position, Vector2 position2,float width, float height, float rotation, float density, float bounciness, int mode, bool isStatic, GameSettings gameSettings)
+    public LevelObjectParams(LevelObjectType type, string imageName, Vector2 position, Vector2 position2,float width, float height, float rotation, float density, float bounciness, int mode, bool isStatic)
     {
         this.type = type;
         this.imageName = imageName;
@@ -30,7 +29,6 @@ public class LevelObjectParams
         this.bounciness = bounciness;
         this.mode = mode;
         this.isStatic = isStatic;
-        this.gameSettings = gameSettings;
     }
 }
 
