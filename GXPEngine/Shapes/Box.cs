@@ -7,7 +7,6 @@ public class Box : EasyDraw
 {
     public float boxWidth;
     public float boxHeight;
-    public float rotation;
 
     RigidBody _rigidBody;
 
@@ -39,6 +38,8 @@ public class Box : EasyDraw
         }
 
         this.AddChild(_rigidBody);
+
+        Rotate(rotation);
 
         this.SetXY(pPosition.x, pPosition.y);
 
