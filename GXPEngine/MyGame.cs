@@ -256,40 +256,82 @@ public class MyGame : Game
         currentlyHoldingSprite.SetXY(Input.mouseX, Input.mouseY);
 
 
+
         if (Input.GetMouseButtonDown(0))
         {
+
             int levelIndex = levelManager.currentLevelIndex;
 
             Level level = levelManager.levels[levelIndex];
 
             if (fileOfHoldingSprite == squareFile)
             {
+                bool success = true;
+
                 Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
 
                 foreach (GameObject obj in level.objects)
                 {
                     if (obj.HitTest(box))
                     {
-                        return;
+                        success = false;
                     }
                 }
 
-                levelManager.AddObject(box);
+
+                foreach(Teleporter obj in level.teleporters)
+                {
+                    if (!success) break;
+
+                    if(obj.Entrance.HitTest(box) || obj.Exit.HitTest(box))
+                    {
+                        success = false;
+                    }
+                }
+
+                if (success)
+                {
+                    levelManager.AddObject(box);
+                }
+                else
+                {
+                    box.LateDestroy();
+                }
+                
             }
+
+
 
             else if (fileOfHoldingSprite == rectFile)
             {
+                bool success = true;
+
                 Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
 
                 foreach (GameObject obj in level.objects)
                 {
                     if (obj.HitTest(rect))
                     {
-                        return;
+                        success = false;
                     }
                 }
 
-                levelManager.AddObject(rect);
+                foreach (Teleporter obj in level.teleporters)
+                {
+                    if (obj.Entrance.HitTest(rect) || obj.Exit.HitTest(rect))
+                    {
+                        success = false;
+                    }
+                }
+
+                if (success)
+                {
+                    levelManager.AddObject(rect);
+                }
+                else
+                {
+                    rect.LateDestroy();
+                }
             }
 
             holdingBlock = false;

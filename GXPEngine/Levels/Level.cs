@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Level
 {
     public List<GameObject> objects;
+    public List<Teleporter> teleporters;
     private Dictionary<LevelObjectType, int> objectLimits; // Dictionary to store object limits
     public int spawnPointCount; // Track the number of spawn points in the level
     private LevelManager levelManager; // Reference to the LevelManager instance
@@ -13,6 +14,7 @@ public class Level
     public Level(LevelManager levelManager, GameSettings settings)
     {
         objects = new List<GameObject>();
+        teleporters = new List<Teleporter>();
         spawnPointCount = 0;
         this.levelManager = levelManager;
         this.settings = settings;
@@ -31,6 +33,11 @@ public class Level
                 if (param.type == LevelObjectType.Spawnpoint)
                 {
                     spawnPointCount++;
+                }
+
+                if(param.type == LevelObjectType.Teleporter)
+                {
+                    teleporters.Add((Teleporter)obj);
                 }
             }
         }
