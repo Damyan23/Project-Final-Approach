@@ -94,7 +94,7 @@ public class Level
             case LevelObjectType.Exit:
                 return new Exit(param.position, levelManager);
             case LevelObjectType.Halfpipe:
-                HalfPipe pipe = new HalfPipe(param.position);
+                HalfPipe pipe = new HalfPipe(param.position, param.width, param.height, param.imageName);
                 pipe.level = index;
                 return pipe;
             case LevelObjectType.Fan:

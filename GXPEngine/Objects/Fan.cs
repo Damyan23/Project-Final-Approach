@@ -8,7 +8,7 @@ namespace GXPEngine
         Right, Left, Up, Down, None
     }
 
-    internal class Fan : GameObject
+    public class Fan : GameObject
     {
         Box box;
 
@@ -39,6 +39,7 @@ namespace GXPEngine
             AddChild(box);
 
             this.box.level = level;
+
         }
 
         void Update()
@@ -96,7 +97,6 @@ namespace GXPEngine
                         float force = Mathf.Clamp(this.force / (distance * distance), 0, 1000f);
 
                         ball.ApplyForce(new Vector2(0, -force));
-                        Console.WriteLine(force);
                     }
                 }
             }

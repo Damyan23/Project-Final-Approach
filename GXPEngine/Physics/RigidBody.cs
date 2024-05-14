@@ -162,12 +162,15 @@ public class RigidBody : GameObject
             float parentWidth = this.width;
             float parentHeight = this.height;
 
+
             // Calculate the corners of the parent object relative to its center
             Vector2[] parentCorners = new Vector2[4];
             parentCorners[0] = new Vector2(-parentWidth / 2, -parentHeight / 2); // Top-left corner
             parentCorners[1] = new Vector2(parentWidth / 2, -parentHeight / 2); // Top-right corner
             parentCorners[2] = new Vector2(parentWidth / 2, parentHeight / 2); // Bottom-right corner
             parentCorners[3] = new Vector2(-parentWidth / 2, parentHeight / 2); // Bottom-left corner
+
+
 
             // Apply the parent's rotation to the corners
             float parentRotation = parent.rotation * Mathf.PI / 180.0f;

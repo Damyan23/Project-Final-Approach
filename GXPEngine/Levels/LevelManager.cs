@@ -58,8 +58,8 @@ public class LevelManager : GameObject
         level1.InitializeObjects(new LevelObjectParams[] {
             new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 500, 60, 45, 1f, 0.8f, 0, true),
             new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
-            new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false),
-            new LevelObjectParams (LevelObjectType.Exit, "", new Vector2 (800, 600), new Vector2 (), 0, 0, 0, 0, 0, 0, false),
+            new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (650, 50), 0, 0, 0, 0, 0, 0, false),
+            //new LevelObjectParams (LevelObjectType.Exit, "", new Vector2 (800, 600), new Vector2 (), 0, 0, 0, 0, 0, 0, false),
             //new LevelObjectParams (LevelObjectType.Halfpipe, "", new Vector2 ())
             //new LevelObjectParams(LevelObjectType.Spikes, "square.png", new Vector2(600, 350), new Vector2(), 0, 0, 0, 0, 0, 2, true, settings),
             new LevelObjectParams(LevelObjectType.Fan, "", new Vector2(80, 300), new Vector2(), 50, 50, 0, 1, -0.8f, 2, true, FanDirection.Right),
@@ -111,9 +111,8 @@ public class LevelManager : GameObject
 
             playerAddedObjects.Add (obj);
 
-            if (obj is Fan)
+            if (obj is Fan fan)
             {
-                Fan fan = (Fan)obj;
                 fan.level = this.currentLevelIndex + 1;
             }
         }

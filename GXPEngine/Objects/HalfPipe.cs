@@ -2,39 +2,38 @@
 using GXPEngine.Core;
 using System;
 
-public class HalfPipe : Sprite
+namespace GXPEngine
 {
-    public int level;
-    public HalfPipe(Vector2 position) : base ("halp pipe.png")
+
+    public class HalfPipe : GameObject
     {
-  
-        this.SetOrigin (this.width /2, this.height / 2);
+        public int level;
+        public HalfPipe(Vector2 position, float width, float height, string fileName)
+        {
 
-        this.scale = 0.5f;
+            //this.SetXY(position.x, position.y);
 
-        this.SetXY(position.x, position.y);
+            Box box1 = new Box(width / 3, height, new Vector2(position.x - width/3, position.y), 1f, -0.8f, 0, true, 90);
+            Box box2 = new Box(width / 3, height, new Vector2(position.x + width/3, position.y + height/3), 1f, -0.8f, 1, true, -45);
+            Box box3 = new Box(width / 3, height, new Vector2(position.x + width/2, position.y + height), 1f, -0.8f, 1, true, 0);
 
-        Box box1 = new Box(this.width / 3, this.height + 50, new Vector2 (- 100, -200), 1f, -0.8f, 1, true, 90);
-        Box box2 = new Box(this.width / 3, this.height + 50, new Vector2(), 1f, -0.8f, 1, true, -45);
-        Box box3 = new Box(this.width / 3, this.height - 50, new Vector2(), 1f, -0.8f, 1, true, 0);
+            this.AddChild(box1);
+            this.AddChild (box2); 
+            this.AddChild (box3);  
 
-        this.AddChild (box1);
-        this.AddChild (box2); 
-        this.AddChild (box3);  
+            box1.level = this.level;
+            box2.level = this.level;
+            box3.level = this.level;
 
-        box1.level = this.level;
-        box2.level = this.level;
-        box3.level = this.level;
+            box1.Rotate(this.rotation);
+            box2.Rotate(this.rotation);
+            box3.Rotate(this.rotation);
 
-        box1.GetRigidBody().position = new Vector2 (box1.x, box1.y);
+            Sprite sprite = new Sprite(fileName);
+            sprite.SetScaleXY(width/285, height/285);
+            sprite.SetXY(position.x - width, position.y - height/4);
+            AddChild(sprite);
 
-        //this.rotation = 45;
-
-        box1.Rotate(this.rotation);
-        box2.Rotate (this.rotation);
-        box3.Rotate (this.rotation);
-
-        Console.WriteLine (box1.GetRigidBody().position);
-        Console.WriteLine(new Vector2(box1.x, box1.y));
+        }
     }
 }

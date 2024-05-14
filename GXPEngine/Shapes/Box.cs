@@ -43,9 +43,9 @@ public class Box : EasyDraw
 
         Rotate(rotation);
 
+        SetOrigin(width / 2, height / 2);
         this.SetXY(pPosition.x, pPosition.y);
 
-        SetOrigin(width / 2, height / 2);
         if (!isStatic)
         {
             Draw(_random.Next(0, 255), _random.Next(0, 255), _random.Next(0, 255));

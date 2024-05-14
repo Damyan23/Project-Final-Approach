@@ -175,7 +175,7 @@ class World
 
                 if (bodyA.parent != null && bodyA.parent.parent != null && bodyA.parent.parent != myGame)
                 {
-                    Console.WriteLine(new Vector2(bodyA.parent.parent.x, bodyA.parent.parent.y) - bodyA.position);
+                    //Console.WriteLine(new Vector2(bodyA.parent.parent.x, bodyA.parent.parent.y) - bodyA.position);
 
                     result = Collisions.IntersectCirclePolygon(bodyB.position,
                                      bodyB.radius, bodyA.position - new Vector2(bodyA.parent.parent.x, bodyA.parent.parent.y),

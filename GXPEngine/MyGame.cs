@@ -58,7 +58,7 @@ public class MyGame : Game
     string fileOfHoldingSprite;
 
     HalfPipe pipe;
-    Fan fan;
+
     Platform platform;
     public MyGame() : base(1280, 720, false, false)
     {
@@ -82,7 +82,11 @@ public class MyGame : Game
 
         placedObjects = new List<Ball>();
 
-        pipe = new HalfPipe(new Vector2 (this.width / 4, this.height / 2 + 100));
+        pipe = new HalfPipe(new Vector2(width / 2 - 20, height / 2 + 50), 200, 200, "halp pipe.png");
+
+        //Fan fan = new Fan(new Vector2(width / 2, height / 2 + 50), 50, 50, 1, -0.8f, FanDirection.None, 0);
+        //AddChild(fan);
+
         //fan = new Fan(200, 300, 100, 100, FanDirection.Right, 1000);
         //platform = new Platform(new Vector2 (200, 300));
     }
