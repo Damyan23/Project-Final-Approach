@@ -42,12 +42,14 @@
   <ItemGroup>
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\Buttons.cs" />
-    <Compile Include="Explosive.cs" />
-    <Compile Include="Exit.cs" />
-    <Compile Include="Fan.cs" />
+    <Compile Include="Objects\Explosive.cs" />
+    <Compile Include="Objects\Exit.cs" />
+    <Compile Include="Objects\Fan.cs" />
+    <Compile Include="Objects\HalfPipe.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelObjectParams.cs" />
-    <Compile Include="SpawnPoint.cs" />
+    <Compile Include="Objects\Platform.cs" />
+    <Compile Include="Objects\SpawnPoint.cs" />
     <Compile Include="GameSettings.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
@@ -102,8 +104,8 @@
     <Compile Include="Physics\FlatTransform.cs" />
     <Compile Include="Physics\World.cs" />
     <Compile Include="Shapes\Box.cs" />
-    <Compile Include="Spikes.cs" />
-    <Compile Include="Teleporter.cs" />
+    <Compile Include="Objects\Spikes.cs" />
+    <Compile Include="Objects\Teleporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

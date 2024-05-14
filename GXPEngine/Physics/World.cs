@@ -3,6 +3,7 @@ using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 class World
 {
@@ -12,16 +13,19 @@ class World
     public static readonly float minBodyDensity = 0.0001f;
     public static readonly float maxBodyDensity = 21.4f;
 
-    private static List<RigidBody> bodyList = new List<RigidBody>();
+    public static List<RigidBody> bodyList = new List<RigidBody>();
     private Vector2 gravity;
 
     public static readonly int minIterations = 1;
     public static readonly int maxIterations = 64;
 
     private List<CollisionManifold> pointsOfContactList = new List<CollisionManifold>();
-    public World()
+
+    MyGame myGame;
+    public World(MyGame myGame)
     {
         this.gravity = new Vector2(0f, 500f);
+        this.myGame = myGame;
     }
 
     // Add a body to the world
@@ -60,6 +64,10 @@ class World
                 {
                     RigidBody bodyB = bodyList[j];
 
+                    //if (bodyA.Level != bodyB.Level)
+                    //{
+                    //    continue;
+                    //}
                     //If both objects are static
                     if (bodyA.isStatic && bodyB.isStatic)
                     {
@@ -147,7 +155,6 @@ class World
             {
                 return false;
             }
-
         }
 
         ShapeType shapeTypeA = bodyA.shapeType;
@@ -164,9 +171,28 @@ class World
             }
             else if (shapeTypeB is ShapeType.Circle)
             {
-                bool result = Collisions.IntersectCirclePolygon(bodyB.position,
-                                bodyB.radius, bodyA.position,
-                                bodyA.GetTransformedVertices(), out normal, out depth);
+                bool result = false;
+
+                if (bodyA.parent != null && bodyA.parent.parent != null && bodyA.parent.parent != myGame)
+                {
+                    Console.WriteLine(new Vector2(bodyA.parent.parent.x, bodyA.parent.parent.y) - bodyA.position);
+
+                    result = Collisions.IntersectCirclePolygon(bodyB.position,
+                                     bodyB.radius, bodyA.position - new Vector2(bodyA.parent.parent.x, bodyA.parent.parent.y),
+                                     bodyA.GetTransformedVertices(), out normal, out depth);
+                }
+                else
+                {
+
+                    result = Collisions.IntersectCirclePolygon(bodyB.position,
+                                     bodyB.radius, bodyA.position,
+                                     bodyA.GetTransformedVertices(), out normal, out depth);
+                }
+
+
+                //result = Collisions.IntersectCirclePolygon(bodyB.position,
+                //                 bodyB.radius, bodyA.position,
+                //                 bodyA.GetTransformedVertices(), out normal, out depth);
 
                 // reverse the normal since i want to pull bodyA out of bodyB
                 normal = -normal;
@@ -178,7 +204,18 @@ class World
         {
             if (shapeTypeB is ShapeType.Box)
             {
-                return Collisions.IntersectCirclePolygon(bodyA.position, bodyA.radius, bodyB.position, bodyB.GetTransformedVertices(), out normal, out depth);
+                bool result;
+                if (bodyA.parent != null && bodyA.parent.parent != null && bodyB.parent.parent != myGame)
+                {
+
+                    result = Collisions.IntersectCirclePolygon(bodyA.position, bodyA.radius, new Vector2(bodyB.parent.parent.x, bodyB.parent.parent.y) - bodyB.position, 
+                                bodyB.GetTransformedVertices(), out normal, out depth);
+
+                } else
+                {
+                    result = Collisions.IntersectCirclePolygon(bodyA.position, bodyA.radius, bodyB.position, bodyB.GetTransformedVertices(), out normal, out depth);
+                }
+                return result;
             }
             else if (shapeTypeB is ShapeType.Circle)
             {

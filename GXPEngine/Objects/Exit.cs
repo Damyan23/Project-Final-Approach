@@ -26,7 +26,8 @@ public class Exit : Sprite
         {
             if (this.HitTest(ball))
             {
-                Console.WriteLine("levelswitch");
+                levelManger.SwitchToNextLevel();
+                ball.LateDestroy();
              }
         }
     }

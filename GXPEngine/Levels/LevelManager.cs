@@ -46,24 +46,21 @@ public class LevelManager : GameObject
             {
                 teleporters.Add((Teleporter)obj);
             }
-
-            
         }
     }
 
     private void InitializeLevels()
     {
         // Create levels
-        Level level1 = new Level(this, settings);
+        Level level1 = new Level(1, this, settings);
 
         // Initialize objects for level 1
         level1.InitializeObjects(new LevelObjectParams[] {
             new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 500, 60, 45, 1f, 0.8f, 0, true),
             new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
             new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false),
-            new LevelObjectParams(LevelObjectType.Explosive, "", new Vector2(game.width/2, game.height/4), new Vector2 (), 0, 0, 0, 0, 0, 0, true),
-            //new LevelObjectParams(LevelObjectType.Spikes, "square.png", new Vector2(600, 350), new Vector2(), 0, 0, 0, 0, 0, 0, true, settings),
-            new LevelObjectParams (LevelObjectType.Exit, "", new Vector2 (800, 400), new Vector2 (), 0, 0, 0, 0, 0, 0, false),
+            new LevelObjectParams (LevelObjectType.Exit, "", new Vector2 (800, 600), new Vector2 (), 0, 0, 0, 0, 0, 0, false),
+            //new LevelObjectParams (LevelObjectType.Halfpipe, "", new Vector2 ())
         }) ;
 
         // Set object limits for level 1
@@ -73,21 +70,23 @@ public class LevelManager : GameObject
 
         levels.Add(level1);
 
-        Level level2 = new Level(this, settings);
+        Level level2 = new Level(2, this, settings);
         level2.InitializeObjects(new LevelObjectParams[]
         {
-            //new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 500), new Vector2 (), 100, 60, 45, 1f, 0.8f, 0, true, settings),
+            //new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 500), new Vector2 (), 500, 60, 0, 1f, 0.8f, 0, true),
+            //new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(game.width / 2, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
         });
+
+        // Set object limits for level 2
+        level2.SetObjectLimits(new Dictionary<LevelObjectType, int> {
+            { LevelObjectType.Box, 2 },
+        });
+
+        levels.Add (level2);
     }
 
     private void LoadLevel(int levelIndex)
     {
-        // Clear the screen
-        if (levelIndex != 0)
-        {
-            ClearLevel();
-        }
-
         // Instantiate objects for the current level
         Level currentLevel = levels[levelIndex];
         foreach (GameObject obj in currentLevel.objects)
@@ -109,6 +108,12 @@ public class LevelManager : GameObject
             game.AddChild(obj);
 
             playerAddedObjects.Add (obj);
+
+            if (obj is Fan)
+            {
+                Fan fan = (Fan)obj;
+                fan.level = this.currentLevelIndex + 1;
+            }
         }
     }
 
@@ -135,21 +140,32 @@ public class LevelManager : GameObject
     {
         Level currentLevel = levels[currentLevelIndex];
 
+        List<GameObject> objectsToDelete = new List<GameObject>();
+
         foreach (GameObject obj in currentLevel.objects)
         {
             obj.LateDestroy();
-            currentLevel.objects.Remove (obj);
+            objectsToDelete.Add(obj);
+        }
+
+        // Remove objectsToDelete from currentLevel.objects
+        foreach (GameObject objToDelete in objectsToDelete)
+        {
+            currentLevel.objects.Remove(objToDelete);
         }
 
         playerAddedObjects.Clear();
         teleporters.Clear();
     }
 
+
     public void SwitchToNextLevel()
     {
+        ClearLevel();
         currentLevelIndex++;
         this.settings.phase = 1;
         this.settings.ghostSpawned = false;
         LoadLevel(currentLevelIndex);
+
     }
 }

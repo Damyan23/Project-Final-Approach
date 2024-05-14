@@ -24,6 +24,9 @@ public class Ball : EasyDraw
 
     Vector2 _position;
 
+    public int level;
+    bool levelAssigned;
+
     public Ball(int pRadius, Vector2 pPosition, float density, float restitution, int mode, bool isStatic = false) : base(pRadius * 2 + 1, pRadius * 2 + 1)
     {
         _radius = pRadius;
@@ -80,6 +83,11 @@ public class Ball : EasyDraw
             {
                 _rigidBody.mode = 1;
             }
+        }
+
+        if (this.level != _rigidBody.Level && !levelAssigned)
+        {
+            _rigidBody.Level = this.level;
         }
     }
 

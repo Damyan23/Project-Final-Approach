@@ -22,6 +22,8 @@ public class Box : EasyDraw
         return _rigidBody.mass;
     }
 
+    public int level;
+
     public Box(float boxWidth, float boxHeight,Vector2 pPosition, float density, float restitution, int mode = 1, bool isStatic = false, float boxRotation = 0f) : base((int)boxWidth + 1, (int)boxHeight + 1)
     {
         this.boxWidth = boxWidth;
@@ -77,6 +79,16 @@ public class Box : EasyDraw
     void Update()
     {
         Step();
+
+        AssignLevel();
+    }
+
+    private void AssignLevel ()
+    {
+        if (this.level != _rigidBody.Level)
+        {
+            _rigidBody.Level = this.level;
+        }
     }
 
     void UpdateScreenPosition()

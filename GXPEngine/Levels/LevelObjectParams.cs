@@ -40,4 +40,5 @@ public enum LevelObjectType
     Explosive,
     Spikes,
     Exit,
+    Halfpipe
 }

@@ -59,8 +59,9 @@ public class MyGame : Game
 
     string fileOfHoldingSprite;
 
-
-
+    HalfPipe pipe;
+    Fan fan;
+    Platform platform;
     public MyGame() : base(1280, 720, false, false)
     {
         SetUp();
@@ -75,32 +76,17 @@ public class MyGame : Game
         levelManager = new LevelManager(settings);
         this.AddChild(levelManager);
 
-        world = new World();
+        world = new World(this);
         rand = new Random();
-
-
-
-        //ground = new Box(width - 100, 60, 0,new Vector2(width / 2, height - 80), 1f, 0.8f, 0, true);
-
-        //slope1 = new Box(400, 20, 20,  new Vector2(width / 4, height / 4 + 170), 1f, -0.8f, 0, true);
-        //slope1.Rotate(20);
-
-        //slope2 = new Box(400, 20, 0 ,new Vector2(width / 2, height / 4 + 240), 1f, -0.8f, 0, true);
-        //slope2.Rotate(0);
 
         playButton = new StartButton(settings);
         playButton.SetXY(width / 2, height / 2 - 250);
 
-        //slope3 = new Box(400, 20, 0, new Vector2(width / 4 * 3, height / 4 + 205), 1f, -0.8f, 0, true);
-
-        //spawnPoint = new Sprite("spawnPoint.png");
-        //spawnPoint.scale = 0.1f;
-        //spawnPoint.SetOrigin(spawnPoint.x + spawnPoint.width / 2, spawnPoint.y + spawnPoint.height / 2);
-        //spawnPoint.SetXY(width / 2, height / 2 - 200);
-
         placedObjects = new List<Ball>();
 
-        //fan1 = new Fan(width / 4 - 80, height - 290, 50, height, FanDirection.Right, 100000f);
+        pipe = new HalfPipe(new Vector2 (this.width / 4, this.height / 2 + 100));
+        //fan = new Fan(200, 300, 100, 100, FanDirection.Right, 1000);
+        //platform = new Platform(new Vector2 (200, 300));
     }
 
 
@@ -113,16 +99,15 @@ public class MyGame : Game
         if (!settings.isGameOver && settings.startGame && !settings.stuffDrawn)
         {
             menuManager.RemoveCurrentMenu();
-
-            //AddChild(ground);
-            //AddChild(slope1);
-            //AddChild(slope2);
-            //AddChild(slope3);
-            //AddChild(fan1);
-            //AddChild(spawnPoint);
-            //AddChild(playButton);
-
             levelManager.Start();
+
+            this.AddChild(pipe);
+            pipe.level = 1;
+
+            //this.AddChild(platform);
+            //platform.Level = 1;
+
+            //this.AddChild(fan);
 
             DrawPlaceableObjects();
 
@@ -133,6 +118,7 @@ public class MyGame : Game
         if (settings.phase == 2 && !settings.ghostSpawned && settings.stuffDrawn)
         {
             ball = new Ball(rand.Next(15, 40), new Vector2(levelManager.currentLevelSpawnPoint.x, levelManager.currentLevelSpawnPoint.y), 0.001f, 0.8f, 1);
+            ball.level = levelManager.currentLevelIndex + 1;
             AddChild(ball);
             placedObjects.Add(ball);
             this.RemoveChild(playButton);
@@ -176,8 +162,6 @@ public class MyGame : Game
             }
         }
 
-
-
         RemoveAHoveredPlatform();
 
         if (Input.GetKey(Key.G))
@@ -201,12 +185,6 @@ public class MyGame : Game
                 holdingBlock = true;
             }
         }
-
-
-        //foreach (Ball ball in placedObjects)
-        //{
-        //    fan1.PushObject(ball);
-        //}
     }
 
     //Shit function, did not cook
@@ -216,8 +194,6 @@ public class MyGame : Game
 
         // Create a temporary Box object to check if it can be added
         Box tempBox = new Box(1, 1, new Vector2(), 1, 0, 0, true, 0);
-
-        
 
         if (levelManager.levels[levelManager.currentLevelIndex].CanAddObject(tempBox))
         {
@@ -254,8 +230,6 @@ public class MyGame : Game
     void PlaceBlock()
     { 
         currentlyHoldingSprite.SetXY(Input.mouseX, Input.mouseY);
-
-
 
         if (Input.GetMouseButtonDown(0))
         {

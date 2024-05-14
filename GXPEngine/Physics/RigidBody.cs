@@ -50,6 +50,8 @@ public class RigidBody : GameObject
         internal set { this.linearVelocity = value; }
     }
 
+    public int Level { get; set; }
+
     private RigidBody(Vector2 position, float density, float mass, float restitution, float area,
                         bool isStatic, float radius, float width, float height, ShapeType shapeType, int mode) : base()
     {

@@ -10,7 +10,6 @@ namespace GXPEngine
 
     internal class Fan : GameObject
     {
-
         Box box;
 
         Vector2 position;
@@ -22,6 +21,8 @@ namespace GXPEngine
 
         float force;
 
+        public int level;
+
         public Fan(int x, int y, int width, int height, FanDirection fanDirection, float force)
         {
             this.fanDirection = fanDirection;
@@ -32,6 +33,8 @@ namespace GXPEngine
 
             box = new Box(width, height, new Vector2(x, y), 1, 0.01f, 0, true);
             AddChild(box);
+
+            this.box.level = level;
         }
 
         public void PushObject(Ball ball)

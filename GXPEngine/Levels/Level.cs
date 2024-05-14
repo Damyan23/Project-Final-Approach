@@ -4,15 +4,17 @@ using System.Collections.Generic;
 
 public class Level
 {
+    public int index;
     public List<GameObject> objects;
     public List<Teleporter> teleporters;
-    private Dictionary<LevelObjectType, int> objectLimits; // Dictionary to store object limits
+    public Dictionary<LevelObjectType, int> objectLimits; // Dictionary to store object limits
     public int spawnPointCount; // Track the number of spawn points in the level
     private LevelManager levelManager; // Reference to the LevelManager instance
     private GameSettings settings;
 
-    public Level(LevelManager levelManager, GameSettings settings)
+    public Level(int index, LevelManager levelManager, GameSettings settings)
     {
+        this.index = index;
         objects = new List<GameObject>();
         teleporters = new List<Teleporter>();
         spawnPointCount = 0;
@@ -80,7 +82,9 @@ public class Level
             case LevelObjectType.Spawnpoint:
                 return new SpawnPoint(param.imageName, param.position);
             case LevelObjectType.Box:
-                return new Box(param.width, param.height, param.position, param.density, param.bounciness, param.mode, param.isStatic, param.rotation);
+                Box box = new Box(param.width, param.height, param.position, param.density, param.bounciness, param.mode, param.isStatic, param.rotation);
+                box.level = index;
+                return box;
             case LevelObjectType.Teleporter:
                 return new Teleporter(param.position, param.position2, settings);
             case LevelObjectType.Explosive:
@@ -89,6 +93,10 @@ public class Level
                 return new Spikes(param.position, param.imageName, settings);
             case LevelObjectType.Exit:
                 return new Exit(param.position, levelManager);
+            case LevelObjectType.Halfpipe:
+                HalfPipe pipe = new HalfPipe(param.position);
+                pipe.level = index;
+                return pipe;
             default:
                 return null;
         }
