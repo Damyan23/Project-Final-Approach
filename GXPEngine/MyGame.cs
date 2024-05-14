@@ -50,8 +50,6 @@ public class MyGame : Game
 
     bool holdingBlock = false;
 
-    Fan fan1;
-
     private bool playButtonAdded;
 
     string squareFile = "square.png";
@@ -242,6 +240,7 @@ public class MyGame : Game
             {
                 bool success = true;
 
+                
                 Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
 
                 foreach (GameObject obj in level.objects)

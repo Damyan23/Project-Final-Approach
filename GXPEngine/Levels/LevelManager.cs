@@ -61,6 +61,8 @@ public class LevelManager : GameObject
             new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false),
             new LevelObjectParams (LevelObjectType.Exit, "", new Vector2 (800, 600), new Vector2 (), 0, 0, 0, 0, 0, 0, false),
             //new LevelObjectParams (LevelObjectType.Halfpipe, "", new Vector2 ())
+            //new LevelObjectParams(LevelObjectType.Spikes, "square.png", new Vector2(600, 350), new Vector2(), 0, 0, 0, 0, 0, 2, true, settings),
+            new LevelObjectParams(LevelObjectType.Fan, "", new Vector2(80, 300), new Vector2(), 50, 50, 0, 1, -0.8f, 2, true, FanDirection.Right),
         }) ;
 
         // Set object limits for level 1

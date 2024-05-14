@@ -88,7 +88,7 @@ public class Level
             case LevelObjectType.Teleporter:
                 return new Teleporter(param.position, param.position2, settings);
             case LevelObjectType.Explosive:
-                return new Explosive(param.position);
+                return new Explosive(param.position, param.mode);
             case LevelObjectType.Spikes:
                 return new Spikes(param.position, param.imageName, settings);
             case LevelObjectType.Exit:
@@ -97,6 +97,8 @@ public class Level
                 HalfPipe pipe = new HalfPipe(param.position);
                 pipe.level = index;
                 return pipe;
+            case LevelObjectType.Fan:
+                return new Fan(param.position, param.width, param.height, param.density, param.bounciness, param.fanDirection, param.mode);
             default:
                 return null;
         }

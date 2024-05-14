@@ -5,7 +5,7 @@ namespace GXPEngine
 {
     public enum FanDirection
     {
-        Right, Left, Up, Down
+        Right, Left, Up, Down, None
     }
 
     internal class Fan : GameObject
@@ -14,31 +14,44 @@ namespace GXPEngine
 
         Vector2 position;
 
-        int width;
-        int height;
+        float width;
+        float height;
 
         FanDirection fanDirection;
 
-        float force;
+        float force = 100000f;
 
         public int level;
 
-        public Fan(int x, int y, int width, int height, FanDirection fanDirection, float force)
+        Ball player;
+
+        int mode;
+
+        public Fan(Vector2 position, float width, float height, float density, float restitution, FanDirection fanDirection, int mode)
         {
             this.fanDirection = fanDirection;
-            this.position = new Vector2(x, y);
+            this.position = position;
             this.width = width;
             this.height = height;
-            this.force = force;
+            this.mode = mode;
 
-            box = new Box(width, height, new Vector2(x, y), 1, 0.01f, 0, true);
+            box = new Box(width, height, position, density, restitution, mode, true);
             AddChild(box);
 
             this.box.level = level;
         }
 
+        void Update()
+        {
+            player = ((MyGame)game).GetPlayer();
+
+            if(player != null) PushObject(player);
+        }
+
         public void PushObject(Ball ball)
         {
+            if (ball.GetRigidBody().mode != mode) return;
+
             if (fanDirection == FanDirection.Right)
             {
                 if (ball.y > this.position.y - this.height / 2 && ball.y < this.position.y + this.height / 2)
