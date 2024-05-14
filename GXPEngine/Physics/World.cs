@@ -178,7 +178,7 @@ class World
                     //Console.WriteLine(new Vector2(bodyA.parent.parent.x, bodyA.parent.parent.y) - bodyA.position);
 
                     result = Collisions.IntersectCirclePolygon(bodyB.position,
-                                     bodyB.radius, bodyA.position - new Vector2(bodyA.parent.parent.x, bodyA.parent.parent.y),
+                                     bodyB.radius, new Vector2(bodyA.parent.parent.x, bodyA.parent.parent.y) - bodyA.position,
                                      bodyA.GetTransformedVertices(), out normal, out depth);
                 }
                 else

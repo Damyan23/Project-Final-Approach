@@ -31,8 +31,8 @@ public class RigidBody : GameObject
     public readonly bool isStatic;
 
     public readonly float radius;
-    public readonly float width;
-    public readonly float height;
+    public float width;
+    public float height;
 
     public int mode;
 
@@ -157,11 +157,22 @@ public class RigidBody : GameObject
         if (parent != null)
         {
             // Get the parent's position, width, and height
-            float parentX = parent.x;
-            float parentY = parent.y;
+            float parentX;
+            float parentY;
             float parentWidth = this.width;
             float parentHeight = this.height;
 
+            MyGame myGame = (MyGame)game;
+
+            if (parent.parent != null && parent.parent != myGame)
+            {
+                parentX = parent.parent.x - parent.x;
+                parentY = parent.parent.y - parent.y;
+            } else
+            {
+                parentX = parent.x;
+                parentY = parent.y;
+            }
 
             // Calculate the corners of the parent object relative to its center
             Vector2[] parentCorners = new Vector2[4];

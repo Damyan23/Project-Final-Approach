@@ -57,9 +57,9 @@ public class MyGame : Game
 
     string fileOfHoldingSprite;
 
-    HalfPipe pipe;
+    HalfPipeLeft pipe;
 
-    Platform platform;
+    LogMid platform;
     public MyGame() : base(1280, 720, false, false)
     {
         SetUp();
@@ -82,13 +82,15 @@ public class MyGame : Game
 
         placedObjects = new List<Ball>();
 
-        pipe = new HalfPipe(new Vector2(width / 2 - 20, height / 2 + 50), 200, 200, "halp pipe.png");
+        //pipe = new HalfPipeLeft(new Vector2(width / 2 - 20, height / 2 + 50), settings);
 
         //Fan fan = new Fan(new Vector2(width / 2, height / 2 + 50), 50, 50, 1, -0.8f, FanDirection.None, 0);
         //AddChild(fan);
 
         //fan = new Fan(200, 300, 100, 100, FanDirection.Right, 1000);
         //platform = new Platform(new Vector2 (200, 300));
+
+        platform = new LogMid(new Vector2(200, 300), 0);
     }
 
 
@@ -103,11 +105,11 @@ public class MyGame : Game
             menuManager.RemoveCurrentMenu();
             levelManager.Start();
 
-            this.AddChild(pipe);
-            pipe.level = 1;
+            //this.AddChild(pipe);
+            //pipe.level = 1;
 
-            //this.AddChild(platform);
-            //platform.Level = 1;
+            this.AddChild(platform);
+            platform.Level = 1;
 
             //this.AddChild(fan);
 
@@ -115,7 +117,6 @@ public class MyGame : Game
 
             settings.stuffDrawn = true;
         }
-
 
         if (settings.phase == 2 && !settings.ghostSpawned && settings.stuffDrawn)
         {
@@ -179,7 +180,7 @@ public class MyGame : Game
             PlaceBlock();
         }
 
-        if (Input.GetMouseButtonDown(0) && !holdingBlock)
+        if (Input.GetMouseButtonDown(0) && !holdingBlock && !settings.ghostSpawned)
         {
             if (PickupPlaceableObject(out fileOfHoldingSprite))
             {

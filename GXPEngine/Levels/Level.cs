@@ -80,7 +80,7 @@ public class Level
         switch (param.type)
         {
             case LevelObjectType.Spawnpoint:
-                return new SpawnPoint(param.imageName, param.position);
+                return new SpawnPoint(param.position);
             case LevelObjectType.Box:
                 Box box = new Box(param.width, param.height, param.position, param.density, param.bounciness, param.mode, param.isStatic, param.rotation);
                 box.level = index;
@@ -90,11 +90,11 @@ public class Level
             case LevelObjectType.Explosive:
                 return new Explosive(param.position, param.mode);
             case LevelObjectType.Spikes:
-                return new Spikes(param.position, param.imageName, settings);
+                return new Thorns(param.position, param.rotation, settings);
             case LevelObjectType.Exit:
                 return new Exit(param.position, levelManager);
             case LevelObjectType.Halfpipe:
-                HalfPipe pipe = new HalfPipe(param.position, param.width, param.height, param.imageName);
+                HalfPipeRight pipe = new HalfPipeRight(param.position, settings);
                 pipe.level = index;
                 return pipe;
             case LevelObjectType.Fan:
