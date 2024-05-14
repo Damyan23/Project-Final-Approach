@@ -58,12 +58,13 @@ public class LevelManager : GameObject
 
         // Initialize objects for level 1
         level1.InitializeObjects(new LevelObjectParams[] {
-            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 500, 60, 45, 1f, 0.8f, 0, true),
-            new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
-            new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 0, false),
-            new LevelObjectParams(LevelObjectType.Explosive, "", new Vector2(game.width/2, game.height/4), new Vector2 (), 0, 0, 0, 0, 0, 0, true),
-            //new LevelObjectParams(LevelObjectType.Spikes, "square.png", new Vector2(600, 350), new Vector2(), 0, 0, 0, 0, 0, 0, true, settings),
-            new LevelObjectParams (LevelObjectType.Exit, "", new Vector2 (800, 400), new Vector2 (), 0, 0, 0, 0, 0, 0, false),
+            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 500, 60, 45, 1f, 0.8f, 2, true),
+            new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 2, false),
+            new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 400), new Vector2 (600, 400), 0, 0, 0, 0, 0, 2, false),
+            new LevelObjectParams(LevelObjectType.Explosive, "", new Vector2(game.width/2, game.height/4), new Vector2 (), 0, 0, 0, 0, 0, 2, true),
+            //new LevelObjectParams(LevelObjectType.Spikes, "square.png", new Vector2(600, 350), new Vector2(), 0, 0, 0, 0, 0, 2, true, settings),
+            new LevelObjectParams (LevelObjectType.Exit, "", new Vector2 (800, 400), new Vector2 (), 0, 0, 0, 0, 0, 2, false),
+            new LevelObjectParams(LevelObjectType.Fan, "", new Vector2(80, 300), new Vector2(), 50, 50, 0, 1, -0.8f, 2, true, FanDirection.Right),
         }) ;
 
         // Set object limits for level 1

@@ -11,20 +11,17 @@ namespace GXPEngine
 
         float explosionForce = 1000;
 
-        public Explosive(Vector2 position)
+        public Explosive(Vector2 position, int mode)
         {
             SetXY(position.x, position.y);
 
             this.position = position;
 
-            DrawBox();
-        }
-
-        void DrawBox()
-        {
-            box = new Box(50, 50, new Vector2(0, 0), 1, 0, 0, true);
+            box = new Box(50, 50, new Vector2(0, 0), 1, 0, mode, true);
             AddChild(box);
         }
+
+
 
         void Update()
         {
