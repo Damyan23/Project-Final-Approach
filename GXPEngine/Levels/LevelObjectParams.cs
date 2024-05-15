@@ -45,5 +45,6 @@ public enum LevelObjectType
     Spikes,
     Fan,
     Exit,
-    Halfpipe
+    Halfpipe,
+    Mushroom
 }

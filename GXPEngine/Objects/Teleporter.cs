@@ -6,6 +6,8 @@ public class Teleporter : GameObject
     public Sprite Entrance;
     public Sprite Exit;
 
+    Sound sound;
+
     GameSettings settings;
 
     Vector2 exitPoint;
@@ -30,6 +32,8 @@ public class Teleporter : GameObject
 
         this.exitPoint = exitPoint;
         this.settings = settings;
+
+        sound = new Sound("teleport.wav");
     }
 
     void Update()
@@ -44,11 +48,12 @@ public class Teleporter : GameObject
         if (ball == null) return;
 
         // Check if the ball overlaps with the teleporter entrance
-        if (ball.HitTest(Entrance))
+        if (ball.HitTest(Entrance) && ball.GetRigidBody().mode == 1)
         {
             //Store the balls velocity, make it zero and make the ball invisible
             if (!timerStarted)
             {
+                sound.Play();
                 ball.visible = false;
                 ballTimer = Time.time;
                 ballVelocity = ball.GetVelocity();

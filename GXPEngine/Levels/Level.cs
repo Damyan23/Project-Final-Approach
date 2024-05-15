@@ -99,6 +99,8 @@ public class Level
                 return pipe;
             case LevelObjectType.Fan:
                 return new Fan(param.position, param.width, param.height, param.density, param.bounciness, param.fanDirection, param.mode);
+            case LevelObjectType.Mushroom:
+                return new Mushroom(param.position, param.rotation);
             default:
                 return null;
         }

@@ -45,6 +45,10 @@ namespace GXPEngine
         Box collider1;
         Box collider2;
         Box collider3;
+
+        bool canPlaySound;
+
+        Sound sound;
         public HalfPipeLeft (Vector2 position, GameSettings settings) : base ("half pipe left.png")
         {
             //this.scale = 0.5f;
@@ -60,6 +64,8 @@ namespace GXPEngine
             collider1.level = this.level;
             collider2.level = this.level;
             collider3.level = this.level;
+
+            sound = new Sound("normal platform.wav");
         }
 
         void Update ()
@@ -74,6 +80,23 @@ namespace GXPEngine
                 collider1.visible = false;
                 collider2.visible = false;
                 collider3.visible = false;
+            }
+
+            Ball player = ((MyGame)game).GetPlayer();
+
+            if (player == null) return;
+
+            if(collider1.HitTest(player) || collider2.HitTest(player) || collider3.HitTest(player))
+            {
+                if (canPlaySound)
+                {
+                    sound.Play();
+                    canPlaySound = false;
+                }
+            }
+            else
+            {
+                canPlaySound = true;
             }
         }
     }

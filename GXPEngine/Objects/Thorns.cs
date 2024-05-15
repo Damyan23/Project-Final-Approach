@@ -8,6 +8,10 @@ public class Thorns : Sprite
     Vector2 position;
     public int Level = 1;
     GameSettings settings;
+
+    bool canPlaySound = true;
+
+    Sound sound;
     public Thorns (Vector2 position, float rotation, GameSettings settings) : base ("thorns.png")
     {
         this.settings = settings;
@@ -18,6 +22,8 @@ public class Thorns : Sprite
         this.AddChild (collider);
         collider.visible = false;
         collider.level = Level;
+
+        sound = new Sound("hurtbyspikes2.wav");
 
         this.SetXY (position.x, position.y);
         this.SetOrigin (this.width /2, this.height / 2);
@@ -36,9 +42,20 @@ public class Thorns : Sprite
 
         if (HitTest(player))
         {
+            if (canPlaySound)
+            {
+                sound.Play();
+
+                canPlaySound = false;
+            }
+
             settings.phase = 1;
             settings.ghostSpawned = false;
             player.LateDestroy();
+        }
+        else
+        {
+            canPlaySound = true;
         }
     }
 

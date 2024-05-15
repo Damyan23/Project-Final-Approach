@@ -60,6 +60,8 @@ public class MyGame : Game
     HalfPipeLeft pipe;
 
     LogMid platform;
+
+    Sound backgroundMusic;
     public MyGame() : base(1280, 720, false, false)
     {
         SetUp();
@@ -81,6 +83,8 @@ public class MyGame : Game
         playButton.SetXY(width / 2, height / 2 - 250);
 
         placedObjects = new List<Ball>();
+
+        backgroundMusic = new Sound("game music5.mp3", true);
 
         //pipe = new HalfPipeLeft(new Vector2(width / 2 - 20, height / 2 + 50), settings);
 
@@ -104,6 +108,8 @@ public class MyGame : Game
         {
             menuManager.RemoveCurrentMenu();
             levelManager.Start();
+
+            backgroundMusic.Play();
 
             //this.AddChild(pipe);
             //pipe.level = 1;

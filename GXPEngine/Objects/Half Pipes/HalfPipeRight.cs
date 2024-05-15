@@ -1,6 +1,4 @@
-﻿using GXPEngine;
-using GXPEngine.Core;
-using System;
+﻿using GXPEngine.Core;
 
 namespace GXPEngine
 {
@@ -36,33 +34,39 @@ namespace GXPEngine
     //    }
     //}
 
-    public class HalfPipeRight: Sprite
+    public class HalfPipeRight : Sprite
     {
         public int level = 1;
         GameSettings settings;
         bool collidersAdded;
 
+        bool canPlaySound = true;
+
         Box collider1;
         Box collider2;
         Box collider3;
-        public HalfPipeRight (Vector2 position, GameSettings settings) : base ("half pipe right.png")
+
+        Sound sound;
+        public HalfPipeRight(Vector2 position, GameSettings settings) : base("half pipe right.png")
         {
             //this.scale = 0.5f;
             this.settings = settings;
 
             this.SetXY(position.x, position.y);
-            this.SetOrigin (this.width / 2, this.height / 2);
+            this.SetOrigin(this.width / 2, this.height / 2);
 
-            collider1 = new Box(width / 7, height /2, new Vector2(position.x + 125, position.y - 50), 1f, -0.8f, 0, true, 0);
-            collider2 = new Box(width / 7, height /2, new Vector2(position.x + 65, position.y + 40), 1f, -0.8f, 1, true, 45);
-            collider3 = new Box(width / 7, height /2 + 55, new Vector2(position.x - 70, position.y + 95), 1f, -0.8f, 1, true, 87);
+            collider1 = new Box(width / 7, height / 2, new Vector2(position.x + 125, position.y - 50), 1f, -0.8f, 0, true, 0);
+            collider2 = new Box(width / 7, height / 2, new Vector2(position.x + 65, position.y + 40), 1f, -0.8f, 1, true, 45);
+            collider3 = new Box(width / 7, height / 2 + 55, new Vector2(position.x - 70, position.y + 95), 1f, -0.8f, 1, true, 87);
 
             collider1.level = this.level;
             collider2.level = this.level;
             collider3.level = this.level;
+
+            sound = new Sound("normal platform.wav");
         }
 
-        void Update ()
+        void Update()
         {
             if (!collidersAdded && settings.startGame)
             {
@@ -74,6 +78,23 @@ namespace GXPEngine
                 collider1.visible = false;
                 collider2.visible = false;
                 collider3.visible = false;
+            }
+
+            Ball player = ((MyGame)game).GetPlayer();
+
+            if (player == null) return;
+
+            if (collider1.HitTest(player) || collider2.HitTest(player) || collider3.HitTest(player))
+            {
+                if (canPlaySound)
+                {
+                    sound.Play();
+                    canPlaySound = false;
+                }
+            }
+            else
+            {
+                canPlaySound = true;
             }
         }
     }
