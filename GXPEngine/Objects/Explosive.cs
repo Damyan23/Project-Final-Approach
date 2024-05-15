@@ -13,6 +13,8 @@ namespace GXPEngine
 
         Sound sound;
 
+        bool AnimationTriggered;
+
         public Explosive(Vector2 position, int mode) : base ("bomb_sprite sheet.png", 4, 2)
         {
             SetXY(position.x, position.y);
@@ -47,7 +49,15 @@ namespace GXPEngine
                 RigidBody rb = player.GetRigidBody();
                 rb.ApplyForce(direction * explosionForce);
 
-                this.Destroy();
+                AnimationTriggered = true;
+            }
+
+            if (AnimationTriggered) 
+            {
+                if (this.currentFrame == 6)
+                {
+                    this.Destroy();
+                }
             }
 
         }

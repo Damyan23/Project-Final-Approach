@@ -85,8 +85,6 @@ public class MyGame : Game
         placedObjects = new List<Ball>();
 
         backgroundMusic = new Sound("game music5.mp3", true);
-
-        platform = new Mushroom(new Vector2(200, 300), 0);
     }
 
 
@@ -102,7 +100,6 @@ public class MyGame : Game
             levelManager.Start();
 
             backgroundMusic.Play();
-
 
             this.AddChild(platform);
             DrawPlaceableObjects();
