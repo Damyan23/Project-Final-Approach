@@ -53,9 +53,21 @@ public class Level
     public bool CanAddObject(GameObject obj)
     {
         LevelObjectType type;
-        if (obj is Box)
+        if (obj is LogLeft)
         {
-            type = LevelObjectType.Box;
+            type = LevelObjectType.LogLeft;
+        }
+        else if (obj is LogMid)
+        {
+            type = LevelObjectType.LogMid;
+        }
+        else if (obj is LogLeft)
+        {
+            type = LevelObjectType.LogLeft;
+        }
+        else if (obj is Leaf)
+        {
+            type = LevelObjectType.Leaf;
         }
         else
         {
@@ -81,26 +93,50 @@ public class Level
         {
             case LevelObjectType.Spawnpoint:
                 return new SpawnPoint(param.position);
-            case LevelObjectType.Box:
-                Box box = new Box(param.width, param.height, param.position, param.density, param.bounciness, param.mode, param.isStatic, param.rotation);
-                box.level = index;
-                return box;
             case LevelObjectType.Teleporter:
                 return new Teleporter(param.position, param.position2, settings);
             case LevelObjectType.Explosive:
                 return new Explosive(param.position, param.mode);
-            case LevelObjectType.Spikes:
-                return new Thorns(param.position, param.rotation, settings);
+            case LevelObjectType.Thorns:
+                Thorns thorns = new Thorns(param.position, param.rotation, settings);
+                thorns.Level = index;
+                return thorns;
             case LevelObjectType.Exit:
                 return new Exit(param.position, levelManager);
-            case LevelObjectType.Halfpipe:
-                HalfPipeRight pipe = new HalfPipeRight(param.position, settings);
-                pipe.level = index;
-                return pipe;
+            case LevelObjectType.HalfpipeRight:
+                HalfPipeRight pipeRight = new HalfPipeRight(param.position, settings);
+                pipeRight.level = index;
+                return pipeRight;
+            case LevelObjectType.HalfpipeLeft:
+                HalfPipeRight pipeLeft = new HalfPipeRight(param.position, settings);
+                pipeLeft.level = index;
+                return pipeLeft;
             case LevelObjectType.Fan:
                 return new Fan(param.position, param.width, param.height, param.density, param.bounciness, param.fanDirection, param.mode);
+            case LevelObjectType.Log:
+                Log log = new Log (param.position, param.rotation);
+                log.Level = index;
+                return log;
+            case LevelObjectType.LogLeft:
+                LogLeft logLeft = new LogLeft(param.position, param.rotation);
+                logLeft.Level = index;
+                return logLeft;
+            case LevelObjectType.LogRight:
+                LogRight logRight = new LogRight(param.position, param.rotation);
+                logRight.Level = index;
+                return logRight;
+            case LevelObjectType.LogMid:
+                LogMid logMid = new LogMid(param.position, param.rotation);
+                logMid.Level = index;
+                return logMid;
+            case LevelObjectType.Leaf:
+                Leaf leaf = new Leaf (param.position, param.rotation);
+                leaf.Level = index;
+                return leaf;
             case LevelObjectType.Mushroom:
-                return new Mushroom(param.position, param.rotation);
+                Mushroom mushroom = new Mushroom(param.position, param.rotation);
+                mushroom.Level = index;
+                return mushroom;
             default:
                 return null;
         }

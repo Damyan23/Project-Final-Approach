@@ -38,13 +38,18 @@ public class LevelObjectParams
 
 public enum LevelObjectType
 {
-    Box,
     Spawnpoint,
     Teleporter,
     Explosive,
-    Spikes,
+    Thorns,
     Fan,
     Exit,
-    Halfpipe,
-    Mushroom
+    HalfpipeRight,
+    HalfpipeLeft,
+    Log,
+    LogLeft,
+    LogRight,
+    LogMid,
+    Leaf,
+    Mushroom,
 }

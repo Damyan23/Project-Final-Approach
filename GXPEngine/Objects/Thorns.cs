@@ -6,7 +6,7 @@ using System.Runtime;
 public class Thorns : Sprite
 {
     Vector2 position;
-    public int Level = 1;
+    public int Level;
     GameSettings settings;
 
     bool canPlaySound = true;
@@ -18,10 +18,10 @@ public class Thorns : Sprite
 
         this.rotation = rotation;
         this.position = position;
-        Box collider = new Box(this.width, this.height /2, new Vector2 (0, 0), 1f, 0.8f, 1, true, rotation);
-        this.AddChild (collider);
-        collider.visible = false;
-        collider.level = Level;
+        boxCollider = new Box(this.width, this.height /2, new Vector2 (0, 0), 1f, 0.8f, 1, true, rotation);
+        this.AddChild (boxCollider);
+        boxCollider.visible = false;
+        boxCollider.level = Level;
 
         sound = new Sound("hurtbyspikes2.wav");
 
@@ -32,6 +32,11 @@ public class Thorns : Sprite
     void Update()
     {
         CheckPlayerCollision();
+
+        if (boxCollider.level != this.Level)
+        {
+            boxCollider.level = Level;
+        }
     }
 
     void CheckPlayerCollision()

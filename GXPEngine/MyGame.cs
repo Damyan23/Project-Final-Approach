@@ -94,7 +94,7 @@ public class MyGame : Game
         //fan = new Fan(200, 300, 100, 100, FanDirection.Right, 1000);
         //platform = new Platform(new Vector2 (200, 300));
 
-        platform = new LogMid(new Vector2(200, 300), 0);
+        //platform = new HalfPipeLeft(new Vector2(200, 300), 0);
     }
 
 
@@ -114,8 +114,8 @@ public class MyGame : Game
             //this.AddChild(pipe);
             //pipe.level = 1;
 
-            this.AddChild(platform);
-            platform.Level = 1;
+            //this.AddChild(platform);
+            //platform.Level = 1;
 
             //this.AddChild(fan);
 

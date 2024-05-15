@@ -56,7 +56,6 @@ public class LevelManager : GameObject
 
         // Initialize objects for level 1
         level1.InitializeObjects(new LevelObjectParams[] {
-            new LevelObjectParams(LevelObjectType.Box, "", new Vector2(game.width / 2, 600), new Vector2 (), 500, 60, 45, 1f, 0.8f, 0, true),
             new LevelObjectParams(LevelObjectType.Spawnpoint, "spawnPoint.png", new Vector2(200, 200), new Vector2(), 0, 0, 0, 0, 0, 0, false),
             new LevelObjectParams(LevelObjectType.Teleporter, "", new Vector2 (200, 500), new Vector2 (650, 50), 0, 0, 0, 0, 0, 0, false),
             //new LevelObjectParams (LevelObjectType.Exit, "", new Vector2 (800, 600), new Vector2 (), 0, 0, 0, 0, 0, 0, false),
@@ -68,9 +67,9 @@ public class LevelManager : GameObject
         }) ;
 
         // Set object limits for level 1
-        level1.SetObjectLimits(new Dictionary<LevelObjectType, int> {
-            { LevelObjectType.Box, 2 },
-        });
+        //level1.SetObjectLimits(new Dictionary<LevelObjectType, int> {
+        //    {},
+        //});
 
         levels.Add(level1);
 
@@ -82,9 +81,9 @@ public class LevelManager : GameObject
         });
 
         // Set object limits for level 2
-        level2.SetObjectLimits(new Dictionary<LevelObjectType, int> {
-            { LevelObjectType.Box, 2 },
-        });
+        //level2.SetObjectLimits(new Dictionary<LevelObjectType, int> {
+        //    { LevelObjectType.Box, 2 },
+        //});
 
         levels.Add (level2);
     }
@@ -111,11 +110,40 @@ public class LevelManager : GameObject
             currentLevel.objects.Add(obj);
             game.AddChild(obj);
 
-            playerAddedObjects.Add (obj);
+            playerAddedObjects.Add(obj);
 
-            if (obj is Fan fan)
+            switch (obj)
             {
-                fan.level = this.currentLevelIndex + 1;
+                case Fan fan:
+                    fan.level = this.currentLevelIndex + 1;
+                    break;
+                case HalfPipeLeft pipeLeft:
+                    pipeLeft.level = this.currentLevelIndex + 1;
+                    break;
+                case HalfPipeRight pipeRight:
+                    pipeRight.level = this.currentLevelIndex + 1;
+                    break;
+                case Log log:
+                    log.Level = this.currentLevelIndex + 1;
+                    break;
+                case LogLeft logLeft:
+                    logLeft.Level = this.currentLevelIndex + 1;
+                    break;
+                case LogRight logRight:
+                    logRight.Level = this.currentLevelIndex + 1;
+                    break;
+                case LogMid logMid:
+                    logMid.Level = this.currentLevelIndex + 1;
+                    break;
+                case Leaf leaf:
+                    leaf.Level = this.currentLevelIndex + 1;
+                    break;
+                case Mushroom mushroom:
+                    mushroom.Level = this.currentLevelIndex + 1;
+                    break;
+                case Thorns tohrns:
+                    tohrns.Level = this.currentLevelIndex + 1;
+                    break;
             }
         }
     }

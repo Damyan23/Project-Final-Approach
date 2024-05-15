@@ -2,7 +2,7 @@
 
 namespace GXPEngine
 {
-    internal class Explosive : GameObject
+    internal class Explosive : AnimationSprite
     {
 
         Box box;

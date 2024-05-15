@@ -39,7 +39,6 @@ namespace GXPEngine
             AddChild(box);
 
             this.box.level = level;
-
         }
 
         void Update()
