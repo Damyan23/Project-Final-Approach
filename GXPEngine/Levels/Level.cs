@@ -61,13 +61,37 @@ public class Level
         {
             type = LevelObjectType.LogMid;
         }
-        else if (obj is LogLeft)
+        else if (obj is LogRight)
         {
-            type = LevelObjectType.LogLeft;
+            type = LevelObjectType.LogRight;
         }
         else if (obj is Leaf)
         {
             type = LevelObjectType.Leaf;
+        }
+        else if (obj is Log)
+        {
+            type = LevelObjectType.Log;
+        }
+        else if (obj is Explosive)
+        {
+            type = LevelObjectType.Explosive;
+        }
+        else if (obj is Fan)
+        {
+            type = LevelObjectType.Fan; 
+        }
+        else if (obj is Mushroom)
+        {
+            type = LevelObjectType.Mushroom;
+        }
+        else if (obj is Teleporter)
+        {
+            type = LevelObjectType.Teleporter;
+        }
+        else if (obj is Thorns)
+        {
+            type = LevelObjectType.Thorns;
         }
         else
         {

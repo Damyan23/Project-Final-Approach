@@ -13,7 +13,7 @@ namespace GXPEngine
 
         Sound sound;
 
-        public Explosive(Vector2 position, int mode)
+        public Explosive(Vector2 position, int mode) : base ("bomb_sprite sheet.png", 2, 4)
         {
             SetXY(position.x, position.y);
 

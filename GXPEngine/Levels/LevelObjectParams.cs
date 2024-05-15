@@ -18,7 +18,7 @@ public class LevelObjectParams
 
     public string imageName;
 
-    public LevelObjectParams(LevelObjectType type, string imageName, Vector2 position, Vector2 position2,float width, float height, float rotation, float density, float bounciness, int mode, bool isStatic, FanDirection fanDirection = FanDirection.None)
+    public LevelObjectParams(LevelObjectType type, Vector2 position, string imageName = null, Vector2 position2 = new Vector2 () , float width = 0, float height = 0, float rotation = 0, float density = 0, float bounciness = 0, int mode = 0, bool isStatic = false, FanDirection fanDirection = FanDirection.None)
     {
         this.type = type;
         this.imageName = imageName;

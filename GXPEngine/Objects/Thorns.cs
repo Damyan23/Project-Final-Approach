@@ -12,6 +12,8 @@ public class Thorns : Sprite
     bool canPlaySound = true;
 
     Sound sound;
+
+    Box boxCollider;
     public Thorns (Vector2 position, float rotation, GameSettings settings) : base ("thorns.png")
     {
         this.settings = settings;
