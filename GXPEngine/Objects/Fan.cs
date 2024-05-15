@@ -37,6 +37,7 @@ namespace GXPEngine
 
             box = new Box(width, height, position, density, restitution, mode, true);
             AddChild(box);
+            box.level = -1;
 
             this.box.level = level;
         }

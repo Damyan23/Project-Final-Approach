@@ -1,24 +1,24 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 
-public class Leaf : Sprite
+public class Leaf : AnimationSprite
 {
     Vector2 position;
     public int Level = 1;
 
-    Box collider;
+    Box boxCollider;
 
     bool canPlaySound = true;
 
     Sound sound;
-    public Leaf(Vector2 position, float rotation) : base("leaf platform.png")
+    public Leaf(Vector2 position, float rotation, int mode) : base("leaf platform.png", 2, 1)
     {
         this.rotation = rotation;
         this.position = position;
-        collider = new Box(this.width - 20, this.height / 2, new Vector2(0, 0), 1f, 0.8f, 1, true, rotation + 10);
-        this.AddChild(collider);
-        collider.visible = false;
-        collider.level = Level;
+        boxCollider = new Box(this.width - 20, this.height / 2, new Vector2(0, 0), mode, 0.8f, 1, true, rotation + 10);
+        this.AddChild(boxCollider);
+        boxCollider.visible = false;
+        boxCollider.level = Level;
 
         sound = new Sound("leaf jump.wav");
 
@@ -32,7 +32,7 @@ public class Leaf : Sprite
 
         if (player == null) return;
 
-        if (collider.HitTest(player))
+        if (boxCollider.HitTest(player))
         {
             if (canPlaySound)
             {

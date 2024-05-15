@@ -10,17 +10,17 @@ public class LogMid : Sprite
 
     bool canPlaySound = true;
 
-    Box collider;
+    Box boxCollider;
 
     Sound sound;
     public LogMid (Vector2 position, float rotation) : base ("2nd tile.png")
     {
         this.rotation = rotation;
         this.position = position;
-        collider = new Box(this.width, this.height - 10, new Vector2 (0, 0), 1f, 0.8f, 1, true, rotation);
-        this.AddChild (collider);
-        collider.visible = false;
-        collider.level = Level;
+        boxCollider = new Box(this.width, this.height - 10, new Vector2 (0, 0), 1f, 0.8f, 1, true, rotation);
+        this.AddChild (boxCollider);
+        boxCollider.visible = false;
+        boxCollider.level = Level;
 
         sound = new Sound("normal platform.wav");
 
@@ -35,7 +35,7 @@ public class LogMid : Sprite
 
         if (player == null) return;
 
-        if (collider.HitTest(player))
+        if (boxCollider.HitTest(player))
         {
             if (canPlaySound)
             {
