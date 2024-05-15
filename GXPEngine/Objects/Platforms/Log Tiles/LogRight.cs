@@ -5,7 +5,7 @@ using System;
 public class LogRight : Sprite
 {
     Vector2 position;
-    public int Level = 1;
+    public int Level;
 
     Box boxCollider;
 

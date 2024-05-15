@@ -4,7 +4,7 @@ using GXPEngine.Core;
 public class LogLeft : Sprite
 {
     Vector2 position;
-    public int Level = 1;
+    public int Level;
 
     bool canPlaySound = true;
 

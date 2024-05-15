@@ -6,7 +6,7 @@ using System.Threading;
 public class LogMid : Sprite
 {
     Vector2 position;
-    public int Level = 1;
+    public int Level ;
 
     bool canPlaySound = true;
 

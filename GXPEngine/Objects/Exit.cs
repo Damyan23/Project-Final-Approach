@@ -11,6 +11,7 @@ public class Exit : AnimationSprite
 
         this.SetXY(position.x, position.y);
         this.SetOrigin (this.width /2, this.height / 2);
+        this.scale = 1.5f;
     }
 
     void Update ()
