@@ -2,10 +2,10 @@
 using GXPEngine.Core;
 using System;
 
-public class Exit : Sprite
+public class Exit : AnimationSprite
 {
     LevelManager levelManger;
-    public Exit (Vector2 position, LevelManager levelManager) : base ("exit.png")
+    public Exit (Vector2 position, LevelManager levelManager) : base ("end point sprite sheet.png", 2, 1)
     {
         this.levelManger = levelManager;
 
@@ -16,6 +16,8 @@ public class Exit : Sprite
     void Update ()
     {
         DetectCollision ();
+
+        this.Animate(0.03f);
     }
 
     void DetectCollision ()

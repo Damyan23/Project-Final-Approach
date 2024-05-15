@@ -113,7 +113,6 @@ public class MyGame : Game
 
             backgroundMusic.Play();
 
-            this.AddChild(platform);
             DrawPlaceableObjects();
 
             settings.stuffDrawn = true;
@@ -203,7 +202,7 @@ public class MyGame : Game
         {
             if (bouncyPlatform.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
             {
-                Mushroom temp = new Mushroom(new Vector2(), 0);
+                Mushroom temp = new Mushroom(new Vector2(), 0, 2);
 
                 if (currentLevel.CanAddObject(temp))
                 {
@@ -224,7 +223,7 @@ public class MyGame : Game
         {
             if (halfPipeLeft.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
             {
-                HalfPipeLeft temp = new HalfPipeLeft(new Vector2(), settings);
+                HalfPipeLeft temp = new HalfPipeLeft(new Vector2(), settings, 2);
 
                 if (currentLevel.CanAddObject(temp))
                 {
@@ -245,7 +244,7 @@ public class MyGame : Game
         {
             if (halfPipeRight.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
             {
-                HalfPipeRight temp = new HalfPipeRight(new Vector2(), settings);
+                HalfPipeRight temp = new HalfPipeRight(new Vector2(), settings, 2);
 
                 if (currentLevel.CanAddObject(temp))
                 {
@@ -266,7 +265,7 @@ public class MyGame : Game
         {
             if (leafPlatform.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
             {
-                Leaf temp = new Leaf(new Vector2(), 0);
+                Leaf temp = new Leaf(new Vector2(), 0, 2);
 
                 if (currentLevel.CanAddObject(temp))
                 {
@@ -287,7 +286,7 @@ public class MyGame : Game
         {
             if (trunkPlatform.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
             {
-                Log temp = new Log(new Vector2(), 0);
+                Log temp = new Log(new Vector2(), 0, 2);
 
                 if (currentLevel.CanAddObject(temp))
                 {
@@ -322,7 +321,7 @@ public class MyGame : Game
                 bool success = true;
 
 
-                Mushroom mushroom = new Mushroom(new Vector2(Input.mouseX, Input.mouseY), 0);
+                Mushroom mushroom = new Mushroom(new Vector2(Input.mouseX, Input.mouseY), 0, 2);
 
                 foreach (GameObject obj in level.objects)
                 {
@@ -349,7 +348,7 @@ public class MyGame : Game
                 bool success = true;
 
 
-                HalfPipeLeft halfpipe = new HalfPipeLeft(new Vector2(Input.mouseX, Input.mouseY), settings);
+                HalfPipeLeft halfpipe = new HalfPipeLeft(new Vector2(Input.mouseX, Input.mouseY), settings, 2);
 
                 foreach (GameObject obj in level.objects)
                 {
@@ -378,7 +377,7 @@ public class MyGame : Game
                 bool success = true;
 
 
-                HalfPipeRight halfpipe = new HalfPipeRight(new Vector2(Input.mouseX, Input.mouseY), settings);
+                HalfPipeRight halfpipe = new HalfPipeRight(new Vector2(Input.mouseX, Input.mouseY), settings, 2);
 
                 foreach (GameObject obj in level.objects)
                 {
@@ -405,7 +404,7 @@ public class MyGame : Game
                 bool success = true;
 
 
-                Leaf leaf = new Leaf(new Vector2(Input.mouseX, Input.mouseY), 0);
+                Leaf leaf = new Leaf(new Vector2(Input.mouseX, Input.mouseY), 0, 2);
 
                 foreach (GameObject obj in level.objects)
                 {
@@ -432,7 +431,7 @@ public class MyGame : Game
                 bool success = true;
 
 
-                Log log = new Log(new Vector2(Input.mouseX, Input.mouseY), 0);
+                Log log = new Log(new Vector2(Input.mouseX, Input.mouseY), 0, 2);
 
                 foreach (GameObject obj in level.objects)
                 {
