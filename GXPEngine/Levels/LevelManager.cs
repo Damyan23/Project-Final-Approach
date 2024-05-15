@@ -23,7 +23,7 @@ public class LevelManager : GameObject
         InitializeLevels();
 
         // Set initial current level
-        currentLevelIndex = 1;
+        currentLevelIndex = 0;
     }
 
     public void Start()
@@ -67,12 +67,17 @@ public class LevelManager : GameObject
             new LevelObjectParams (LevelObjectType.HalfpipeLeft, new Vector2(200, 300)),
         });
 
-        // Set object limits for level 1
-        //level1.SetObjectLimits(new Dictionary<LevelObjectType, int> {
-        //    {},
-        //});
+        //Set object limits for level 1
 
-        levels.Add(level1);
+       level1.SetObjectLimits(new Dictionary<LevelObjectType, int> {
+            {LevelObjectType.Mushroom, 1},
+            {LevelObjectType.HalfpipeLeft, 1},
+            {LevelObjectType.HalfpipeRight, 1},
+            {LevelObjectType.Leaf, 1},
+            {LevelObjectType.Log, 1},
+       });
+
+       levels.Add(level1);
 
         Level level2 = new Level(2, this, settings);
         level2.InitializeObjects(new LevelObjectParams[]

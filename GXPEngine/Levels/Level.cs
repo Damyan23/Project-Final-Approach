@@ -20,6 +20,7 @@ public class Level
         spawnPointCount = 0;
         this.levelManager = levelManager;
         this.settings = settings;
+        objectLimits = new Dictionary<LevelObjectType, int>();
     }
 
     public void InitializeObjects(LevelObjectParams[] objectParams)
@@ -92,6 +93,14 @@ public class Level
         else if (obj is Thorns)
         {
             type = LevelObjectType.Thorns;
+        }
+        else if(obj is HalfPipeLeft)
+        {
+            type = LevelObjectType.HalfpipeLeft;
+        }
+        else if(obj is HalfPipeRight)
+        {
+            type = LevelObjectType.HalfpipeRight;
         }
         else
         {

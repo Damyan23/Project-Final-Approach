@@ -43,8 +43,20 @@ public class MyGame : Game
 
     Player player;
 
-    Sprite square;
-    Sprite rect;
+    Sprite bouncyPlatform;
+    string bouncyPlatformFile = "spirit bouncy platform.png";
+
+    Sprite halfPipeLeft;
+    string halfPipeLeftFile = "spirit half pipe.png";
+
+    Sprite halfPipeRight;
+    string halfPipeRightFile = "spirit half pipe.png";
+
+    Sprite leafPlatform;
+    string leafPlatformFile = "spirit leaf platform.png";
+
+    Sprite trunkPlatform;
+    string trunkPlatformFile = "spirit trunk platform.png";
 
     Sprite currentlyHoldingSprite;
 
@@ -199,36 +211,112 @@ public class MyGame : Game
     //Shit function, did not cook
     bool PickupPlaceableObject(out string file)
     {
+        Level currentLevel = levelManager.levels[levelManager.currentLevelIndex];
+        Vector2 mousePos = new Vector2(Input.mouseX, Input.mouseY);
+
         file = null;
 
-        // Create a temporary Box object to check if it can be added
-        Box tempBox = new Box(1, 1, new Vector2(), 1, 0, 0, true, 0);
-
-        if (levelManager.levels[levelManager.currentLevelIndex].CanAddObject(tempBox))
+        if (bouncyPlatform != null)
         {
-            if (square != null && rect != null)
+            if (bouncyPlatform.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
             {
-                if (square.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
+                Mushroom temp = new Mushroom(new Vector2(), 0);
+
+                if (currentLevel.CanAddObject(temp))
                 {
-                    file = squareFile;
+
+                    file = bouncyPlatformFile;
 
                     currentlyHoldingSprite = new Sprite(file);
                     currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
-                    currentlyHoldingSprite.SetScaleXY(0.05f);
+                    currentlyHoldingSprite.SetScaleXY(0.5f);
                     AddChild(currentlyHoldingSprite);
 
                     return true;
                 }
-                else if (rect.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
+            }
+        }
+
+        if (halfPipeLeft != null)
+        {
+            if (halfPipeLeft.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
+            {
+                HalfPipeLeft temp = new HalfPipeLeft(new Vector2(), settings);
+
+                if (currentLevel.CanAddObject(temp))
                 {
-                    file = rectFile;
+                    file = halfPipeLeftFile;
 
                     currentlyHoldingSprite = new Sprite(file);
                     currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
-                    currentlyHoldingSprite.SetScaleXY(0.02f);
+                    currentlyHoldingSprite.SetScaleXY(0.5f);
                     AddChild(currentlyHoldingSprite);
 
                     return true;
+
+                }
+            }
+        }
+
+        if (halfPipeRight != null)
+        {
+            if (halfPipeRight.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
+            {
+                HalfPipeRight temp = new HalfPipeRight(new Vector2(), settings);
+
+                if (currentLevel.CanAddObject(temp))
+                {
+                    file = halfPipeRightFile;
+
+                    currentlyHoldingSprite = new Sprite(file);
+                    currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
+                    currentlyHoldingSprite.SetScaleXY(0.5f);
+                    AddChild(currentlyHoldingSprite);
+
+                    return true;
+
+                }
+            }
+        }
+
+        if (leafPlatform != null)
+        {
+            if (leafPlatform.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
+            {
+                Leaf temp = new Leaf(new Vector2(), 0);
+
+                if (currentLevel.CanAddObject(temp))
+                {
+                    file = leafPlatformFile;
+
+                    currentlyHoldingSprite = new Sprite(file);
+                    currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
+                    currentlyHoldingSprite.SetScaleXY(0.5f);
+                    AddChild(currentlyHoldingSprite);
+
+                    return true;
+
+                }
+            }
+        }
+
+        if (trunkPlatform != null)
+        {
+            if (trunkPlatform.HitTestPoint(mousePos.x, mousePos.y) && settings.phase == 1)
+            {
+                Log temp = new Log(new Vector2(), 0);
+
+                if (currentLevel.CanAddObject(temp))
+                {
+                    file = trunkPlatformFile;
+
+                    currentlyHoldingSprite = new Sprite(file);
+                    currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
+                    currentlyHoldingSprite.SetScaleXY(0.5f);
+                    AddChild(currentlyHoldingSprite);
+
+                    return true;
+
                 }
             }
         }
@@ -237,7 +325,7 @@ public class MyGame : Game
     }
 
     void PlaceBlock()
-    { 
+    {
         currentlyHoldingSprite.SetXY(Input.mouseX, Input.mouseY);
 
         if (Input.GetMouseButtonDown(0))
@@ -247,83 +335,148 @@ public class MyGame : Game
 
             Level level = levelManager.levels[levelIndex];
 
-            if (fileOfHoldingSprite == squareFile)
+            if (fileOfHoldingSprite == bouncyPlatformFile)
             {
                 bool success = true;
 
-                
-                Box box = new Box(50, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
+
+                Mushroom mushroom = new Mushroom(new Vector2(Input.mouseX, Input.mouseY), 0);
 
                 foreach (GameObject obj in level.objects)
                 {
-                    if (obj.HitTest(box))
+                    if (obj.HitTest(mushroom))
                     {
                         success = false;
-                    }
-                }
-
-
-                foreach(Teleporter obj in level.teleporters)
-                {
-                    if (!success) break;
-
-                    if(obj.Entrance.HitTest(box) || obj.Exit.HitTest(box))
-                    {
-                        success = false;
+                        break;
                     }
                 }
 
                 if (success)
                 {
-                    levelManager.AddObject(box);
+                    levelManager.AddObject(mushroom);
                 }
                 else
                 {
-                    box.LateDestroy();
+                    mushroom.LateDestroy();
                 }
-                
+
+            }
+
+            else if (fileOfHoldingSprite == halfPipeLeftFile)
+            {
+                bool success = true;
+
+
+                HalfPipeLeft halfpipe = new HalfPipeLeft(new Vector2(Input.mouseX, Input.mouseY), settings);
+
+                foreach (GameObject obj in level.objects)
+                {
+                    if (obj.HitTest(halfpipe))
+                    {
+                        success = false;
+                        break;
+                    }
+                }
+
+                if (success)
+                {
+                    levelManager.AddObject(halfpipe);
+                }
+                else
+                {
+                    halfpipe.LateDestroy();
+                }
+
             }
 
 
 
-            else if (fileOfHoldingSprite == rectFile)
+            else if (fileOfHoldingSprite == halfPipeRightFile)
             {
                 bool success = true;
 
-                Box rect = new Box(100, 50, new Vector2(Input.mouseX, Input.mouseY), 1f, 0.8f, 1, true);
+
+                HalfPipeRight halfpipe = new HalfPipeRight(new Vector2(Input.mouseX, Input.mouseY), settings);
 
                 foreach (GameObject obj in level.objects)
                 {
-                    if (obj.HitTest(rect))
+                    if (obj.HitTest(halfpipe))
                     {
                         success = false;
-                    }
-                }
-
-                foreach (Teleporter obj in level.teleporters)
-                {
-                    if (obj.Entrance.HitTest(rect) || obj.Exit.HitTest(rect))
-                    {
-                        success = false;
+                        break;
                     }
                 }
 
                 if (success)
                 {
-                    levelManager.AddObject(rect);
+                    levelManager.AddObject(halfpipe);
                 }
                 else
                 {
-                    rect.LateDestroy();
+                    halfpipe.LateDestroy();
                 }
+
+            }
+
+            else if (fileOfHoldingSprite == leafPlatformFile)
+            {
+                bool success = true;
+
+
+                Leaf leaf = new Leaf(new Vector2(Input.mouseX, Input.mouseY), 0);
+
+                foreach (GameObject obj in level.objects)
+                {
+                    if (obj.HitTest(leaf))
+                    {
+                        success = false;
+                        break;
+                    }
+                }
+
+                if (success)
+                {
+                    levelManager.AddObject(leaf);
+                }
+                else
+                {
+                    leaf.LateDestroy();
+                }
+
+            }
+
+            else if (fileOfHoldingSprite == trunkPlatformFile)
+            {
+                bool success = true;
+
+
+                Log log = new Log(new Vector2(Input.mouseX, Input.mouseY), 0);
+
+                foreach (GameObject obj in level.objects)
+                {
+                    if (obj.HitTest(log))
+                    {
+                        success = false;
+                        break;
+                    }
+                }
+
+                if (success)
+                {
+                    levelManager.AddObject(log);
+                }
+                else
+                {
+                    log.LateDestroy();
+                }
+
             }
 
             holdingBlock = false;
 
             ShowMouse(true);
 
-            RemoveChild(square);
-            RemoveChild(rect);
+            RemoveChild(bouncyPlatform);
 
             DrawPlaceableObjects();
 
@@ -348,19 +501,40 @@ public class MyGame : Game
 
     void DrawPlaceableObjects()
     {
-        square = new Sprite(squareFile);
-        square.collider.isTrigger = true;
-        square.SetOrigin(square.width / 2, square.height / 2);
-        square.SetScaleXY(0.05f, 0.05f);
-        square.SetXY(width / 3, height - 100);
-        AddChild(square);
+        bouncyPlatform = new Sprite(bouncyPlatformFile);
+        bouncyPlatform.collider.isTrigger = true;
+        bouncyPlatform.SetOrigin(bouncyPlatform.width / 2, bouncyPlatform.height / 2);
+        bouncyPlatform.SetScaleXY(0.5f);
+        bouncyPlatform.SetXY(width / 6, height - 100);
+        AddChild(bouncyPlatform);
 
-        rect = new Sprite(rectFile);
-        rect.collider.isTrigger = true;
-        rect.SetOrigin(rect.width / 2, rect.height / 2);
-        rect.SetScaleXY(0.02f, 0.02f);
-        rect.SetXY(width / 3 * 2, height - 100);
-        AddChild(rect);
+        halfPipeLeft = new Sprite(halfPipeLeftFile);
+        halfPipeLeft.collider.isTrigger = true;
+        halfPipeLeft.SetOrigin(halfPipeLeft.width / 2, halfPipeLeft.height / 2);
+        halfPipeLeft.SetScaleXY(0.5f);
+        halfPipeLeft.SetXY(width / 6 * 2, height - 100);
+        AddChild(halfPipeLeft);
+
+        halfPipeRight = new Sprite(halfPipeRightFile);
+        halfPipeRight.collider.isTrigger = true;
+        halfPipeRight.SetOrigin(halfPipeRight.width / 2, halfPipeRight.height / 2);
+        halfPipeRight.SetXY(width / 6 * 3, height - 100);
+        halfPipeRight.SetScaleXY(0.5f);
+        AddChild(halfPipeRight);
+
+        leafPlatform = new Sprite(leafPlatformFile);
+        leafPlatform.collider.isTrigger = true;
+        leafPlatform.SetOrigin(leafPlatform.width / 2, leafPlatform.height / 2);
+        leafPlatform.SetXY(width / 6 * 4, height - 100);
+        leafPlatform.SetScaleXY(0.5f);
+        AddChild(leafPlatform);
+
+        trunkPlatform = new Sprite(trunkPlatformFile);
+        trunkPlatform.collider.isTrigger = true;
+        trunkPlatform.SetOrigin(trunkPlatform.width / 2, trunkPlatform.height / 2);
+        trunkPlatform.SetXY(width / 6 * 5, height - 100);
+        trunkPlatform.SetScaleXY(0.5f);
+        AddChild(trunkPlatform);
     }
 }
 
