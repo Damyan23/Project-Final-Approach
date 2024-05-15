@@ -137,17 +137,17 @@ public class Level
             case LevelObjectType.Exit:
                 return new Exit(param.position, levelManager);
             case LevelObjectType.HalfpipeRight:
-                HalfPipeRight pipeRight = new HalfPipeRight(param.position, settings);
+                HalfPipeRight pipeRight = new HalfPipeRight(param.position, settings, 1);
                 pipeRight.level = index;
                 return pipeRight;
             case LevelObjectType.HalfpipeLeft:
-                HalfPipeRight pipeLeft = new HalfPipeRight(param.position, settings);
+                HalfPipeLeft pipeLeft = new HalfPipeLeft(param.position, settings, 1);
                 pipeLeft.level = index;
                 return pipeLeft;
             case LevelObjectType.Fan:
                 return new Fan(param.position, param.width, param.height, param.density, param.bounciness, param.fanDirection, param.mode);
             case LevelObjectType.Log:
-                Log log = new Log (param.position, param.rotation);
+                Log log = new Log (param.position, param.rotation, 1);
                 log.Level = index;
                 return log;
             case LevelObjectType.LogLeft:
@@ -163,11 +163,11 @@ public class Level
                 logMid.Level = index;
                 return logMid;
             case LevelObjectType.Leaf:
-                Leaf leaf = new Leaf (param.position, param.rotation);
+                Leaf leaf = new Leaf (param.position, param.rotation, 1);
                 leaf.Level = index;
                 return leaf;
             case LevelObjectType.Mushroom:
-                Mushroom mushroom = new Mushroom(param.position, param.rotation);
+                Mushroom mushroom = new Mushroom(param.position, param.rotation, 1);
                 mushroom.Level = index;
                 return mushroom;
             default:

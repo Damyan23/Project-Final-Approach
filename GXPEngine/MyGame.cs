@@ -71,7 +71,7 @@ public class MyGame : Game
 
     HalfPipeLeft pipe;
 
-    LogMid platform;
+    Mushroom platform;
 
     Sound backgroundMusic;
     public MyGame() : base(1280, 720, false, false)
@@ -97,16 +97,6 @@ public class MyGame : Game
         placedObjects = new List<Ball>();
 
         backgroundMusic = new Sound("game music5.mp3", true);
-
-        //pipe = new HalfPipeLeft(new Vector2(width / 2 - 20, height / 2 + 50), settings);
-
-        //Fan fan = new Fan(new Vector2(width / 2, height / 2 + 50), 50, 50, 1, -0.8f, FanDirection.None, 0);
-        //AddChild(fan);
-
-        //fan = new Fan(200, 300, 100, 100, FanDirection.Right, 1000);
-        //platform = new Platform(new Vector2 (200, 300));
-
-        //platform = new HalfPipeLeft(new Vector2(200, 300), 0);
     }
 
 
@@ -123,14 +113,7 @@ public class MyGame : Game
 
             backgroundMusic.Play();
 
-            //this.AddChild(pipe);
-            //pipe.level = 1;
-
-            //this.AddChild(platform);
-            //platform.Level = 1;
-
-            //this.AddChild(fan);
-
+            this.AddChild(platform);
             DrawPlaceableObjects();
 
             settings.stuffDrawn = true;
@@ -320,7 +303,6 @@ public class MyGame : Game
                 }
             }
         }
-
         return false;
     }
 

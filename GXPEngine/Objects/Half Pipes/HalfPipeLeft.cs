@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 using System;
+using System.Collections.Generic;
 
 namespace GXPEngine
 {
@@ -36,7 +37,7 @@ namespace GXPEngine
     //    }
     //}
 
-    public class HalfPipeLeft: Sprite
+    public class HalfPipeLeft: AnimationSprite
     {
         public int level = 1;
         GameSettings settings;
@@ -49,7 +50,10 @@ namespace GXPEngine
         bool canPlaySound;
 
         Sound sound;
-        public HalfPipeLeft (Vector2 position, GameSettings settings) : base ("half pipe left.png")
+
+        public List<Box> boxColliders = new List<Box> ();
+
+        public HalfPipeLeft (Vector2 position, GameSettings settings, int mode) : base ("half pipe left.png", 2, 1)
         {
             //this.scale = 0.5f;
             this.settings = settings;
@@ -57,9 +61,9 @@ namespace GXPEngine
             this.SetXY(position.x, position.y);
             this.SetOrigin (this.width / 2, this.height / 2);
 
-            collider1 = new Box(width / 7, height / 2, new Vector2(position.x - 125, position.y - 50), 1f, -0.8f, 0, true, 0);
-            collider2 = new Box(width / 7, height / 2, new Vector2(position.x - 65, position.y + 40), 1f, -0.8f, 1, true, -45);
-            collider3 = new Box(width / 7, height / 2 + 55, new Vector2(position.x + 70, position.y + 95), 1f, -0.8f, 1, true, 93);
+            collider1 = new Box(width / 7, height / 2, new Vector2(position.x - 125, position.y - 50), mode, -0.8f, 0, true, 0);
+            collider2 = new Box(width / 7, height / 2, new Vector2(position.x - 65, position.y + 40), mode, -0.8f, 1, true, -45);
+            collider3 = new Box(width / 7, height / 2 + 55, new Vector2(position.x + 70, position.y + 95), mode, -0.8f, 1, true, 93);
 
             collider1.level = this.level;
             collider2.level = this.level;
@@ -70,6 +74,7 @@ namespace GXPEngine
 
         void Update ()
         {
+            
             if (!collidersAdded && settings.startGame)
             {
                 game.AddChild(collider1);
@@ -80,7 +85,19 @@ namespace GXPEngine
                 collider1.visible = false;
                 collider2.visible = false;
                 collider3.visible = false;
+
+                this.boxColliders.Add(collider1);
+                this.boxColliders.Add(collider2);
+                this.boxColliders.Add(collider3);
             }
+
+           foreach (Box box in this.boxColliders)
+           {
+                if (box.level != this.level)
+                {
+                    box.level = this.level;
+                }
+           }
 
             Ball player = ((MyGame)game).GetPlayer();
 

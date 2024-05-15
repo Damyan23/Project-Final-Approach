@@ -64,10 +64,20 @@ class World
                 {
                     RigidBody bodyB = bodyList[j];
 
-                    //if (bodyA.Level != bodyB.Level)
-                    //{
-                    //    continue;
-                    //}
+                    if (bodyA.Level != bodyB.Level)
+                    {
+                        continue;
+                    }
+
+                    //Return no collision if at least one of the rigid bodies is in mode 0, or if they are not in the same mode
+                    if (bodyA.mode != 0 && bodyB.mode != 0)
+                    {
+                        if (bodyA.mode != bodyB.mode)
+                        {
+                            continue;
+                        }
+                    }
+
                     //If both objects are static
                     if (bodyA.isStatic && bodyB.isStatic)
                     {
@@ -145,17 +155,6 @@ class World
     {
         normal = new Vector2();
         depth = 0f;
-
-
-        //Return no collision if at least one of the rigid bodies is in mode 0, or if they are not in the same mode
-
-        if (bodyA.mode != 0 && bodyB.mode != 0)
-        {
-            if (bodyA.mode != bodyB.mode)
-            {
-                return false;
-            }
-        }
 
         ShapeType shapeTypeA = bodyA.shapeType;
         ShapeType shapeTypeB = bodyB.shapeType;

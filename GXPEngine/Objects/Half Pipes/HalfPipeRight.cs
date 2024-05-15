@@ -1,4 +1,5 @@
 ﻿using GXPEngine.Core;
+using System.Collections.Generic;
 
 namespace GXPEngine
 {
@@ -34,7 +35,7 @@ namespace GXPEngine
     //    }
     //}
 
-    public class HalfPipeRight : Sprite
+    public class HalfPipeRight : AnimationSprite
     {
         public int level = 1;
         GameSettings settings;
@@ -47,7 +48,9 @@ namespace GXPEngine
         Box collider3;
 
         Sound sound;
-        public HalfPipeRight(Vector2 position, GameSettings settings) : base("half pipe right.png")
+
+        public List<Box> boxColliders = new List<Box>();
+        public HalfPipeRight(Vector2 position, GameSettings settings, int mode) : base("half pipe right.png", 2, 1)
         {
             //this.scale = 0.5f;
             this.settings = settings;
@@ -55,9 +58,9 @@ namespace GXPEngine
             this.SetXY(position.x, position.y);
             this.SetOrigin(this.width / 2, this.height / 2);
 
-            collider1 = new Box(width / 7, height / 2, new Vector2(position.x + 125, position.y - 50), 1f, -0.8f, 0, true, 0);
-            collider2 = new Box(width / 7, height / 2, new Vector2(position.x + 65, position.y + 40), 1f, -0.8f, 1, true, 45);
-            collider3 = new Box(width / 7, height / 2 + 55, new Vector2(position.x - 70, position.y + 95), 1f, -0.8f, 1, true, 87);
+            collider1 = new Box(width / 7, height / 2, new Vector2(position.x + 125, position.y - 50), mode, -0.8f, 0, true, 0);
+            collider2 = new Box(width / 7, height / 2, new Vector2(position.x + 65, position.y + 40), mode, -0.8f, 1, true, 45);
+            collider3 = new Box(width / 7, height / 2 + 55, new Vector2(position.x - 70, position.y + 95), mode, -0.8f, 1, true, 87);
 
             collider1.level = this.level;
             collider2.level = this.level;
@@ -78,6 +81,10 @@ namespace GXPEngine
                 collider1.visible = false;
                 collider2.visible = false;
                 collider3.visible = false;
+
+                this.boxColliders.Add(collider1);
+                this.boxColliders.Add(collider2);
+                this.boxColliders.Add(collider3);
             }
 
             Ball player = ((MyGame)game).GetPlayer();

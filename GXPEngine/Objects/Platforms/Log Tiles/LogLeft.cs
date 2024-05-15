@@ -8,17 +8,17 @@ public class LogLeft : Sprite
 
     bool canPlaySound = true;
 
-    Box collider;
+    Box boxCollider;
 
     Sound sound;
     public LogLeft(Vector2 position, float rotation) : base("1st tile.png")
     {
         this.rotation = rotation;
         this.position = position;
-        collider = new Box(this.width - 90, this.height / 2 - 20, new Vector2(0, 0), 1f, 0.8f, 1, true, rotation);
-        this.AddChild(collider);
-        collider.visible = true;
-        collider.level = Level;
+        boxCollider = new Box(this.width - 115, this.height / 2 - 20, new Vector2(0, 0), 1f, 0.8f, 1, true, rotation);
+        this.AddChild(boxCollider);
+        boxCollider.visible = false;
+        boxCollider.level = Level;
 
         sound = new Sound("normal platform.wav");
 
@@ -33,7 +33,7 @@ public class LogLeft : Sprite
 
         if (player == null) return;
 
-        if (collider.HitTest(player))
+        if (boxCollider.HitTest(player))
         {
             if (canPlaySound)
             {
