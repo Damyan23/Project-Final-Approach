@@ -77,14 +77,14 @@ public class MyGame : Game
 
     public void SetUp()
     {
+        settings = new GameSettings();
+
         levelManager = new LevelManager(settings);
         this.AddChild(levelManager);
 
-        settings = new GameSettings();
         menuManager = new MenuManager(settings, levelManager);
         menuManager.SetMainMenu();
         //menuManager.SetGameOverMenu();
-
 
         world = new World(this);
         rand = new Random();

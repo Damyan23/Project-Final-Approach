@@ -36,12 +36,12 @@ public class Exit : AnimationSprite
                     levelManger.SwitchToNextLevel();
                     ball.LateDestroy();
                 }
-                else if (levelManger.currentLevelIndex == 2) 
+                else if (levelManger.currentLevelIndex == 2)
                 {
                     ball.LateDestroy();
                     settings.isGameOver = true;
                 }
-             }
+            }
         }
     }
 }

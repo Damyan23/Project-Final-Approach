@@ -54,7 +54,7 @@ public class GameOverMenu : GameObject
 
     void Update ()
     {
-        if (restartButton.hasBeenPressed)
+        if (restartButton.hasBeenPressed && settings.isGameOver)
         {
             levelManager.currentLevelIndex = 0;
             levelManager.LoadLevel(levelManager.currentLevelIndex);
