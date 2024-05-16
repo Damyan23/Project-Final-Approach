@@ -15,11 +15,14 @@ namespace GXPEngine
 
         bool AnimationTriggered;
 
+        int mode;
+
         public Explosive(Vector2 position, int mode) : base ("bomb_sprite sheet.png", 4, 2)
         {
             SetXY(position.x, position.y);
 
             this.position = position;
+            this.mode = mode;
 
             sound = new Sound("explosion.wav");
 
@@ -39,6 +42,8 @@ namespace GXPEngine
             Ball player = ((MyGame)game).GetPlayer();
 
             if (player == null) return;
+            
+            RigidBody rb = player.GetRigidBody();
 
             if (box.HitTest(player))
             {
@@ -46,7 +51,6 @@ namespace GXPEngine
 
                 Vector2 direction = (new Vector2(player.x, player.y) - position).Normalized();
 
-                RigidBody rb = player.GetRigidBody();
                 rb.ApplyForce(direction * explosionForce);
 
                 AnimationTriggered = true;
@@ -57,6 +61,31 @@ namespace GXPEngine
                 if (this.currentFrame == 6)
                 {
                     this.Destroy();
+                }
+            }
+
+            if (mode == 1)
+            {
+                if (rb.mode == 1)
+                {
+                    alpha = 1;
+
+                }
+                else if (rb.mode == 2)
+                {
+                    alpha = 0.2f;
+                }
+            }
+            else if (mode == 2)
+            {
+                if (rb.mode == 2)
+                {
+                    alpha = 1;
+
+                }
+                else if (rb.mode == 1)
+                {
+                    alpha = 0.2f;
                 }
             }
 

@@ -61,6 +61,7 @@ public class LevelManager : GameObject
         new LevelObjectParams (LevelObjectType.LogLeft, new Vector2 (489, 200),"",new Vector2(),0,0,90),
         new LevelObjectParams (LevelObjectType.Log, new Vector2 (60, 500),"",new Vector2(),0,0,45),
         new LevelObjectParams (LevelObjectType.Spawnpoint, new Vector2(100, 100)),
+        new LevelObjectParams(LevelObjectType.Mushroom, new Vector2 (800, 500), mode: 1)
     });
 
         //Set object limits for level 1
