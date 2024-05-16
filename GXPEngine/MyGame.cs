@@ -168,6 +168,11 @@ public class MyGame : Game
 
         }
 
+        if (settings.isGameOver == true)
+        {
+            menuManager.SetGameOverMenu();
+        }
+
         if (!playButtonAdded && settings.phase == 1 && settings.stuffDrawn)
         {
             hud.AddChild(playButton);
