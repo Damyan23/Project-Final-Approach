@@ -140,8 +140,8 @@ public class LevelManager : GameObject
                 case Mushroom mushroom:
                     mushroom.Level = this.currentLevelIndex + 1;
                     break;
-                case Thorns tohrns:
-                    tohrns.Level = this.currentLevelIndex + 1;
+                case Thorns thorns:
+                    thorns.Level = this.currentLevelIndex + 1;
                     break;
             }
         }

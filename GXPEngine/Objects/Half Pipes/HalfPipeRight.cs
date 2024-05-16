@@ -58,9 +58,9 @@ namespace GXPEngine
             this.SetXY(position.x, position.y);
             this.SetOrigin(this.width / 2, this.height / 2);
 
-            collider1 = new Box(width / 7, height / 2, new Vector2(position.x + 125, position.y - 50), mode, -0.8f, 0, true, 0);
-            collider2 = new Box(width / 7, height / 2, new Vector2(position.x + 65, position.y + 40), mode, -0.8f, 1, true, 45);
-            collider3 = new Box(width / 7, height / 2 + 55, new Vector2(position.x - 70, position.y + 95), mode, -0.8f, 1, true, 87);
+            collider1 = new Box(width / 7, height / 2, new Vector2(position.x + 125, position.y - 50), 1, -0.8f, mode, true, 0);
+            collider2 = new Box(width / 7, height / 2, new Vector2(position.x + 65, position.y + 40), 1, -0.8f, mode, true, 45);
+            collider3 = new Box(width / 7, height / 2 + 55, new Vector2(position.x - 70, position.y + 95), 1, -0.8f, mode, true, 87);
 
             collider1.level = this.level;
             collider2.level = this.level;

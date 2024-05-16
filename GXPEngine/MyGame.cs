@@ -2,6 +2,7 @@ using GXPEngine;
 using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 
 public class MyGame : Game
 {
@@ -481,7 +482,15 @@ public class MyGame : Game
             {
                 if (obj.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
                 {
+                    RemoveChild(bouncyPlatform);
+                    RemoveChild(halfPipeLeft);
+                    RemoveChild(halfPipeRight);
+                    RemoveChild(trunkPlatform);
+                    RemoveChild(leafPlatform);
+
                     levelManager.RemoveObject(obj);
+
+                    DrawPlaceableObjects();
                     break;
                 }
             }
@@ -490,40 +499,64 @@ public class MyGame : Game
 
     void DrawPlaceableObjects()
     {
-        bouncyPlatform = new Sprite(bouncyPlatformFile);
-        bouncyPlatform.collider.isTrigger = true;
-        bouncyPlatform.SetOrigin(bouncyPlatform.width / 2, bouncyPlatform.height / 2);
-        bouncyPlatform.SetScaleXY(0.6f);
-        bouncyPlatform.SetXY(width / 6, height - 100);
-        AddChild(bouncyPlatform);
+        Level level = levelManager.levels[levelManager.currentLevelIndex];
 
-        halfPipeLeft = new Sprite(halfPipeLeftFile);
-        halfPipeLeft.collider.isTrigger = true;
-        halfPipeLeft.SetOrigin(halfPipeLeft.width / 2, halfPipeLeft.height / 2);
-        halfPipeLeft.SetScaleXY(0.5f);
-        halfPipeLeft.SetXY(width / 6 * 2, height - 100);
-        AddChild(halfPipeLeft);
+        int placeableObjects = 0;
 
-        halfPipeRight = new Sprite(halfPipeRightFile);
-        halfPipeRight.collider.isTrigger = true;
-        halfPipeRight.SetOrigin(halfPipeRight.width / 2, halfPipeRight.height / 2);
-        halfPipeRight.SetXY(width / 6 * 3, height - 100);
-        halfPipeRight.SetScaleXY(0.5f);
-        AddChild(halfPipeRight);
+        if (level.CanAddObject(new Mushroom(new Vector2(), 0, 0)))
+        {
+            placeableObjects++;
+            bouncyPlatform = new Sprite(bouncyPlatformFile);
+            bouncyPlatform.collider.isTrigger = true;
+            bouncyPlatform.SetOrigin(bouncyPlatform.width / 2, bouncyPlatform.height / 2);
+            bouncyPlatform.SetScaleXY(0.6f);
+            bouncyPlatform.SetXY(width / 6 * placeableObjects, height - 100);
+            AddChild(bouncyPlatform);
+        }
 
-        leafPlatform = new Sprite(leafPlatformFile);
-        leafPlatform.collider.isTrigger = true;
-        leafPlatform.SetOrigin(leafPlatform.width / 2, leafPlatform.height / 2);
-        leafPlatform.SetXY(width / 6 * 4, height - 100);
-        leafPlatform.SetScaleXY(0.5f);
-        AddChild(leafPlatform);
+        if (level.CanAddObject(new HalfPipeLeft(new Vector2(), settings, 0)))
+        {
+            placeableObjects++;
+            halfPipeLeft = new Sprite(halfPipeLeftFile);
+            halfPipeLeft.collider.isTrigger = true;
+            halfPipeLeft.SetOrigin(halfPipeLeft.width / 2, halfPipeLeft.height / 2);
+            halfPipeLeft.SetScaleXY(0.5f);
+            halfPipeLeft.SetXY(width / 6 * placeableObjects, height - 100);
+            AddChild(halfPipeLeft);
+        }
 
-        trunkPlatform = new Sprite(trunkPlatformFile);
-        trunkPlatform.collider.isTrigger = true;
-        trunkPlatform.SetOrigin(trunkPlatform.width / 2, trunkPlatform.height / 2);
-        trunkPlatform.SetXY(width / 6 * 5, height - 100);
-        trunkPlatform.SetScaleXY(0.8f);
-        AddChild(trunkPlatform);
+        if (level.CanAddObject(new HalfPipeRight(new Vector2(), settings, 0)))
+        {
+            placeableObjects++;
+            halfPipeRight = new Sprite(halfPipeRightFile);
+            halfPipeRight.collider.isTrigger = true;
+            halfPipeRight.SetOrigin(halfPipeRight.width / 2, halfPipeRight.height / 2);
+            halfPipeRight.SetXY(width / 6 * placeableObjects, height - 100);
+            halfPipeRight.SetScaleXY(0.5f);
+            AddChild(halfPipeRight);
+        }
+
+        if (level.CanAddObject(new Leaf(new Vector2(), 0, 0)))
+        {
+            placeableObjects++;
+            leafPlatform = new Sprite(leafPlatformFile);
+            leafPlatform.collider.isTrigger = true;
+            leafPlatform.SetOrigin(leafPlatform.width / 2, leafPlatform.height / 2);
+            leafPlatform.SetXY(width / 6 * placeableObjects, height - 100);
+            leafPlatform.SetScaleXY(0.5f);
+            AddChild(leafPlatform);
+        }
+
+        if (level.CanAddObject(new Log(new Vector2(), 0, 0)))
+        {
+            placeableObjects++;
+            trunkPlatform = new Sprite(trunkPlatformFile);
+            trunkPlatform.collider.isTrigger = true;
+            trunkPlatform.SetOrigin(trunkPlatform.width / 2, trunkPlatform.height / 2);
+            trunkPlatform.SetXY(width / 6 * placeableObjects, height - 100);
+            trunkPlatform.SetScaleXY(0.8f);
+            AddChild(trunkPlatform);
+        }
     }
 }
 

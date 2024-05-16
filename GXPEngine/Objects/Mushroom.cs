@@ -15,7 +15,7 @@ public class Mushroom : AnimationSprite
     {
         this.rotation = rotation;
         this.position = position;
-        boxCollider = new Box(this.width - 20, this.height - 20, new Vector2(0, 0), mode, 3f, 1, true, rotation);
+        boxCollider = new Box(this.width - 20, this.height - 20, new Vector2(0, 0), 1f, 3f, mode, true, rotation);
         this.AddChild(boxCollider);
         boxCollider.visible = false;
         boxCollider.level = Level;

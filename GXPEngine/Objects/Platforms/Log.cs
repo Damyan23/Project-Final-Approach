@@ -10,7 +10,7 @@ public class Log : Sprite
     {
         this.rotation = rotation;
         this.position = position;
-        Box collider = new Box(this.width - 90, this.height /2 - 20, new Vector2 (0, 0), mode, 0.8f, 1, true, rotation);
+        Box collider = new Box(this.width - 90, this.height /2 - 20, new Vector2 (0, 0), 1, 0.8f, mode, true, rotation);
         this.AddChild (collider);
         collider.visible = false;
         collider.level = Level;
