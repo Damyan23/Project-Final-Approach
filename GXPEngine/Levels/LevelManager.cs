@@ -203,11 +203,21 @@ public class LevelManager : GameObject
             
             foreach (GameObject obj2 in obj.GetChildren())
             {
-                if (obj2 is RigidBody)
+                if(obj2 is RigidBody rb)
                 {
-                    World.RemoveBody((RigidBody)obj2);
+                    World.RemoveBody(rb);
+                }
+
+                foreach (GameObject obj3 in obj2.GetChildren())
+                {
+                    if (obj3 is RigidBody rb2)
+                    {
+                        World.RemoveBody(rb2);
+                    }
                 }
             }
+
+            obj.Destroy();
         }
     }
 

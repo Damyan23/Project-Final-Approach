@@ -471,6 +471,12 @@ public class MyGame : Game
                 {
                     levelManager.RemoveObject(obj);
 
+                    RemoveChild(bouncyPlatform);
+                    RemoveChild(halfPipeLeft);
+                    RemoveChild(halfPipeRight);
+                    RemoveChild(leafPlatform);
+                    RemoveChild(trunkPlatform);
+
                     DrawPlaceableObjects();
                     break;
                 }
