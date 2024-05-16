@@ -56,7 +56,7 @@ public class LevelManager : GameObject
 
         // Initialize objects for level 1
         level1.InitializeObjects(new LevelObjectParams[] {
-            new LevelObjectParams (LevelObjectType.HalfpipeRight, new Vector2(200, 300)),
+            //new LevelObjectParams (LevelObjectType.HalfpipeRight, new Vector2(200, 300)),
             new LevelObjectParams (LevelObjectType.Exit, new Vector2(500, 500)),
         });
 

@@ -47,10 +47,10 @@ public class MyGame : Game
     string bouncyPlatformFile = "spirit bouncy platform.png";
 
     Sprite halfPipeLeft;
-    string halfPipeLeftFile = "spirit half pipe.png";
+    string halfPipeLeftFile = "spirit half pipe left.png";
 
     Sprite halfPipeRight;
-    string halfPipeRightFile = "spirit half pipe.png";
+    string halfPipeRightFile = "spirit half pipe right.png";
 
     Sprite leafPlatform;
     string leafPlatformFile = "spirit leaf platform.png";
@@ -97,6 +97,8 @@ public class MyGame : Game
         placedObjects = new List<Ball>();
 
         backgroundMusic = new Sound("game music5.mp3", true);
+
+
     }
 
 
@@ -114,6 +116,8 @@ public class MyGame : Game
             backgroundMusic.Play();
 
             DrawPlaceableObjects();
+
+
 
             settings.stuffDrawn = true;
         }
@@ -211,7 +215,7 @@ public class MyGame : Game
 
                     currentlyHoldingSprite = new Sprite(file);
                     currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
-                    currentlyHoldingSprite.SetScaleXY(0.5f);
+                    currentlyHoldingSprite.SetScaleXY(0.6f);
                     AddChild(currentlyHoldingSprite);
 
                     return true;
@@ -294,7 +298,7 @@ public class MyGame : Game
 
                     currentlyHoldingSprite = new Sprite(file);
                     currentlyHoldingSprite.SetOrigin(currentlyHoldingSprite.width / 2, currentlyHoldingSprite.height / 2);
-                    currentlyHoldingSprite.SetScaleXY(0.5f);
+                    currentlyHoldingSprite.SetScaleXY(0.8f);
                     AddChild(currentlyHoldingSprite);
 
                     return true;
@@ -458,6 +462,10 @@ public class MyGame : Game
             ShowMouse(true);
 
             RemoveChild(bouncyPlatform);
+            RemoveChild(halfPipeLeft);
+            RemoveChild(halfPipeRight);
+            RemoveChild(trunkPlatform);
+            RemoveChild(leafPlatform);
 
             DrawPlaceableObjects();
 
@@ -485,7 +493,7 @@ public class MyGame : Game
         bouncyPlatform = new Sprite(bouncyPlatformFile);
         bouncyPlatform.collider.isTrigger = true;
         bouncyPlatform.SetOrigin(bouncyPlatform.width / 2, bouncyPlatform.height / 2);
-        bouncyPlatform.SetScaleXY(0.5f);
+        bouncyPlatform.SetScaleXY(0.6f);
         bouncyPlatform.SetXY(width / 6, height - 100);
         AddChild(bouncyPlatform);
 
@@ -514,7 +522,7 @@ public class MyGame : Game
         trunkPlatform.collider.isTrigger = true;
         trunkPlatform.SetOrigin(trunkPlatform.width / 2, trunkPlatform.height / 2);
         trunkPlatform.SetXY(width / 6 * 5, height - 100);
-        trunkPlatform.SetScaleXY(0.5f);
+        trunkPlatform.SetScaleXY(0.8f);
         AddChild(trunkPlatform);
     }
 }
