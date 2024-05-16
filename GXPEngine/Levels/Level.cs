@@ -135,7 +135,7 @@ public class Level
                 thorns.Level = index;
                 return thorns;
             case LevelObjectType.Exit:
-                return new Exit(param.position, levelManager);
+                return new Exit(param.position, levelManager, settings);
             case LevelObjectType.HalfpipeRight:
                 HalfPipeRight pipeRight = new HalfPipeRight(param.position, settings, 1);
                 pipeRight.level = index;

@@ -82,8 +82,8 @@ public class MyGame : Game
 
         settings = new GameSettings();
         menuManager = new MenuManager(settings, levelManager);
-        //menuManager.SetMainMenu();
-        menuManager.SetGameOverMenu();
+        menuManager.SetMainMenu();
+        //menuManager.SetGameOverMenu();
 
 
         world = new World(this);
