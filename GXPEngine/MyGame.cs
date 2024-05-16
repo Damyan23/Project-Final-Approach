@@ -128,7 +128,7 @@ public class MyGame : Game
         playButton = new StartButton(settings);
         playButton.alpha = 0f;
         playButton.SetOrigin(playButton.width/2, playButton.height/2);
-        playButton.SetXY(game.width / 2 + 25, game.height - 130);
+        playButton.SetXY(game.width / 2 + 10, game.height - 150);
         playButton.SetScaleXY(0.8f);
     }
 
@@ -170,6 +170,7 @@ public class MyGame : Game
 
             hud.SetXY(0, 90);
             hudUp = false;
+            movingHud = false;
             RemoveHudObjects();
             hudArrow.Mirror(false, true);
 
