@@ -2,7 +2,7 @@
 public class StartButton : Button
 {
     GameSettings settings;
-    public StartButton(GameSettings settings) : base("play button.png", 1, 1)
+    public StartButton(GameSettings settings) : base("NEW GAME.png", 1, 1)
     {
         this.settings = settings;
         this.scale = 0.6f;
@@ -65,5 +65,13 @@ public class CreditsButton : Button
     public CreditsButton () : base ("CREDITS.png", 1, 2)
     {
         this.scale = 0.6f;
+    }
+}
+
+public class PlayButton : Button
+{ 
+    PlayButton () : base ("play button.png", 1, 1)
+    {
+
     }
 }
