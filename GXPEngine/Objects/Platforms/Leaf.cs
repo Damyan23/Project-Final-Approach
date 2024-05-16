@@ -4,7 +4,7 @@ using GXPEngine.Core;
 public class Leaf : AnimationSprite
 {
     Vector2 position;
-    public int Level = 1;
+    public int Level;
 
     Box boxCollider;
 
@@ -15,7 +15,7 @@ public class Leaf : AnimationSprite
     {
         this.rotation = rotation;
         this.position = position;
-        boxCollider = new Box(this.width - 20, this.height / 2, new Vector2(0, 0), 1, 0.8f, mode, true, rotation + 10);
+        boxCollider = new Box(this.width - 20, this.height / 2, new Vector2(0, 0), 2f, 0.8f, mode, true, rotation + 10);
         this.AddChild(boxCollider);
         boxCollider.visible = false;
         boxCollider.level = Level;

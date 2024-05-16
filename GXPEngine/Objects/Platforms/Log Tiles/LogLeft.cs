@@ -4,7 +4,7 @@ using GXPEngine.Core;
 public class LogLeft : Sprite
 {
     Vector2 position;
-    public int Level = 1;
+    public int Level;
 
     bool canPlaySound = true;
 
@@ -15,7 +15,7 @@ public class LogLeft : Sprite
     {
         this.rotation = rotation;
         this.position = position;
-        boxCollider = new Box(this.width - 115, this.height / 2 - 20, new Vector2(0, 0), 1f, 0.8f, 1, true, rotation);
+        boxCollider = new Box(this.width - 115, this.height / 2 - 20, new Vector2(0, 0), 2f, 0.8f, 1, true, rotation);
         this.AddChild(boxCollider);
         boxCollider.visible = false;
         boxCollider.level = Level;

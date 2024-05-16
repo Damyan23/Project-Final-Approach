@@ -154,7 +154,6 @@ public class LevelManager : GameObject
         {
             playerAddedObjects.Remove (obj);
             currentLevel.objects.Remove(obj);
-            game.RemoveChild(obj);
             
             foreach (GameObject obj2 in obj.GetChildren())
             {

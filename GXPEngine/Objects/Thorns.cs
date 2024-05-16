@@ -33,6 +33,11 @@ public class Thorns : Sprite
 
     void Update()
     {
+        if (boxCollider.level != Level) 
+        {
+            boxCollider.level = Level;
+        }
+
         CheckPlayerCollision();
 
         if (boxCollider.level != this.Level)

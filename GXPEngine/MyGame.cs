@@ -374,13 +374,9 @@ public class MyGame : Game
                 }
 
             }
-
-
-
             else if (fileOfHoldingSprite == halfPipeRightFile)
             {
                 bool success = true;
-
 
                 HalfPipeRight halfpipe = new HalfPipeRight(new Vector2(Input.mouseX, Input.mouseY), settings, 2);
 
