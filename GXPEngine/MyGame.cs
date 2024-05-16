@@ -74,6 +74,15 @@ public class MyGame : Game
     Mushroom platform;
 
     Sound backgroundMusic;
+
+    AnimationSprite backgroundImage;
+    Sprite hud;
+
+    Sprite hudArrow;
+
+    bool hudUp = true;
+    bool movingHud = false;
+
     public MyGame() : base(1280, 720, false, false)
     {
         SetUp();
@@ -91,14 +100,36 @@ public class MyGame : Game
         world = new World(this);
         rand = new Random();
 
-        playButton = new StartButton(settings);
-        playButton.SetXY(width / 2, height / 2 - 250);
 
         placedObjects = new List<Ball>();
 
         backgroundMusic = new Sound("game music5.mp3", true);
 
 
+        backgroundImage = new AnimationSprite("game-background.png", 2, 1, addCollider: false);
+        backgroundImage.alpha = 0f;
+        AddChild(backgroundImage);
+        SetChildIndex(backgroundImage, 1);
+
+        hud = new Sprite("hud new.png", false, false);
+        hud.alpha = 0f;
+        hud.width = game.width;
+        hud.height = game.height;
+        hud.SetXY(0, height-hud.height);
+        AddChild(hud);
+
+        hudArrow = new Sprite("arrow.png");
+        hudArrow.collider.isTrigger = true;
+        hudArrow.SetOrigin(hudArrow.width/2, hudArrow.height/2);    
+        hudArrow.alpha = 0f;
+        hud.AddChild(hudArrow);
+        hudArrow.SetXY(width - 73, height - 115);
+
+        playButton = new StartButton(settings);
+        playButton.alpha = 0f;
+        playButton.SetOrigin(playButton.width/2, playButton.height/2);
+        playButton.SetXY(game.width / 2 + 25, game.height - 130);
+        playButton.SetScaleXY(0.8f);
     }
 
 
@@ -117,6 +148,13 @@ public class MyGame : Game
 
             DrawPlaceableObjects();
 
+            backgroundImage.alpha = 1f;
+            backgroundImage.SetFrame(0);
+
+            hud.alpha = 1f;
+            hudArrow.alpha = 1f;
+            playButton.alpha = 1f;
+
 
 
             settings.stuffDrawn = true;
@@ -130,13 +168,20 @@ public class MyGame : Game
             placedObjects.Add(ball);
             this.RemoveChild(playButton);
 
+            hud.SetXY(0, 90);
+            hudUp = false;
+            RemoveHudObjects();
+            hudArrow.Mirror(false, true);
+
             playButtonAdded = false;
             settings.ghostSpawned = true;
+
+
         }
 
         if (!playButtonAdded && settings.phase == 1 && settings.stuffDrawn)
         {
-            this.AddChild(playButton);
+            hud.AddChild(playButton);
             playButtonAdded = true;
         }
 
@@ -147,12 +192,20 @@ public class MyGame : Game
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
+                hudUp = true;
+                hud.SetXY(0, 0);
+                DrawPlaceableObjects();
+                hudArrow.Mirror(false, false);
             }
             else if (ball.y < ball.height / 2)
             {
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
+                hudUp = true;
+                hud.SetXY(0, 0);
+                DrawPlaceableObjects();
+                hudArrow.Mirror(false, false);
             }
 
             if (ball.x > this.width - ball.width / 2)
@@ -160,12 +213,20 @@ public class MyGame : Game
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
+                hudUp = true;
+                hud.SetXY(0, 0);
+                DrawPlaceableObjects();
+                hudArrow.Mirror(false, false);
             }
             else if (ball.x < ball.width / 2)
             {
                 ball.LateDestroy();
                 settings.phase = 1;
                 settings.ghostSpawned = false;
+                hudUp = true;
+                hud.SetXY(0, 0);
+                DrawPlaceableObjects();
+                hudArrow.Mirror(false, false);
             }
         }
 
@@ -190,6 +251,34 @@ public class MyGame : Game
             {
                 ShowMouse(false);
                 holdingBlock = true;
+            }
+        }
+
+        if(ball != null)
+        {
+            backgroundImage.SetFrame(ball.GetRigidBody().mode - 1);
+        }
+
+        if(hud != null)
+        {
+            SetChildIndex(hud, 1000);
+
+            if (Input.GetMouseButtonDown(0) && !movingHud)
+            {
+                if(hudArrow.HitTestPoint(Input.mouseX, Input.mouseY))
+                {
+                    movingHud = true;
+                }
+            }
+
+            if(movingHud && hudUp)
+            {
+                MoveHudDown();
+            }
+
+            if(movingHud && !hudUp)
+            {
+                MoveHudUp();
             }
         }
     }
@@ -471,11 +560,7 @@ public class MyGame : Game
                 {
                     levelManager.RemoveObject(obj);
 
-                    RemoveChild(bouncyPlatform);
-                    RemoveChild(halfPipeLeft);
-                    RemoveChild(halfPipeRight);
-                    RemoveChild(leafPlatform);
-                    RemoveChild(trunkPlatform);
+                    RemoveHudObjects();
 
                     DrawPlaceableObjects();
                     break;
@@ -484,42 +569,87 @@ public class MyGame : Game
         }
     }
 
+    void RemoveHudObjects()
+    {
+        bouncyPlatform.Destroy();
+        halfPipeLeft.Destroy();
+        halfPipeRight.Destroy();
+        leafPlatform.Destroy();
+        trunkPlatform.Destroy();
+    }
+
     void DrawPlaceableObjects()
     {
+        if (!hudUp)
+        {
+            RemoveHudObjects();
+            return;
+        }
+
         bouncyPlatform = new Sprite(bouncyPlatformFile);
         bouncyPlatform.collider.isTrigger = true;
         bouncyPlatform.SetOrigin(bouncyPlatform.width / 2, bouncyPlatform.height / 2);
-        bouncyPlatform.SetScaleXY(0.6f);
-        bouncyPlatform.SetXY(width / 6, height - 100);
-        AddChild(bouncyPlatform);
+        bouncyPlatform.SetScaleXY(0.5f);
+        bouncyPlatform.SetXY(width / 6, height - 75);
+        hud.AddChild(bouncyPlatform);
 
         halfPipeLeft = new Sprite(halfPipeLeftFile);
         halfPipeLeft.collider.isTrigger = true;
         halfPipeLeft.SetOrigin(halfPipeLeft.width / 2, halfPipeLeft.height / 2);
-        halfPipeLeft.SetScaleXY(0.5f);
-        halfPipeLeft.SetXY(width / 6 * 2, height - 100);
-        AddChild(halfPipeLeft);
+        halfPipeLeft.SetScaleXY(0.35f);
+        halfPipeLeft.SetXY(width / 6 * 2, height - 70);
+        hud.AddChild(halfPipeLeft);
 
         halfPipeRight = new Sprite(halfPipeRightFile);
         halfPipeRight.collider.isTrigger = true;
         halfPipeRight.SetOrigin(halfPipeRight.width / 2, halfPipeRight.height / 2);
-        halfPipeRight.SetXY(width / 6 * 3, height - 100);
-        halfPipeRight.SetScaleXY(0.5f);
-        AddChild(halfPipeRight);
+        halfPipeRight.SetXY(width / 6 * 3, height - 70);
+        halfPipeRight.SetScaleXY(0.35f);
+        hud.AddChild(halfPipeRight);
 
         leafPlatform = new Sprite(leafPlatformFile);
         leafPlatform.collider.isTrigger = true;
         leafPlatform.SetOrigin(leafPlatform.width / 2, leafPlatform.height / 2);
-        leafPlatform.SetXY(width / 6 * 4, height - 100);
-        leafPlatform.SetScaleXY(0.5f);
-        AddChild(leafPlatform);
+        leafPlatform.SetXY(width / 6 * 4, height - 50);
+        leafPlatform.SetScaleXY(0.4f);
+        hud.AddChild(leafPlatform);
 
         trunkPlatform = new Sprite(trunkPlatformFile);
         trunkPlatform.collider.isTrigger = true;
         trunkPlatform.SetOrigin(trunkPlatform.width / 2, trunkPlatform.height / 2);
-        trunkPlatform.SetXY(width / 6 * 5, height - 100);
-        trunkPlatform.SetScaleXY(0.8f);
-        AddChild(trunkPlatform);
+        trunkPlatform.SetXY(width / 6 * 5, height - 50);
+        trunkPlatform.SetScaleXY(0.6f);
+        hud.AddChild(trunkPlatform);
+    }
+
+    void MoveHudDown()
+    {
+        if (hud.y < 90)
+        {
+            hud.y++;
+        }
+        else
+        {
+            movingHud = false;
+            hudUp = false;
+            RemoveHudObjects();
+            hudArrow.Mirror(false, true);
+        }
+    }
+
+    void MoveHudUp()
+    {
+        if (hud.y > 0)
+        {
+            hud.y--;
+        }
+        else
+        {
+            movingHud = false;
+            hudUp = true;
+            DrawPlaceableObjects();
+            hudArrow.Mirror(false, false);
+        }
     }
 }
 

@@ -121,8 +121,6 @@ public class LevelManager : GameObject
              new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1270, 600),"",new Vector2(),0,0,-90),
          });
 
-        //Set object limits for level 1
-
         level3.SetObjectLimits(new Dictionary<LevelObjectType, int> {
      {LevelObjectType.Mushroom, 2},
      {LevelObjectType.HalfpipeLeft, 0},
