@@ -6,6 +6,8 @@ public class Leaf : AnimationSprite
     Vector2 position;
     public int Level;
 
+    int mode;
+
     Box boxCollider;
 
     bool canPlaySound = true;
@@ -15,6 +17,7 @@ public class Leaf : AnimationSprite
     {
         this.rotation = rotation;
         this.position = position;
+        this.mode = mode;
         boxCollider = new Box(this.width - 20, this.height / 2, new Vector2(0, 0),1,  0.8f, mode, true, rotation + 10);
         this.AddChild(boxCollider);
         boxCollider.visible = false;
@@ -32,6 +35,7 @@ public class Leaf : AnimationSprite
         Ball player = ((MyGame)game).GetPlayer();
         
         if (player == null) return;
+        RigidBody rb = player.GetRigidBody();
 
         if (boxCollider.HitTest(player))
         {
@@ -44,6 +48,31 @@ public class Leaf : AnimationSprite
         else
         {
             canPlaySound = true;
+        }
+
+        if (mode == 1)
+        {
+            if (rb.mode == 1)
+            {
+                alpha = 1;
+
+            }
+            else if (rb.mode == 2)
+            {
+                alpha = 0.2f;
+            }
+        }
+        else if (mode == 2)
+        {
+            if (rb.mode == 2)
+            {
+                alpha = 1;
+
+            }
+            else if (rb.mode == 1)
+            {
+                alpha = 0.2f;
+            }
         }
     }
 }

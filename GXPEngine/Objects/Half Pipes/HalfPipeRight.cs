@@ -41,6 +41,8 @@ namespace GXPEngine
         GameSettings settings;
         bool collidersAdded;
 
+        int mode;
+
         bool canPlaySound = true;
 
         Box collider1;
@@ -54,6 +56,7 @@ namespace GXPEngine
         {
             //this.scale = 0.5f;
             this.settings = settings;
+            this.mode = mode;
 
             this.SetXY(position.x, position.y);
             this.SetOrigin(this.width / 2, this.height / 2);
@@ -90,6 +93,7 @@ namespace GXPEngine
             Ball player = ((MyGame)game).GetPlayer();
 
             if (player == null) return;
+            RigidBody rb = player.GetRigidBody();
 
             if (collider1.HitTest(player) || collider2.HitTest(player) || collider3.HitTest(player))
             {
@@ -102,6 +106,32 @@ namespace GXPEngine
             else
             {
                 canPlaySound = true;
+            }
+
+
+            if (mode == 1)
+            {
+                if (rb.mode == 1)
+                {
+                    alpha = 1;
+
+                }
+                else if (rb.mode == 2)
+                {
+                    alpha = 0.2f;
+                }
+            }
+            else if (mode == 2)
+            {
+                if (rb.mode == 2)
+                {
+                    alpha = 1;
+
+                }
+                else if (rb.mode == 1)
+                {
+                    alpha = 0.2f;
+                }
             }
         }
     }

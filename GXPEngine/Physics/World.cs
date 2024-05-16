@@ -2,8 +2,6 @@
 using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 
 class World
 {
@@ -84,8 +82,11 @@ class World
                         continue;
                     }
 
+                    
+
                     if (Collide(bodyA, bodyB, out Vector2 normal, out float depth))
                     {
+
                         HandelCollision(bodyA, bodyB, normal, depth);
 
                         CollisionManifold contact = new CollisionManifold(bodyA, bodyB, normal, depth, new Vector2(), new Vector2(), 0);
@@ -148,12 +149,18 @@ class World
         // Add an impulse to the bodies 
         bodyA.LinearVelocity -= impulse * bodyA.invMass;
         bodyB.LinearVelocity += impulse * bodyB.invMass;
-        Console.WriteLine(impulse );
-        
+        Console.WriteLine(impulse);
+
     }
 
     public bool Collide(RigidBody bodyA, RigidBody bodyB, out Vector2 normal, out float depth)
     {
+        if (Input.GetKeyDown(Key.H))
+        {
+
+        }
+
+
         normal = new Vector2();
         depth = 0f;
 
@@ -208,10 +215,11 @@ class World
                 if (bodyA.parent != null && bodyA.parent.parent != null && bodyB.parent.parent != myGame)
                 {
 
-                    result = Collisions.IntersectCirclePolygon(bodyA.position, bodyA.radius, new Vector2(bodyB.parent.parent.x, bodyB.parent.parent.y) - bodyB.position, 
+                    result = Collisions.IntersectCirclePolygon(bodyA.position, bodyA.radius, new Vector2(bodyB.parent.parent.x, bodyB.parent.parent.y) - bodyB.position,
                                 bodyB.GetTransformedVertices(), out normal, out depth);
 
-                } else
+                }
+                else
                 {
                     result = Collisions.IntersectCirclePolygon(bodyA.position, bodyA.radius, bodyB.position, bodyB.GetTransformedVertices(), out normal, out depth);
                 }

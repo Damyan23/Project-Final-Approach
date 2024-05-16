@@ -3,25 +3,39 @@ using GXPEngine.Core;
 using System;
 using TiledMapParser;
 
-public class Log : Sprite
+public class Log : GameObject
 {
     Vector2 position;
     public int Level;
     Box boxCollider;
 
+    AnimationSprite sprite;
+
+    bool animating = false;
+
     int mode;
-    public Log(Vector2 position, float rotation, int mode) : base("full_log.png")
+    public Log(Vector2 position, float rotation, int mode)
     {
-        this.rotation = rotation;
+        sprite = new AnimationSprite("trunk flower bloom_sprite sheet.png", 3, 2);
+        AddChild(sprite);
+
         this.position = position;
         this.mode = mode;
-        boxCollider = new Box(this.width - 90, this.height / 2 - 20, new Vector2(0, 0), 2f, 0.8f, mode, true, rotation);
-        this.AddChild(boxCollider);
+
+        SetXY(position.x, position.y);
+
+        boxCollider = new Box(sprite.width - 90, sprite.height / 2 - 20, new Vector2(0, 0), 2f, 0.8f, mode, true, rotation);
+        AddChild(boxCollider);
         boxCollider.visible = false;
         boxCollider.level = Level;
 
-        this.SetOrigin(this.width / 2, this.height / 2);
-        this.SetXY(position.x, position.y);
+        
+
+        sprite.SetOrigin(sprite.width / 2, sprite.height / 2);
+        sprite.rotation = rotation;
+
+        if (mode == 1) sprite.currentFrame = 0;
+        else sprite.currentFrame = 5;
     }
 
     void Update()
@@ -41,25 +55,35 @@ public class Log : Sprite
         {
             if (rb.mode == 1)
             {
-                alpha = 1;
+                sprite.alpha = 1;
 
             }
             else if (rb.mode == 2)
             {
-                alpha = 0.2f;
+                sprite.alpha = 0.2f;
             }
         }
         else if (mode == 2)
         {
             if (rb.mode == 2)
             {
-                alpha = 1;
+                sprite.alpha = 1;
 
             }
             else if (rb.mode == 1)
             {
-                alpha = 0.2f;
+                sprite.alpha = 0.2f;
             }
+        }
+
+        if (mode == 1 && rb.mode == 1 && sprite.HitTest(player))
+        {
+            animating = true;
+        }
+
+        if(animating && sprite.currentFrame < 4)
+        {
+            sprite.Animate(0.05f);
         }
     }
 }
