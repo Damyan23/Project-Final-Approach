@@ -93,7 +93,6 @@ public class MyGame : Game
 
         backgroundMusic = new Sound("game music5.mp3", true);
 
-
         backgroundImage = new AnimationSprite("game-background.png", 2, 1, addCollider: false);
         backgroundImage.alpha = 0f;
         AddChild(backgroundImage);
@@ -105,6 +104,8 @@ public class MyGame : Game
         hud.height = game.height;
         hud.SetXY(0, height-hud.height);
         AddChild(hud);
+
+        Console.WriteLine(hud.name);
 
         hudArrow = new Sprite("arrow.png");
         hudArrow.collider.isTrigger = true;
@@ -130,7 +131,6 @@ public class MyGame : Game
         if (!settings.isGameOver && settings.startGame && !settings.stuffDrawn)
         {
             menuManager.RemoveCurrentMenu();
-            levelManager.Start();
 
             backgroundMusic.Play();
 
@@ -142,8 +142,6 @@ public class MyGame : Game
             hud.alpha = 1f;
             hudArrow.alpha = 1f;
             playButton.alpha = 1f;
-
-
 
             settings.stuffDrawn = true;
         }
@@ -164,8 +162,6 @@ public class MyGame : Game
 
             playButtonAdded = false;
             settings.ghostSpawned = true;
-
-
         }
 
         if (settings.isGameOver == true)

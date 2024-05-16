@@ -5,10 +5,12 @@ using System;
 public class StartButton : Button
 {
     GameSettings settings;
-    public StartButton(GameSettings settings) : base("NEW GAME.png", 1, 2)
+    LevelManager levelManager;
+    public StartButton(GameSettings settings, LevelManager levelManager) : base("NEW GAME.png", 1, 2)
     {
         this.settings = settings;
         this.scale = 0.6f;
+        this.levelManager = levelManager;
     }
 
     protected override void Update()
@@ -18,13 +20,23 @@ public class StartButton : Button
             settings.startGame = true;
             settings.isGameOver = false;
             hasBeenPressed = false;
+
+            foreach (GameObject obj in game.GetChildren())
+            {
+                if (obj.name == "hud new.png")
+                {
+                    obj.visible = true;
+                }
+                else if (obj is GameOverMenu)
+                {
+                    obj.LateDestroy();
+                }
+            }
+
+            levelManager.InitializeLevels();
+            levelManager.LoadLevel(0);
         }
-        else if (hasBeenPressed && settings.startGame)
-        {
-            settings.levelSetup = true;
-            settings.phase = 2;
-            hasBeenPressed = false;
-        }
+        
 
         base.Update();
     }

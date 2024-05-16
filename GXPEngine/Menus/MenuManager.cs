@@ -29,7 +29,7 @@ public class MenuManager : GameObject
     public void SetMainMenu()
     {
         // Sets the current menu to the main menu
-        SetCurrentMenu(new MainMenu(this, settings));
+        SetCurrentMenu(new MainMenu(this, settings, levelManager));
 
         // Deletes the options menu
         foreach (GameObject child in game.GetChildren())

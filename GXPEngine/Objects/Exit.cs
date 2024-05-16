@@ -31,16 +31,28 @@ public class Exit : AnimationSprite
         {
             if (this.HitTest(ball))
             {
-                if (levelManger.currentLevelIndex != 2)
+                if (levelManger.currentLevelIndex < 2)
                 {
                     levelManger.SwitchToNextLevel();
                     ball.LateDestroy();
                 }
-                else if (levelManger.currentLevelIndex == 2)
+                if (levelManger.currentLevelIndex == 1)
                 {
                     ball.LateDestroy();
                     settings.isGameOver = true;
+                    levelManger.ClearLevel();
+
+                    foreach (GameObject obj in game.GetChildren())
+                    {
+                        if (obj.name == "hud new.png")
+                        {
+                            obj.visible = false;
+                        }
+                    }
                 }
+
+
+   
             }
         }
     }

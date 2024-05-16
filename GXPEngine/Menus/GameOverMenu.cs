@@ -58,6 +58,7 @@ public class GameOverMenu : GameObject
         {
             levelManager.currentLevelIndex = 0;
             levelManager.LoadLevel(levelManager.currentLevelIndex);
+            //levelManager.ClearList();
             //World.bodyList.Clear();
 
             settings.stuffDrawn = false;
@@ -68,17 +69,27 @@ public class GameOverMenu : GameObject
             settings.levelSetup = false;
 
             this.LateDestroy();
+
+            foreach (GameObject obj in game.GetChildren())
+            {
+                if (obj.name == "hud new.png")
+                {
+                    obj.visible = true;
+                }
+            }
         }
         else if (toMenuButton.hasBeenPressed)
         {
             levelManager.currentLevelIndex = 0;
-            levelManager.LoadLevel(levelManager.currentLevelIndex);
 
             settings.stuffDrawn = false;
             settings.isGameOver = false;
             settings.startGame = false;
             settings.ghostSpawned = false;
-            settings.levelSetup = false;
+            settings.levelSetup = true;
+            settings.phase = 1;
+
+            World.bodyList.Clear();
 
             menuManager.SetMainMenu();
             this.LateDestroy ();

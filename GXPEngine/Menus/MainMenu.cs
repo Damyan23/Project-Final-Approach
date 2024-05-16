@@ -4,15 +4,16 @@ public class MainMenu : GameObject
 {
     MenuManager menuManager;
     GameSettings settings;
+    LevelManager levelManager;
 
     StartButton startButton;
 
     AnimationSprite center;
 
-    public MainMenu(MenuManager menuManager, GameSettings settings) : base()
+    public MainMenu(MenuManager menuManager, GameSettings settings, LevelManager levelManager) : base()
     {
         Sprite background = new Sprite("BACKGROUND FOR UI.png");
-        this.AddChild (background);
+        this.AddChild(background);
         background.width = game.width + 40;
         background.height = game.height + 40;
         background.x = -20;
@@ -30,27 +31,27 @@ public class MainMenu : GameObject
         this.AddChild(dots);
 
         center = new AnimationSprite("start portal sprite sheet.png", 3, 1);
-        center.SetOrigin (center.width /2, center.height /2);
+        center.SetOrigin(center.width / 2, center.height / 2);
         center.scale = 0.8f;
         center.SetXY(dots.x, dots.y);
-        this.AddChild (center);
+        this.AddChild(center);
 
-   
+
         this.menuManager = menuManager;
         this.settings = settings;
 
         // Creating the start button
-        startButton = new StartButton(settings);
-        startButton.SetXY(dots.x, dots.y - dots.height /2 - 15);
+        startButton = new StartButton(settings, levelManager);
+        startButton.SetXY(dots.x, dots.y - dots.height / 2 - 15);
         AddChild(startButton);
 
         LevelsButton levelButton = new LevelsButton();
-        levelButton.SetXY(dots.x - dots.width /2 - levelButton.width /2 + 50, dots.y - 35);
+        levelButton.SetXY(dots.x - dots.width / 2 - levelButton.width / 2 + 50, dots.y - 35);
         AddChild(levelButton);
 
         OptionsButton optionsButton = new OptionsButton();
         optionsButton.SetXY(dots.x - dots.width / 2 - optionsButton.width / 2 + 50, dots.y + 35);
-        AddChild (optionsButton);
+        AddChild(optionsButton);
 
         LoadButton loadButton = new LoadButton();
         loadButton.SetXY(dots.x + dots.width / 2 + loadButton.width / 2 - 50, dots.y - 35);
@@ -63,6 +64,7 @@ public class MainMenu : GameObject
         CreditsButton creditsButton = new CreditsButton();
         creditsButton.SetXY(dots.x, dots.y + dots.height / 2 + 15);
         AddChild(creditsButton);
+        this.levelManager = levelManager;
     }
 
     void Update ()

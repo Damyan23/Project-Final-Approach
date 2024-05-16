@@ -6,7 +6,6 @@ public class Button : AnimationSprite
 
     public Button(string image, int cols, int rows) : base(image, cols, rows)
     {
-
         this.SetOrigin(width / 2, height / 2);
     }
 

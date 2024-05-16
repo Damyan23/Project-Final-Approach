@@ -49,7 +49,7 @@ public class LevelManager : GameObject
         }
     }
 
-    private void InitializeLevels()
+    public void InitializeLevels()
     {
         //Create levels
         Level level1 = new Level(1, this, settings);
@@ -122,12 +122,12 @@ public class LevelManager : GameObject
          });
 
         level3.SetObjectLimits(new Dictionary<LevelObjectType, int> {
-     {LevelObjectType.Mushroom, 2},
-     {LevelObjectType.HalfpipeLeft, 0},
-     {LevelObjectType.HalfpipeRight, 0},
-     {LevelObjectType.Leaf,0},
-     {LevelObjectType.Log, 1},
-});
+             {LevelObjectType.Mushroom, 2},
+             {LevelObjectType.HalfpipeLeft, 0},
+             {LevelObjectType.HalfpipeRight, 0},
+             {LevelObjectType.Leaf,0},
+             {LevelObjectType.Log, 1},
+        });
         levels.Add(level3);
     }
 
@@ -246,6 +246,15 @@ public class LevelManager : GameObject
 
         playerAddedObjects.Clear();
         teleporters.Clear();
+    }
+
+    public void ClearList ()
+    {
+        this.playerAddedObjects.Clear();
+        foreach (Level level in this.levels) 
+        {
+            level.objects.Clear();
+        }
     }
 
 
