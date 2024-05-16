@@ -2,7 +2,7 @@
 public class StartButton : Button
 {
     GameSettings settings;
-    public StartButton(GameSettings settings) : base("PlayButton.png", 2, 1)
+    public StartButton(GameSettings settings) : base("NEW GAME.png", 1, 2)
     {
         this.settings = settings;
     }
@@ -20,66 +20,6 @@ public class StartButton : Button
             settings.levelSetup = true;
             settings.phase = 2;
             hasBeenPressed = false;
-        }
-
-        base.Update();
-    }
-}
-
-// Options button
-public class OptionsButton : Button
-{
-    MenuManager menuManager;
-    public OptionsButton(MenuManager menuManager) : base("OptionsButton.png", 2, 1)
-    {
-        this.menuManager = menuManager;
-    }
-
-    protected override void Update()
-    {
-        if (hasBeenPressed)
-        {
-            menuManager.SetOptionsMenu();
-        }
-
-        base.Update();
-    }
-}
-
-// Exit button
-public class ExitButton : Button
-{
-    public ExitButton() : base("ExitButton.png", 2, 1)
-    {
-
-    }
-
-    protected override void Update()
-    {
-        if (hasBeenPressed)
-        {
-            System.Environment.Exit(0);
-        }
-
-        base.Update();
-    }
-}
-
-// Back button
-public class BackButton : Button
-{
-    MenuManager menuManager;
-
-    public BackButton(MenuManager menuManager) : base("BackButton.png", 2, 1)
-    {
-        this.menuManager = menuManager;
-    }
-
-    protected override void Update()
-    {
-        if (hasBeenPressed)
-        {
-            menuManager.SetMainMenu();
         }
 
         base.Update();

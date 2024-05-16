@@ -13,9 +13,6 @@ public class OptionsMenu : GameObject
 
     void SetUp()
     {
-        // creating a back button
-        BackButton backButton = new BackButton(menuManager);
-        backButton.SetXY(game.width / 2, game.height / 2 + backButton.width);
-        AddChild(backButton);
+
     }
 }
