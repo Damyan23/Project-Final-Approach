@@ -31,12 +31,13 @@ public class Exit : AnimationSprite
         {
             if (this.HitTest(ball))
             {
+                ball.GetRigidBody().mode = 1;
                 if (levelManger.currentLevelIndex < 2)
                 {
                     levelManger.SwitchToNextLevel();
                     ball.LateDestroy();
                 }
-                if (levelManger.currentLevelIndex == 1)
+                if (levelManger.currentLevelIndex == 2)
                 {
                     ball.LateDestroy();
                     settings.isGameOver = true;

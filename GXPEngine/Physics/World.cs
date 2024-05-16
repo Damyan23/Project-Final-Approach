@@ -155,12 +155,6 @@ class World
 
     public bool Collide(RigidBody bodyA, RigidBody bodyB, out Vector2 normal, out float depth)
     {
-        if (Input.GetKeyDown(Key.H))
-        {
-
-        }
-
-
         normal = new Vector2();
         depth = 0f;
 

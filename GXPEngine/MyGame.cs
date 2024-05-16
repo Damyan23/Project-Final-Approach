@@ -105,8 +105,6 @@ public class MyGame : Game
         hud.SetXY(0, height-hud.height);
         AddChild(hud);
 
-        Console.WriteLine(hud.name);
-
         hudArrow = new Sprite("arrow.png");
         hudArrow.collider.isTrigger = true;
         hudArrow.SetOrigin(hudArrow.width/2, hudArrow.height/2);    
