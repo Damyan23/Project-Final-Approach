@@ -29,7 +29,7 @@ public class MyGame : Game
 
     Explosive explosive;
 
-    StartButton playButton;
+    PlayButton playButton;
 
     Sprite spawnPoint;
 
@@ -125,10 +125,10 @@ public class MyGame : Game
         hud.AddChild(hudArrow);
         hudArrow.SetXY(width - 73, height - 115);
 
-        playButton = new StartButton(settings);
+        playButton = new PlayButton(settings);
         playButton.alpha = 0f;
         playButton.SetOrigin(playButton.width/2, playButton.height/2);
-        playButton.SetXY(game.width / 2 + 10, game.height - 150);
+        playButton.SetXY(game.width / 2 + 15, game.height - 140);
         playButton.SetScaleXY(0.8f);
     }
 
