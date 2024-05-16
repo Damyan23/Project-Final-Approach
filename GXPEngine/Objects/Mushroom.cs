@@ -4,7 +4,7 @@ using GXPEngine.Core;
 public class Mushroom : AnimationSprite
 {
     Vector2 position;
-    public int Level = 1;
+    public int Level;
 
     Box boxCollider;
 
@@ -15,10 +15,10 @@ public class Mushroom : AnimationSprite
     {
         this.rotation = rotation;
         this.position = position;
-        boxCollider = new Box(this.width - 20, this.height - 20, new Vector2(0, 0), mode, 3f, 1, true, rotation);
+        boxCollider = new Box(this.width - 20, this.height - 20, new Vector2(0, 0), 2f, 3f, mode, true, rotation);
         this.AddChild(boxCollider);
         boxCollider.visible = false;
-        boxCollider.level = Level;
+        
 
         sound = new Sound("bounce jump.wav");
 
@@ -29,6 +29,11 @@ public class Mushroom : AnimationSprite
 
     void Update()
     {
+        if (boxCollider.level != Level)
+        {
+            boxCollider.level = Level;
+        }
+
         Ball player = ((MyGame)game).GetPlayer();
 
         if (player == null) return;

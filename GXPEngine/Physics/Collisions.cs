@@ -254,7 +254,6 @@ public static class Collisions
     // Used if the center of the polygon is passed
     public static bool IntersectCirclePolygon(Vector2 circleCenter, float circleRadius, Vector2 polygonCenter, Vector2[] vertices, out Vector2 normal, out float depth)
     {
-        
 
         // Initialize the normal vector and depth value
         normal = new Vector2();

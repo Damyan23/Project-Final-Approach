@@ -5,7 +5,7 @@ using System;
 public class LogRight : Sprite
 {
     Vector2 position;
-    public int Level = 1;
+    public int Level;
 
     Box boxCollider;
 
@@ -16,7 +16,7 @@ public class LogRight : Sprite
     {
         this.rotation = rotation;
         this.position = position;
-        boxCollider = new Box(this.width - 60, this.height /2 - 20, new Vector2 (0, 0), 1f, 0.8f, 1, true, rotation);
+        boxCollider = new Box(this.width - 60, this.height /2 - 20, new Vector2 (0, 0), 2f, 0.8f, 1, true, rotation);
         this.AddChild (boxCollider);
         boxCollider.visible = false;
         boxCollider.level = Level;
