@@ -6,6 +6,8 @@ public class Mushroom : AnimationSprite
     Vector2 position;
     public int Level;
 
+    int mode;
+
     Box boxCollider;
 
     bool canPlaySound = true;
@@ -15,9 +17,12 @@ public class Mushroom : AnimationSprite
     {
         this.rotation = rotation;
         this.position = position;
+        this.mode = mode;
         boxCollider = new Box(this.width - 20, this.height - 20, new Vector2(0, 0), 1, 3f, mode, true, rotation);
         this.AddChild(boxCollider);
         boxCollider.visible = false;
+
+        SetFrame(mode - 1);
         
 
         sound = new Sound("bounce jump.wav");
@@ -29,13 +34,10 @@ public class Mushroom : AnimationSprite
 
     void Update()
     {
-        if (boxCollider.level != Level)
-        {
-            boxCollider.level = Level;
-        }
+
+        boxCollider.level = Level;
 
         Ball player = ((MyGame)game).GetPlayer();
-        boxCollider.level = Level;
         if (player == null) return;
 
         if (HitTest(player))
@@ -50,5 +52,36 @@ public class Mushroom : AnimationSprite
         {
             canPlaySound = true;
         }
+
+
+
+        RigidBody rb = player.GetRigidBody();
+
+        if(mode == 1)
+        {
+            if (rb.mode == 1)
+            {
+                alpha = 1;
+
+            }
+            else if (rb.mode == 2)
+            {
+                alpha = 0.2f;
+            }
+        }else if(mode == 2)
+        {
+            if (rb.mode == 2)
+            {
+                alpha = 1;
+
+            }
+            else if (rb.mode == 1)
+            {
+                alpha = 0.2f;
+            }
+        }
+
+        
+        
     }
 }

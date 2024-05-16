@@ -7,6 +7,8 @@ public class LogRight : Sprite
     Vector2 position;
     public int Level;
 
+    int mode;
+
     Box boxCollider;
 
     bool canPlaySound = true;
@@ -16,6 +18,7 @@ public class LogRight : Sprite
     {
         this.rotation = rotation;
         this.position = position;
+        this.mode = 1;
         boxCollider = new Box(this.width - 60, this.height /2 - 20, new Vector2 (0, 0), 2f, 0.8f, 1, true, rotation);
         this.AddChild (boxCollider);
         boxCollider.visible = false;
@@ -45,6 +48,33 @@ public class LogRight : Sprite
         else
         {
             canPlaySound = true;
+        }
+
+        RigidBody rb = player.GetRigidBody();
+
+        if (mode == 1)
+        {
+            if (rb.mode == 1)
+            {
+                alpha = 1;
+
+            }
+            else if (rb.mode == 2)
+            {
+                alpha = 0.2f;
+            }
+        }
+        else if (mode == 2)
+        {
+            if (rb.mode == 2)
+            {
+                alpha = 1;
+
+            }
+            else if (rb.mode == 1)
+            {
+                alpha = 0.2f;
+            }
         }
     }
 }
