@@ -55,48 +55,48 @@ public class LevelManager : GameObject
         Level level1 = new Level(1, this, settings);
 
         level1.InitializeObjects(new LevelObjectParams[] {
-        new LevelObjectParams (LevelObjectType.Exit, new Vector2(1200, 400)),
-        new LevelObjectParams (LevelObjectType.LogRight, new Vector2 (500, 485),"",new Vector2(),0,0,90),
-        new LevelObjectParams (LevelObjectType.LogMid, new Vector2 (489, 330),"",new Vector2(),0,0,90),
-        new LevelObjectParams (LevelObjectType.LogLeft, new Vector2 (489, 200),"",new Vector2(),0,0,90),
-        new LevelObjectParams (LevelObjectType.Log, new Vector2 (60, 500),"",new Vector2(),0,0,45),
-        new LevelObjectParams (LevelObjectType.Spawnpoint, new Vector2(100, 100)),
-    });
+            new LevelObjectParams (LevelObjectType.Exit, new Vector2(1200, 400)),
+            new LevelObjectParams (LevelObjectType.LogRight, new Vector2 (500, 485),"",new Vector2(),0,0,90),
+            new LevelObjectParams (LevelObjectType.LogMid, new Vector2 (489, 330),"",new Vector2(),0,0,90),
+            new LevelObjectParams (LevelObjectType.LogLeft, new Vector2 (489, 200),"",new Vector2(),0,0,90),
+            new LevelObjectParams (LevelObjectType.Log, new Vector2 (60, 500),"",new Vector2(),0,0,45),
+            new LevelObjectParams (LevelObjectType.Spawnpoint, new Vector2(100, 100)),
+        });
 
         //Set object limits for level 1
 
         level1.SetObjectLimits(new Dictionary<LevelObjectType, int> {
-        {LevelObjectType.Mushroom, 1},
-        {LevelObjectType.HalfpipeLeft, 0},
-        {LevelObjectType.HalfpipeRight, 0},
-        {LevelObjectType.Leaf, 0},
-        {LevelObjectType.Log, 0},
-   });
+            {LevelObjectType.Mushroom, 1},
+            {LevelObjectType.HalfpipeLeft, 0},
+            {LevelObjectType.HalfpipeRight, 0},
+            {LevelObjectType.Leaf, 0},
+            {LevelObjectType.Log, 0},
+        });
         levels.Add(level1);
 
         Level level2 = new Level(2, this, settings);
 
         // Initialize objects for level 2
         level2.InitializeObjects(new LevelObjectParams[] {
-     new LevelObjectParams (LevelObjectType.Exit, new Vector2(900, 100)),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (700, 600),"",new Vector2(),0,0,90),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (1000, 500),"",new Vector2(),0,0,90),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (700, 100),"",new Vector2(),0,0,90),
-     new LevelObjectParams (LevelObjectType.HalfpipeLeft, new Vector2 (150, 400)),
-     new LevelObjectParams (LevelObjectType.Spawnpoint, new Vector2(100, 100)),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (1200, 100),"",new Vector2(),0,0,-45),
-     new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1100, 300),"",new Vector2(),0,0,-45)
- });
+             new LevelObjectParams (LevelObjectType.Exit, new Vector2(900, 100)),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (700, 600),"",new Vector2(),0,0,90),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (1000, 500),"",new Vector2(),0,0,90),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (700, 100),"",new Vector2(),0,0,90),
+             new LevelObjectParams (LevelObjectType.HalfpipeLeft, new Vector2 (150, 400)),
+             new LevelObjectParams (LevelObjectType.Spawnpoint, new Vector2(100, 100)),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (1200, 100),"",new Vector2(),0,0,-45),
+             new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1100, 300),"",new Vector2(),0,0,-45)
+         });
 
         //Set object limits for level 2
 
         level2.SetObjectLimits(new Dictionary<LevelObjectType, int> {
-     {LevelObjectType.Mushroom, 1},
-     {LevelObjectType.HalfpipeLeft, 0},
-     {LevelObjectType.HalfpipeRight, 0},
-     {LevelObjectType.Leaf,0},
-     {LevelObjectType.Log, 1},
-});
+             {LevelObjectType.Mushroom, 1},
+             {LevelObjectType.HalfpipeLeft, 0},
+             {LevelObjectType.HalfpipeRight, 0},
+             {LevelObjectType.Leaf,0},
+             {LevelObjectType.Log, 1},
+        });
 
         levels.Add(level2);
         // Create levels
@@ -104,22 +104,22 @@ public class LevelManager : GameObject
 
         // Initialize objects for level 3
         level3.InitializeObjects(new LevelObjectParams[] {
-     new LevelObjectParams (LevelObjectType.Exit, new Vector2(1100, 100)),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (200, 200),"",new Vector2(),0,0,90),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (50, 200),"",new Vector2(),0,0,90),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (230, 400),"",new Vector2(),0,0,64),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (80, 400),"",new Vector2(),0,0,64),
-     new LevelObjectParams (LevelObjectType.Spawnpoint, new Vector2 (100, 50),"",new Vector2(),0,0,70),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (500, 600)),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (700, 600)),
-     //new LevelObjectParams (LevelObjectType.Log, new Vector2 (900, 600)),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (700, 50)),
-     new LevelObjectParams (LevelObjectType.Thorns, new Vector2 (900, 100),"",new Vector2(),0,0,90),
-     new LevelObjectParams (LevelObjectType.Log, new Vector2 (800, 200),"",new Vector2(),0,0,90),
-     new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1270, 200),"",new Vector2(),0,0,-90),
-     new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1270, 400),"",new Vector2(),0,0,-90),
-     new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1270, 600),"",new Vector2(),0,0,-90),
- });
+             new LevelObjectParams (LevelObjectType.Exit, new Vector2(1100, 100)),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (200, 200),"",new Vector2(),0,0,90),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (50, 200),"",new Vector2(),0,0,90),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (230, 400),"",new Vector2(),0,0,64),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (80, 400),"",new Vector2(),0,0,64),
+             new LevelObjectParams (LevelObjectType.Spawnpoint, new Vector2 (100, 50),"",new Vector2(),0,0,70),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (500, 600)),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (700, 600)),
+             //new LevelObjectParams (LevelObjectType.Log, new Vector2 (900, 600)),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (700, 50)),
+             new LevelObjectParams (LevelObjectType.Thorns, new Vector2 (900, 100),"",new Vector2(),0,0,90),
+             new LevelObjectParams (LevelObjectType.Log, new Vector2 (800, 200),"",new Vector2(),0,0,90),
+             new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1270, 200),"",new Vector2(),0,0,-90),
+             new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1270, 400),"",new Vector2(),0,0,-90),
+             new LevelObjectParams (LevelObjectType.Leaf, new Vector2 (1270, 600),"",new Vector2(),0,0,-90),
+         });
 
         //Set object limits for level 1
 

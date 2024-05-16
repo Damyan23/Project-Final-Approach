@@ -8,7 +8,6 @@ public class Button : AnimationSprite
     {
 
         this.SetOrigin(width / 2, height / 2);
-        this.scale = 1.5f;
     }
 
     protected virtual void Update()
