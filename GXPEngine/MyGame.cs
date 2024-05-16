@@ -21,17 +21,8 @@ public class MyGame : Game
 
     Ball ball;
 
-    Box ground;
-    Box slope1;
-    Box slope2;
-    Box slope3;
-    Box mode2Box;
-
-    Explosive explosive;
 
     PlayButton playButton;
-
-    Sprite spawnPoint;
 
     List<Ball> placedObjects;
 
@@ -69,10 +60,6 @@ public class MyGame : Game
 
     string fileOfHoldingSprite;
 
-    HalfPipeLeft pipe;
-
-    Mushroom platform;
-
     Sound backgroundMusic;
 
     AnimationSprite backgroundImage;
@@ -88,18 +75,19 @@ public class MyGame : Game
         SetUp();
     }
 
-    void SetUp()
+    public void SetUp()
     {
-        settings = new GameSettings();
-        menuManager = new MenuManager(settings);
-        menuManager.SetMainMenu();
-
         levelManager = new LevelManager(settings);
         this.AddChild(levelManager);
 
+        settings = new GameSettings();
+        menuManager = new MenuManager(settings, levelManager);
+        //menuManager.SetMainMenu();
+        menuManager.SetGameOverMenu();
+
+
         world = new World(this);
         rand = new Random();
-
 
         placedObjects = new List<Ball>();
 

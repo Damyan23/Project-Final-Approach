@@ -4,11 +4,12 @@ public class MenuManager : GameObject
 {
     // Settings reference
     GameSettings settings;
+    LevelManager levelManager;
 
     private AnimationSprite gameOverText;
     bool animationStarted;
 
-    public MenuManager(GameSettings settings) : base()
+    public MenuManager(GameSettings settings, LevelManager levelManager) : base()
     {
 
         this.settings = settings;
@@ -16,6 +17,7 @@ public class MenuManager : GameObject
         // Creating a game over sprite
         gameOverText = new AnimationSprite("gameOver.png", 2, 1);
         gameOverText.SetXY(game.width / 2 - gameOverText.width / 2, game.height / 2 - gameOverText.height / 2);
+        this.levelManager = levelManager;
     }
 
     public void SetCurrentMenu(GameObject menu)
@@ -56,21 +58,8 @@ public class MenuManager : GameObject
 
     public void SetGameOverMenu()
     {
-        // If the game is over
-        if (settings.isGameOver)
-        {
-            // Add the game over text
-            if (animationStarted == false)
-            {
-                game.AddChild(gameOverText);
-            }
-
-            // Add the game over text as a child
-            gameOverText.Animate(0.05f);
-
-            // Set the start time of the animation
-            animationStarted = true;
-        }
+        SetCurrentMenu(new GameOverMenu(settings, this, levelManager));
+        settings.startGame = false;
     }
 
     public void RemoveCurrentMenu()

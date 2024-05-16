@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\Buttons.cs" />
+    <Compile Include="Menus\GameOverMenu.cs" />
     <Compile Include="Objects\Explosive.cs" />
     <Compile Include="Objects\Exit.cs" />
     <Compile Include="Objects\Fan.cs" />

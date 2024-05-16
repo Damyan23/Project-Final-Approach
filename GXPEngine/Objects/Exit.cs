@@ -5,9 +5,11 @@ using System;
 public class Exit : AnimationSprite
 {
     LevelManager levelManger;
-    public Exit (Vector2 position, LevelManager levelManager) : base ("end point sprite sheet.png", 2, 1)
+    GameSettings settings;
+    public Exit (Vector2 position, LevelManager levelManager, GameSettings settings) : base ("end point sprite sheet.png", 2, 1)
     {
         this.levelManger = levelManager;
+        this.settings = settings;
 
         this.SetXY(position.x, position.y);
         this.SetOrigin (this.width /2, this.height / 2);
@@ -29,8 +31,16 @@ public class Exit : AnimationSprite
         {
             if (this.HitTest(ball))
             {
-                levelManger.SwitchToNextLevel();
-                ball.LateDestroy();
+                if (levelManger.currentLevelIndex != 2)
+                {
+                    levelManger.SwitchToNextLevel();
+                    ball.LateDestroy();
+                }
+                else if (levelManger.currentLevelIndex == 2) 
+                {
+                    ball.LateDestroy();
+                    settings.isGameOver = true;
+                }
              }
         }
     }

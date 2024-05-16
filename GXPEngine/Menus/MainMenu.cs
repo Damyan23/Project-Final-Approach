@@ -35,8 +35,7 @@ public class MainMenu : GameObject
         center.SetXY(dots.x, dots.y);
         this.AddChild (center);
 
-    
-
+   
         this.menuManager = menuManager;
         this.settings = settings;
 

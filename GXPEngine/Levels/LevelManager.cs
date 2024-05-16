@@ -131,7 +131,7 @@ public class LevelManager : GameObject
         levels.Add(level3);
     }
 
-    private void LoadLevel(int levelIndex)
+    public void LoadLevel(int levelIndex)
     {
         // Instantiate objects for the current level
         Level currentLevel = levels[levelIndex];
@@ -219,7 +219,7 @@ public class LevelManager : GameObject
         }
     }
 
-    private void ClearLevel()
+    public void ClearLevel()
     {
         Level currentLevel = levels[currentLevelIndex];
 

@@ -20,9 +20,6 @@ public class Log : Sprite
         boxCollider.visible = false;
         boxCollider.level = Level;
 
-
-
-
         this.SetOrigin(this.width / 2, this.height / 2);
         this.SetXY(position.x, position.y);
     }

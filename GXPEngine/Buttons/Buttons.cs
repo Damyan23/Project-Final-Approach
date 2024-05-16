@@ -1,4 +1,7 @@
 ﻿// Start button
+using GXPEngine;
+using System;
+
 public class StartButton : Button
 {
     GameSettings settings;
@@ -86,5 +89,40 @@ public class PlayButton : Button
         }
 
         base.Update();
+    }
+}
+
+public class RestartButton : Button
+{
+    GameSettings settings;
+    public RestartButton (GameSettings settings) : base ("RESTART NEW.png", 1, 2)
+    {
+        this.settings = settings;
+    }
+
+    protected override void Update()
+    {
+        //if (hasBeenPressed)
+        //{
+        //    MyGame myGame = (MyGame)game;
+
+        //    foreach (GameObject obj in game.GetChildren())
+        //    {
+        //        obj.LateDestroy();
+        //    }
+
+        //    World.bodyList.Clear();
+
+        //    myGame.SetUp();
+        //}
+
+        base.Update();
+    }
+}
+
+public class ToMenuButton : Button
+{
+    public ToMenuButton () : base ("TO MENU NEW.png", 1, 2)
+    {
     }
 }
