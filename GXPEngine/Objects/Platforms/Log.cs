@@ -17,8 +17,8 @@ public class Log : Sprite
         boxCollider.level = Level;
 
 
-        this.SetXY(position.x, position.y);
         this.SetOrigin(this.width / 2, this.height / 2);
+        this.SetXY(position.x, position.y);
     }
 
     void Update()
