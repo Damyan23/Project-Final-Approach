@@ -148,6 +148,7 @@ class World
         // Add an impulse to the bodies 
         bodyA.LinearVelocity -= impulse * bodyA.invMass;
         bodyB.LinearVelocity += impulse * bodyB.invMass;
+        Console.WriteLine(impulse );
         
     }
 

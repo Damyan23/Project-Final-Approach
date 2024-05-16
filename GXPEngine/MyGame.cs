@@ -107,7 +107,7 @@ public class MyGame : Game
     {
         this.targetFps = 60;
 
-        world.Step(Time.deltaTimeInSeconds, 20);
+        world.Step(Time.deltaTimeInSeconds, 50);
 
         if (!settings.isGameOver && settings.startGame && !settings.stuffDrawn)
         {
@@ -125,7 +125,7 @@ public class MyGame : Game
 
         if (settings.phase == 2 && !settings.ghostSpawned && settings.stuffDrawn)
         {
-            ball = new Ball(rand.Next(15, 40), new Vector2(levelManager.currentLevelSpawnPoint.x, levelManager.currentLevelSpawnPoint.y), 0.001f, 0.8f, 1);
+            ball = new Ball(20, new Vector2(levelManager.currentLevelSpawnPoint.x, levelManager.currentLevelSpawnPoint.y), 1.5f, 0.8f, 1);
             ball.level = levelManager.currentLevelIndex + 1;
             AddChild(ball);
             placedObjects.Add(ball);

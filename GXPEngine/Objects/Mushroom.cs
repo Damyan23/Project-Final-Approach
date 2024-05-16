@@ -15,7 +15,7 @@ public class Mushroom : AnimationSprite
     {
         this.rotation = rotation;
         this.position = position;
-        boxCollider = new Box(this.width - 20, this.height - 20, new Vector2(0, 0), 2f, 3f, mode, true, rotation);
+        boxCollider = new Box(this.width - 20, this.height - 20, new Vector2(0, 0), 1, 3f, mode, true, rotation);
         this.AddChild(boxCollider);
         boxCollider.visible = false;
         
@@ -35,7 +35,7 @@ public class Mushroom : AnimationSprite
         }
 
         Ball player = ((MyGame)game).GetPlayer();
-
+        boxCollider.level = Level;
         if (player == null) return;
 
         if (HitTest(player))
