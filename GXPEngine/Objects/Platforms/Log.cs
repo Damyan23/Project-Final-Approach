@@ -28,12 +28,4 @@ public class Log : Sprite
             boxCollider.level = this.Level;
         }
     }
-
-    void Update ()
-    {
-       if (boxCollider.level != this.Level)
-        {
-            boxCollider.level = this.Level;
-        }
-    }
 }
