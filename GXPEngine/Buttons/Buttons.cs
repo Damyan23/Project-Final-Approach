@@ -33,8 +33,8 @@ public class StartButton : Button
                 }
             }
 
-            levelManager.InitializeLevels();
-            levelManager.LoadLevel(0);
+            //levelManager.InitializeLevels();
+            levelManager.Start();
         }
         
 

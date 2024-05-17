@@ -546,12 +546,29 @@ public class MyGame : Game
             {
                 if (obj.HitTestPoint(Input.mouseX, Input.mouseY) && settings.phase == 1)
                 {
+
                     levelManager.RemoveObject(obj);
 
                     RemoveHudObjects();
 
                     DrawPlaceableObjects();
                     break;
+                }
+            }
+
+            foreach (GameObject obj in levelManager.levels[levelManager.currentLevelIndex].objects)
+            {
+                if (obj is Log log)
+                {
+                    if (log.mode == 2 && log.boxCollider.HitTestPoint (Input.mouseX, Input.mouseY) && settings.phase == 1)
+                    {
+                        levelManager.RemoveObject(log);
+
+                        RemoveHudObjects();
+
+                        DrawPlaceableObjects();
+                        break;
+                    }
                 }
             }
         }

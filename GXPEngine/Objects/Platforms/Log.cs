@@ -7,13 +7,13 @@ public class Log : GameObject
 {
     Vector2 position;
     public int Level;
-    Box boxCollider;
+    public Box boxCollider;
 
     AnimationSprite sprite;
 
     bool animating = false;
 
-    int mode;
+    public int mode;
     public Log(Vector2 position, float rotation, int mode)
     {
         sprite = new AnimationSprite("trunk flower bloom_sprite sheet.png", 3, 2);

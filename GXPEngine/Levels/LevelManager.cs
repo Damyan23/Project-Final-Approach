@@ -9,7 +9,7 @@ public class LevelManager : GameObject
     public List<Level> levels;
     public int currentLevelIndex;
     public List<GameObject> playerAddedObjects;
-    private GameSettings settings;
+    private GameSettings settings; 
     public SpawnPoint currentLevelSpawnPoint;
     public List<Teleporter> teleporters;
 
@@ -23,7 +23,7 @@ public class LevelManager : GameObject
         InitializeLevels();
 
         // Set initial current level
-        currentLevelIndex = 0;
+        currentLevelIndex = 2;
     }
 
     public void Start()
@@ -94,7 +94,7 @@ public class LevelManager : GameObject
              {LevelObjectType.Mushroom, 1},
              {LevelObjectType.HalfpipeLeft, 0},
              {LevelObjectType.HalfpipeRight, 0},
-             {LevelObjectType.Leaf,0},
+             {LevelObjectType.Leaf,1},
              {LevelObjectType.Log, 1},
         });
 
